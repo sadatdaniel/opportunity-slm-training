@@ -84,10 +84,29 @@ not create; never run `docker ... prune`; all project resources prefixed
 - Package `project` per brief command names; deterministic registry; raw data
   git-ignored, manifests/reports/metadata committed
 - Annotation entries append-only with provenance; dataset builds skip stale
-  entries (prompt/taxonomy/input-hash mismatch)
+  entries (prompt/taxonomy/input-hash mismatch) and prefer reviewed duplicates
 - Choice confidence: TypeSafe/Von-shipped normalized formula; margin kept as
   separate field; empirical choice documented in evaluation_methodology.md
 - Z.ai uses the Coding Plan endpoint (`api/coding/paas/v4`) — the standard
   endpoint rejects the subscription key; no-balance slots auto-disable per run
 - Gemini daily caps surface as 403: treated as rate-limit rotation, not refusal
 - `Dockerfile.api` lands with the first deployable trained artifact
+
+## Teacher-pool operations lessons (hard-won, do not regress)
+
+1. **Google enforces RPM per CALENDAR minute, not rolling 60s** — a rolling
+   window burst ~2x across a boundary (observed 17/15 RPM on the dashboard).
+   Reservations are now calendar-minute, wall-clock (survive restarts).
+2. **Sustained bursts near the limit can lock a key for a whole day** —
+   operating point is 0.70 of documented limits (10 rpm / 350 rpd per
+   Gemini project). Respect it; the corpus takes ~2-3 days at safe pace.
+3. **Check-then-start races need atomic reservation** (`try_reserve`) —
+   concurrent workers otherwise burst past the client-side limit.
+4. **Pool exhaustion = ALL role slots daily-dry** (`all()`, not `any()`) —
+   one exhausted slot must not starve siblings with remaining budget.
+5. **Transient cooldowns are waited out** (30s cycles, 5 min bounded) —
+   only real daily exhaustion raises QuotaExhausted.
+6. **OpenRouter**: `thinkingmachines/inkling:free` is agentic-harness-only
+   (403 via API); `z-ai/glm-5.2:free` had provider-side 429s; attribution
+   headers (`HTTP-Referer`, `X-Title`) per keller pattern; live key quota at
+   `/api/v1/key`. Model shootout harness: `project.benchmark_teachers`.
