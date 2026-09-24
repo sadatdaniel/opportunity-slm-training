@@ -47,6 +47,15 @@ providers:
     limits: {rpm: 15, tpm: 100000, rpd: 200}
     safety_margin: 0.85
 
+  - name: deepseek
+    kind: openai
+    base_url: https://api.deepseek.com
+    api_key_env: DEEPSEEK_API_KEY
+    model: deepseek-flash
+    role: verifier
+    limits: {rpm: 30, tpm: 200000, rpd: 500}
+    safety_margin: 0.85
+
   - name: zai
     kind: openai
     # Coding Plan subscription key: uses the coding endpoint (verified against
@@ -73,5 +82,6 @@ providers:
 # Role order used when rotating providers for a normal record.
 routing:
   primary_roles: [primary]
-  second_opinion_roles: [second_opinion]
+  second_opinion_roles: [second_opinion, verifier]
   adjudicator_roles: [adjudicator]
+  verifier_roles: [verifier]

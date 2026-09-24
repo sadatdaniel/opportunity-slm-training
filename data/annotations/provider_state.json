@@ -45,11 +45,26 @@
  "openrouter": {
   "day": "2026-09-24",
   "minute_window": [
-   388533.1622314
+   392046.6722469,
+   392049.2328936,
+   392173.2514323,
+   392301.3988719
   ],
   "requests_today": 7,
   "tokens_today": 33552,
   "successful": 7,
+  "failed": 0,
+  "last_429": null,
+  "available_after": null
+ },
+ "deepseek": {
+  "day": "2026-09-24",
+  "minute_window": [
+   392047.2350732
+  ],
+  "requests_today": 1,
+  "tokens_today": 1211,
+  "successful": 1,
   "failed": 0,
   "last_429": null,
   "available_after": null
