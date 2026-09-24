@@ -98,17 +98,16 @@ class _Usage:
                 return False
             if self.requests_today >= self.max_rpd:
                 return False
-            now = time.monotonic()
-            while self.minute_window and now - self.minute_window[0] > 60:
-                self.minute_window.popleft()
-            return len(self.minute_window) < self.max_rpm
+            current_minute = int(time.time() // 60)
+            return sum(1 for t in self.minute_window if int(t // 60) == current_minute) < self.max_rpm
 
     def try_reserve(self) -> bool:
         """Atomically check the budget AND reserve a request slot.
 
-        Reserving inside the lock prevents concurrent workers from bursting
-        past the per-minute limit (the check-then-start race that triggered
-        429 storms on the first full-corpus run).
+        Uses Google's enforcement window — the CALENDAR minute — not a rolling
+        60s window: a rolling window can burst ~2x the limit across a minute
+        boundary (observed as a 17/15 RPM peak). Timestamps are wall-clock so
+        reservations survive process restarts (monotonic time does not).
         """
         with self._lock:
             self._rollover()
@@ -119,9 +118,10 @@ class _Usage:
                     return False
             if self.requests_today >= self.max_rpd:
                 return False
-            now = time.monotonic()
-            while self.minute_window and now - self.minute_window[0] > 60:
-                self.minute_window.popleft()
+            now = time.time()
+            current_minute = int(now // 60)
+            if self.minute_window and int(self.minute_window[-1] // 60) != current_minute:
+                self.minute_window.clear()  # new calendar minute
             if len(self.minute_window) >= self.max_rpm:
                 return False
             self.minute_window.append(now)
