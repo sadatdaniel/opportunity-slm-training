@@ -1662,3 +1662,88 @@ runs:
   started_at: '2026-09-24T17:06:39.055186+00:00'
   finished_at: '2026-09-24T17:06:41.505361+00:00'
   elapsed_seconds: 2.4
+- source_id: caldo_consortium
+  method: wp_rest
+  recipe_path: recipes\caldo_consortium.yaml
+  batch_file: data\raw\caldo_consortium\batch_20260924T170643Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: false
+  errors:
+  - 'FetchRefused: robots.txt disallows https://caldo.ca/wp-json/wp/v2/pages'
+  started_at: '2026-09-24T17:06:43.593429+00:00'
+  finished_at: '2026-09-24T17:06:44.646427+00:00'
+  elapsed_seconds: 1.1
+- source_id: national_research_foundation_nrf_south_africa
+  method: wp_rest
+  recipe_path: recipes\national_research_foundation_nrf_south_africa.yaml
+  batch_file: data\raw\national_research_foundation_nrf_south_africa\batch_20260924T170646Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: false
+  errors:
+  - 'FetchFailed: gave up after 3 attempts: network error: [SSL: CERTIFICATE_VERIFY_FAILED]
+    certificate verify failed: unable to get local issuer certificate (_ssl.c:1082)
+    (url=https://www.nrf.ac.za/wp-json/wp/v2/posts, status=None)'
+  started_at: '2026-09-24T17:06:46.275696+00:00'
+  finished_at: '2026-09-24T17:07:29.216955+00:00'
+  elapsed_seconds: 42.9
+- source_id: irish_research_council_irc
+  method: wp_rest
+  recipe_path: recipes\irish_research_council_irc.yaml
+  batch_file: data\raw\irish_research_council_irc\batch_20260924T170734Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: false
+  errors:
+  - 'FetchFailed: client error (url=https://research.ie/wp-json/wp/v2/posts, status=401)'
+  started_at: '2026-09-24T17:07:34.737557+00:00'
+  finished_at: '2026-09-24T17:07:37.944917+00:00'
+  elapsed_seconds: 3.2
+- source_id: flatiron_institute_simons_foundation
+  method: wp_rest
+  recipe_path: recipes\flatiron_institute_simons_foundation.yaml
+  batch_file: data\raw\flatiron_institute_simons_foundation\batch_20260924T170740Z.jsonl
+  batch_sha256: null
+  records_seen: 250
+  records_new: 0
+  records_skipped_duplicate: 250
+  recipe_provisioned: false
+  errors: []
+  started_at: '2026-09-24T17:07:40.508619+00:00'
+  finished_at: '2026-09-24T17:07:41.023836+00:00'
+  elapsed_seconds: 0.5
+- source_id: perimeter_institute_for_theoretical_physics
+  method: wp_rest
+  recipe_path: recipes\perimeter_institute_for_theoretical_physics.yaml
+  batch_file: data\raw\perimeter_institute_for_theoretical_physics\batch_20260924T170742Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: false
+  errors:
+  - 'FetchFailed: client error (url=https://perimeterinstitute.ca/wp-json/wp/v2/pages,
+    status=404)'
+  started_at: '2026-09-24T17:07:42.455322+00:00'
+  finished_at: '2026-09-24T17:07:45.913897+00:00'
+  elapsed_seconds: 3.5
+- source_id: barcelona_institute_of_science_and_technology_bist
+  method: wp_rest
+  recipe_path: recipes\barcelona_institute_of_science_and_technology_bist.yaml
+  batch_file: data\raw\barcelona_institute_of_science_and_technology_bist\batch_20260924T170754Z.jsonl
+  batch_sha256: 41c92d14f4dbd93488758db7a793c7a8e22f98a60c10b9d3850bec7e0da7c741
+  records_seen: 250
+  records_new: 250
+  records_skipped_duplicate: 0
+  recipe_provisioned: false
+  errors: []
+  started_at: '2026-09-24T17:07:54.942188+00:00'
+  finished_at: '2026-09-24T17:08:38.661359+00:00'
+  elapsed_seconds: 43.6

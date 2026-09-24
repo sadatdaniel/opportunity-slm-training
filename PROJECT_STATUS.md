@@ -4,43 +4,55 @@ Single source of truth for build state, so any future session or agent can
 resume exactly where work stopped. Update after every milestone.
 
 - **Specification**: `opportunity_intelligence_weekend_build.md` (private, git-ignored, never commit)
-- **Current phase**: 1 — Source inventory
-- **Blocking human actions**: none
+- **Current phase**: 4 — Annotation-ready corpus complete; awaiting teacher API key
+- **Blocking human actions**: teacher API credential (see below)
 - **Current commit**: see `git log -1` (updated at each milestone)
+
+## Corpus state (after collection wave 2)
+
+- 4,281 raw records (with full provenance) from 21 recipes provisioned
+- 3,335 normalized English records; 3,296 canonical after dedup (39 duplicates
+  in 33 groups, 4 cross-source) from **16 productive sources**
+- word counts: p50 484, p90 2658; 61% fit the 600-word summarizer input budget
+- 53 raw lines corrupted by an interrupted early process are skipped by normalize
+- per-source distribution: `reports/normalization_report.md`
+- 14 sources blocked (403/robots) — documented in inventory, not bypassed
+
+## Human actions required
+
+1. **Teacher API credential** (annotation is fully built and waiting):
+   copy `.env.example` → `.env` and set `TEACHER_BASE_URL` (OpenAI-compatible),
+   `TEACHER_API_KEY`, `TEACHER_MODEL`. Then:
+   `uv run python -m project.annotate --task classify` and `--task summarize`
+2. (Later, before Colab training) WSL2 only has the docker-desktop distro; the
+   Colab CLI needs a real Linux distro — `wsl --install Ubuntu` requires user action.
 
 ## Completed
 
-- [x] Read full build brief and `100_academic_sources.md` (106 sources, JSON array)
-- [x] Git hygiene: `.gitignore` created; build brief verified ignored before first commit
-- [x] Initial project structure (packages: `project`, `collectors`, `training`)
-- [x] Source registry normalizer: `100_academic_sources.md` → `sources/registry.yaml`
-      (stable `source_id` slugs, derived `domain`, provenance preserved)
-- [x] Polite fetching framework `collectors/base.py` (cache, per-host delay+jitter,
-      Retry-After/backoff, robots.txt check, honest User-Agent)
-- [x] Private GitHub repository `sadatdaniel/opportunity-slm-training` created and pushed
-- [x] Source inventory probe over all 106 sources → `reports/source_inventory.md`
-      + `data/inventory.json`: 14 wp_rest, 7 rss, 54 html, 17 needs_manual_review,
-      14 blocked (documented, not bypassed)
-- [x] Collector framework: WP REST (pagination, embedded terms, deadline fields),
-      RSS (optional detail fetch), recipe-driven HTML; provenance-complete records
-- [x] Recipe auto-provisioning from inventory (39 recipes) + manifest log
-- [x] Normalization pipeline (`project/normalize.py`) and layered deduplication
-      (`project/dedupe.py`) with duplicate-group evidence (tests: 23 passing)
-- [x] "Ponytail" simplification pass on collection code (user-installed plugin,
-      loaded from disk; simpler host-slot reservation, dead state removed)
+- [x] Build brief read; git hygiene verified before first commit
+- [x] Private repo `sadatdaniel/opportunity-slm-training`, pushed at every milestone
+- [x] Registry normalizer (106 sources), polite fetcher (cache/rate-limit/robots)
+- [x] Source inventory: 14 wp_rest / 7 rss / 54 html / 17 review / 14 blocked
+- [x] Collector framework (WP REST, RSS+detail, recipe-driven HTML) + 39 recipes
+- [x] Collection waves 1-2; normalization; layered dedup with group evidence
+- [x] Taxonomy v1 (`config/taxonomy_v1.yaml`, 12 categories + aliases, rationale
+      in `reports/taxonomy_v1.md`) from corpus evidence
+- [x] Teacher annotation pipeline + versioned prompts (summarizer_v1, classifier_v1)
+- [x] Dataset builder: gold/silver/quarantine tiers, duplicate-group-aware splits,
+      unseen-source holdout, hashed manifests, frozen test sets (26 tests passing)
+- [x] Ponytail (user plugin) simplification pass; PROJECT_ROOT regression fixed
 
-## In progress
+## Remaining
 
-- Collection wave 1 (`wp_rest,rss` methods) running in background over ~21 viable
-  API/feed sources; adaptive quotas ~250 WP / ~120 RSS records per source
-
-## Notes for next session
-
-- After wave 1 finishes: run `python -m project.normalize` then `python -m project.dedupe`,
-  review `reports/normalization_report.md` and `reports/dedup_report.md`
-- HTML sources (54) need hand-written selector recipes — do the biggest first
-  (EURAXESS, DAAD, after_school_africa, academic_gates all have allowed HTML pages)
-- Blocked sources (14) stay blocked; documented in inventory, do not bypass
+1. **Run annotation** once `.env` is configured (classifier first — larger corpus use)
+2. Human review queue UI (Streamlit, brief §18) — build when annotations exist
+3. `python -m project.build_dataset --task classify` → first classifier dataset v1
+4. HTML recipes for the 54 html sources (EURAXESS, DAAD, after_school_africa next)
+   to push the corpus past 4k canonical records for summarizer scale-up
+5. Token-length statistics with the real Supra tokenizer (brief §21)
+6. Baselines: base Supra2-100M summarization + classification (incl. Von baseline)
+7. Colab/WSL training workflow; Supra classifier + summarizer experiments
+8. FastAPI service (strict endpoints), Docker files, regression suite, final report
 
 ## Remaining (build-brief order)
 
