@@ -1,0 +1,15 @@
+source_id: opportunities_for_youth
+source_name: Opportunities For Youth
+postings_page: https://www.opportunitiesforyouth.org
+method: wp_rest
+parser_version: 1
+last_tested: '2026-09-24'
+notes: auto-provisioned from source inventory; hand-tune as needed
+api_endpoint: https://www.opportunitiesforyouth.org/wp-json/wp/v2/posts
+per_page: 50
+max_records: 250
+embed_terms: true
+deadline_fields:
+- deadline
+- application_deadline
+- deadline_date

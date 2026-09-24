@@ -9,7 +9,7 @@ clues for discovery (brief section 7), so recipes may enable ``embed_terms``.
 from __future__ import annotations
 
 import json
-from typing import Iterator
+from collections.abc import Iterator
 
 from collectors.base import FetchFailed, PoliteFetcher
 from collectors.records import html_to_text, make_record
@@ -45,14 +45,12 @@ class WpRestCollector:
             if total_pages is None and result.headers.get("x-wp-totalpages"):
                 total_pages = int(result.headers["x-wp-totalpages"])
 
-            new_ids = {post.get("link", "") for post in posts} - yielded_ids
-            if not new_ids:  # server started re-serving the same page: stop
+            page_records = [self.to_record(post, recipe) for post in posts]
+            fresh = [r for r in page_records if r["record_id"] not in yielded_ids]
+            if not fresh:  # server started re-serving the same page: stop
                 break
 
-            for post in posts:
-                record = self.to_record(post, recipe)
-                if record["record_id"] in yielded_ids:
-                    continue
+            for record in fresh:
                 yielded_ids.add(record["record_id"])
                 yield record
                 seen += 1

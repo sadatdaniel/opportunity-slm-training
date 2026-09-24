@@ -29,7 +29,7 @@ from pathlib import Path
 import feedparser
 from bs4 import BeautifulSoup
 
-from collectors.base import FetchFailed, FetchRefused, PoliteFetcher
+from collectors.base import FetchRefused, PoliteFetcher
 from project.sources.registry import DEFAULT_REGISTRY, load_registry
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -168,11 +168,7 @@ def recommended_method(probe: dict) -> str:
 
 def probe_source(fetcher: PoliteFetcher, source: dict) -> dict:
     api = probe_api(fetcher, source)
-    is_wp = (
-        api.get("kind") == "wp_rest"
-        or "/wp-json/" in source["api_endpoint"]
-        or api.get("kind") == "wp_rest_single"
-    )
+    is_wp = api.get("kind") == "wp_rest" or "/wp-json/" in source["api_endpoint"]
     rss = probe_rss(fetcher, source, is_wp)
     page = probe_page(fetcher, source)
     robots = probe_robots(fetcher, source)

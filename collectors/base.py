@@ -18,7 +18,7 @@ import threading
 import time
 import urllib.robotparser
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -122,14 +122,13 @@ class PoliteFetcher:
             return self._hosts.setdefault(host, _HostState())
 
     def _wait_slot(self, state: _HostState) -> None:
-        while True:
-            with state.lock:
-                now = time.monotonic()
-                if now >= state.next_ok:
-                    state.next_ok = max(now, state.next_ok) + self.delay + random.uniform(0, self.jitter)
-                    return
-                sleep_for = state.next_ok - now
-            time.sleep(min(sleep_for, 1.0))
+        """Reserve the next request slot for this host; sleep until it opens."""
+        with state.lock:
+            now = time.monotonic()
+            wait = max(0.0, state.next_ok - now)
+            state.next_ok = max(now, state.next_ok) + self.delay + random.uniform(0, self.jitter)
+        if wait:
+            time.sleep(wait)
 
     # -- robots ----------------------------------------------------------------
 
@@ -215,7 +214,7 @@ class PoliteFetcher:
                 "final_url": str(resp.url),
                 "status": resp.status_code,
                 "content_type": resp.headers.get("content-type", ""),
-                "fetched_at": datetime.now(timezone.utc).isoformat(),
+                "fetched_at": datetime.now(UTC).isoformat(),
                 "text": resp.text,
                 # raw bytes kept for anything text decoding mangles
                 "content_b64": base64.b64encode(resp.content).decode("ascii"),

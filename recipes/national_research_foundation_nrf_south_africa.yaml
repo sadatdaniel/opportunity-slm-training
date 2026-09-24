@@ -1,0 +1,15 @@
+source_id: national_research_foundation_nrf_south_africa
+source_name: National Research Foundation (NRF South Africa)
+postings_page: https://www.nrf.ac.za/funding/
+method: wp_rest
+parser_version: 1
+last_tested: '2026-09-24'
+notes: auto-provisioned from source inventory; hand-tune as needed
+api_endpoint: https://www.nrf.ac.za/wp-json/wp/v2/posts
+per_page: 50
+max_records: 250
+embed_terms: true
+deadline_fields:
+- deadline
+- application_deadline
+- deadline_date

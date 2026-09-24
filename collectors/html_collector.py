@@ -6,7 +6,7 @@ Recipes supply CSS selectors; keep them honest and tested with fixtures.
 
 from __future__ import annotations
 
-from typing import Iterator
+from collections.abc import Iterator
 from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup

@@ -1,0 +1,15 @@
+source_id: european_molecular_biology_laboratory_embl
+source_name: European Molecular Biology Laboratory (EMBL)
+postings_page: https://www.embl.org/training/
+method: wp_rest
+parser_version: 1
+last_tested: '2026-09-24'
+notes: auto-provisioned from source inventory; hand-tune as needed
+api_endpoint: https://www.embl.org/wp-json/wp/v2/posts
+per_page: 50
+max_records: 250
+embed_terms: true
+deadline_fields:
+- deadline
+- application_deadline
+- deadline_date

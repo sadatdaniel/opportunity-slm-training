@@ -10,7 +10,7 @@ from __future__ import annotations
 import hashlib
 import re
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from html import unescape
 
 from bs4 import BeautifulSoup
@@ -92,7 +92,7 @@ def make_record(
         "title": title,
         "raw_text": (raw_text or "")[:RAW_TEXT_LIMIT],
         "clean_text": clean_text,
-        "retrieved_at": datetime.now(timezone.utc).isoformat(),
+        "retrieved_at": datetime.now(UTC).isoformat(),
         "published_at": published_at,
         "deadline": deadline,
         "content_hash": content_hash(f"{title}\n{clean_text}"),

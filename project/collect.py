@@ -22,16 +22,16 @@ import argparse
 import hashlib
 import json
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import yaml
 
-from collectors.base import FetchRefused, PoliteFetcher
+from collectors.base import PoliteFetcher
 from collectors.factory import get_collector
 from project.sources.registry import DEFAULT_REGISTRY, load_registry
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 RECIPES_DIR = PROJECT_ROOT / "recipes"
 RAW_DIR = PROJECT_ROOT / "data" / "raw"
 LOG_PATH = PROJECT_ROOT / "data" / "manifests" / "collection_log.yaml"
@@ -62,7 +62,7 @@ def provision_recipe(source: dict, method: str, inventory: dict) -> dict | None:
         "postings_page": source["postings_page"],
         "method": method,
         "parser_version": 1,
-        "last_tested": datetime.now(timezone.utc).date().isoformat(),
+        "last_tested": datetime.now(UTC).date().isoformat(),
         "notes": "auto-provisioned from source inventory; hand-tune as needed",
     }
     if method == "wp_rest":
@@ -122,7 +122,7 @@ def append_log(entry: dict) -> None:
 
 
 def collect_source(source: dict, inventory: dict, limit: int | None, force_method: str | None) -> dict:
-    started = datetime.now(timezone.utc)
+    started = datetime.now(UTC)
     recipe, provisioned = load_or_provision_recipe(source, inventory, force_method)
     if recipe is None:
         return {"source_id": source["source_id"], "skipped": f"no recipe for method {recommended_method(source, inventory)!r}"}
@@ -154,7 +154,7 @@ def collect_source(source: dict, inventory: dict, limit: int | None, force_metho
             print(f"  error while collecting {source['source_id']}: {exc}", file=sys.stderr)
 
     fetcher.close()
-    elapsed = (datetime.now(timezone.utc) - started).total_seconds()
+    elapsed = (datetime.now(UTC) - started).total_seconds()
     entry = {
         "source_id": source["source_id"],
         "method": recipe["method"],
@@ -169,7 +169,7 @@ def collect_source(source: dict, inventory: dict, limit: int | None, force_metho
         "recipe_provisioned": provisioned,
         "errors": errors[:5],
         "started_at": started.isoformat(),
-        "finished_at": datetime.now(timezone.utc).isoformat(),
+        "finished_at": datetime.now(UTC).isoformat(),
         "elapsed_seconds": round(elapsed, 1),
     }
     append_log(entry)

@@ -1,0 +1,528 @@
+runs:
+- source_id: youth_opportunities
+  method: wp_rest
+  recipe_path: recipes\youth_opportunities.yaml
+  batch_file: data\raw\youth_opportunities\batch_20260924T162628Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'AttributeError: ''str'' object has no attribute ''get'''
+  started_at: '2026-09-24T16:26:28.060281+00:00'
+  finished_at: '2026-09-24T16:26:34.317528+00:00'
+  elapsed_seconds: 6.3
+- source_id: opportunities_for_youth
+  method: wp_rest
+  recipe_path: recipes\opportunities_for_youth.yaml
+  batch_file: data\raw\opportunities_for_youth\batch_20260924T162634Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchRefused: robots.txt disallows https://www.opportunitiesforyouth.org/wp-json/wp/v2/posts'
+  started_at: '2026-09-24T16:26:34.327971+00:00'
+  finished_at: '2026-09-24T16:26:34.648680+00:00'
+  elapsed_seconds: 0.3
+- source_id: opportunity_desk
+  method: wp_rest
+  recipe_path: recipes\opportunity_desk.yaml
+  batch_file: data\raw\opportunity_desk\batch_20260924T162634Z.jsonl
+  batch_sha256: ff830764ab581c8e6ffb23d8a38fa6dd8422df70639008c93d8c57949ef92412
+  records_seen: 250
+  records_new: 250
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors: []
+  started_at: '2026-09-24T16:26:34.673262+00:00'
+  finished_at: '2026-09-24T16:26:56.992397+00:00'
+  elapsed_seconds: 21.9
+- source_id: opportunities_circle
+  method: wp_rest
+  recipe_path: recipes\opportunities_circle.yaml
+  batch_file: data\raw\opportunities_circle\batch_20260924T162657Z.jsonl
+  batch_sha256: 5fcda8b15b606fdd33a32c5ada234264abdc435785a68858584ea712e777db67
+  records_seen: 250
+  records_new: 250
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors: []
+  started_at: '2026-09-24T16:26:57.061777+00:00'
+  finished_at: '2026-09-24T16:27:50.067575+00:00'
+  elapsed_seconds: 52.6
+- source_id: african_scholar_initiative
+  method: wp_rest
+  recipe_path: recipes\african_scholar_initiative.yaml
+  batch_file: data\raw\african_scholar_initiative\batch_20260924T162750Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchFailed: client error (url=https://scholarshipsforafricans.com/wp-json/wp/v2/posts,
+    status=404)'
+  started_at: '2026-09-24T16:27:50.224426+00:00'
+  finished_at: '2026-09-24T16:27:54.708285+00:00'
+  elapsed_seconds: 4.5
+- source_id: after_school_africa
+  method: wp_rest
+  recipe_path: recipes\after_school_africa.yaml
+  batch_file: data\raw\after_school_africa\batch_20260924T162754Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchRefused: robots.txt disallows https://www.afterschoolafrica.com/wp-json/wp/v2/posts'
+  started_at: '2026-09-24T16:27:54.764500+00:00'
+  finished_at: '2026-09-24T16:27:55.004456+00:00'
+  elapsed_seconds: 0.2
+- source_id: scholars4dev
+  method: wp_rest
+  recipe_path: recipes\scholars4dev.yaml
+  batch_file: data\raw\scholars4dev\batch_20260924T162755Z.jsonl
+  batch_sha256: d0515d31783cc94e2395902f654be9f70e3c9d7b8eb560d3327eeb5c87a8f526
+  records_seen: 250
+  records_new: 250
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors: []
+  started_at: '2026-09-24T16:27:55.044962+00:00'
+  finished_at: '2026-09-24T16:28:14.191674+00:00'
+  elapsed_seconds: 19.1
+- source_id: paset_rsif
+  method: wp_rest
+  recipe_path: recipes\paset_rsif.yaml
+  batch_file: data\raw\paset_rsif\batch_20260924T162814Z.jsonl
+  batch_sha256: cb756ecd09c11012ab91322128cbba102ae59902f0692e7291c00396b8a341eb
+  records_seen: 231
+  records_new: 231
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors: []
+  started_at: '2026-09-24T16:28:14.237619+00:00'
+  finished_at: '2026-09-24T16:28:48.708357+00:00'
+  elapsed_seconds: 34.2
+- source_id: association_of_african_universities_aau
+  method: wp_rest
+  recipe_path: recipes\association_of_african_universities_aau.yaml
+  batch_file: data\raw\association_of_african_universities_aau\batch_20260924T162848Z.jsonl
+  batch_sha256: 5064da7b39cb128bfa35ec1dc0ecee8d84cf383d47ddc6bba6529b4d28b6121f
+  records_seen: 250
+  records_new: 250
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors: []
+  started_at: '2026-09-24T16:28:48.862365+00:00'
+  finished_at: '2026-09-24T16:29:30.979581+00:00'
+  elapsed_seconds: 40.7
+- source_id: seameo
+  method: wp_rest
+  recipe_path: recipes\seameo.yaml
+  batch_file: data\raw\seameo\batch_20260924T162931Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchFailed: client error (url=https://www.seameo.org/wp-json/wp/v2/posts, status=404)'
+  started_at: '2026-09-24T16:29:31.750143+00:00'
+  finished_at: '2026-09-24T16:29:35.625100+00:00'
+  elapsed_seconds: 3.9
+- source_id: human_frontier_science_program_hfsp
+  method: wp_rest
+  recipe_path: recipes\human_frontier_science_program_hfsp.yaml
+  batch_file: data\raw\human_frontier_science_program_hfsp\batch_20260924T162935Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchFailed: client error (url=https://www.hfsp.org/wp-json/wp/v2/posts, status=404)'
+  started_at: '2026-09-24T16:29:35.753894+00:00'
+  finished_at: '2026-09-24T16:29:39.829677+00:00'
+  elapsed_seconds: 4.1
+- source_id: chevening_scholarships
+  method: wp_rest
+  recipe_path: recipes\chevening_scholarships.yaml
+  batch_file: data\raw\chevening_scholarships\batch_20260924T162940Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchFailed: client error (url=https://www.chevening.org/wp-json/wp/v2/pages,
+    status=401)'
+  started_at: '2026-09-24T16:29:40.187085+00:00'
+  finished_at: '2026-09-24T16:29:43.471873+00:00'
+  elapsed_seconds: 3.3
+- source_id: fulbright_program
+  method: wp_rest
+  recipe_path: recipes\fulbright_program.yaml
+  batch_file: data\raw\fulbright_program\batch_20260924T162943Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchFailed: client error (url=https://fulbrightscholars.org/wp-json/wp/v2/pages,
+    status=404)'
+  started_at: '2026-09-24T16:29:43.728961+00:00'
+  finished_at: '2026-09-24T16:29:46.605982+00:00'
+  elapsed_seconds: 2.9
+- source_id: swedish_institute_scholarships
+  method: wp_rest
+  recipe_path: recipes\swedish_institute_scholarships.yaml
+  batch_file: data\raw\swedish_institute_scholarships\batch_20260924T162946Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchRefused: robots.txt disallows https://si.se/wp-json/wp/v2/posts'
+  started_at: '2026-09-24T16:29:46.819987+00:00'
+  finished_at: '2026-09-24T16:29:47.668619+00:00'
+  elapsed_seconds: 0.8
+- source_id: uk_research_and_innovation_ukri
+  method: wp_rest
+  recipe_path: recipes\uk_research_and_innovation_ukri.yaml
+  batch_file: data\raw\uk_research_and_innovation_ukri\batch_20260924T162947Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchFailed: client error (url=https://www.ukri.org/wp-json/wp/v2/opportunity,
+    status=404)'
+  started_at: '2026-09-24T16:29:47.895321+00:00'
+  finished_at: '2026-09-24T16:29:50.976268+00:00'
+  elapsed_seconds: 3.1
+- source_id: european_molecular_biology_laboratory_embl
+  method: wp_rest
+  recipe_path: recipes\european_molecular_biology_laboratory_embl.yaml
+  batch_file: data\raw\european_molecular_biology_laboratory_embl\batch_20260924T162951Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchFailed: client error (url=https://www.embl.org/wp-json/wp/v2/posts, status=404)'
+  started_at: '2026-09-24T16:29:51.296594+00:00'
+  finished_at: '2026-09-24T16:29:53.615256+00:00'
+  elapsed_seconds: 2.3
+- source_id: santa_fe_institute
+  method: wp_rest
+  recipe_path: recipes\santa_fe_institute.yaml
+  batch_file: data\raw\santa_fe_institute\batch_20260924T162953Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'JSONDecodeError: Expecting value: line 1 column 1 (char 0)'
+  started_at: '2026-09-24T16:29:53.880231+00:00'
+  finished_at: '2026-09-24T16:29:56.904277+00:00'
+  elapsed_seconds: 3.0
+- source_id: simons_foundation
+  method: wp_rest
+  recipe_path: recipes\simons_foundation.yaml
+  batch_file: data\raw\simons_foundation\batch_20260924T162957Z.jsonl
+  batch_sha256: 88c53f9ec6f61bf692623d96431eeb394c72750b307d04313f40cb5bc758d531
+  records_seen: 250
+  records_new: 250
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors: []
+  started_at: '2026-09-24T16:29:57.638073+00:00'
+  finished_at: '2026-09-24T16:30:12.589055+00:00'
+  elapsed_seconds: 14.9
+- source_id: ihes
+  method: wp_rest
+  recipe_path: recipes\ihes.yaml
+  batch_file: data\raw\ihes\batch_20260924T163013Z.jsonl
+  batch_sha256: 45746dd723365d3e425ca75f73d9ed66daf516e9206083a87319d6d4d5245f0c
+  records_seen: 196
+  records_new: 196
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors: []
+  started_at: '2026-09-24T16:30:13.125905+00:00'
+  finished_at: '2026-09-24T16:30:33.879470+00:00'
+  elapsed_seconds: 20.6
+- source_id: woods_hole_oceanographic_institution_whoi
+  method: wp_rest
+  recipe_path: recipes\woods_hole_oceanographic_institution_whoi.yaml
+  batch_file: data\raw\woods_hole_oceanographic_institution_whoi\batch_20260924T163034Z.jsonl
+  batch_sha256: 43e843802098a0c0a71d9f48fb9ab8a35efd1c069e3b307ccebef2db9129a96e
+  records_seen: 150
+  records_new: 150
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors: []
+  started_at: '2026-09-24T16:30:34.331192+00:00'
+  finished_at: '2026-09-24T16:30:58.790753+00:00'
+  elapsed_seconds: 24.4
+- source_id: stanford_university_knight_hennessy_scholars
+  method: wp_rest
+  recipe_path: recipes\stanford_university_knight_hennessy_scholars.yaml
+  batch_file: data\raw\stanford_university_knight_hennessy_scholars\batch_20260924T163059Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchRefused: 403 for https://knight-hennessy.stanford.edu/wp-json/wp/v2/pages
+    - not retrying'
+  started_at: '2026-09-24T16:30:59.127996+00:00'
+  finished_at: '2026-09-24T16:31:01.414856+00:00'
+  elapsed_seconds: 2.3
+- source_id: cambridge_university_gates_cambridge
+  method: wp_rest
+  recipe_path: recipes\cambridge_university_gates_cambridge.yaml
+  batch_file: data\raw\cambridge_university_gates_cambridge\batch_20260924T163101Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors: []
+  started_at: '2026-09-24T16:31:01.667075+00:00'
+  finished_at: '2026-09-24T16:31:04.888603+00:00'
+  elapsed_seconds: 3.2
+- source_id: princeton_university_society_of_fellows
+  method: wp_rest
+  recipe_path: recipes\princeton_university_society_of_fellows.yaml
+  batch_file: data\raw\princeton_university_society_of_fellows\batch_20260924T163105Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchRefused: 403 for https://sf.princeton.edu/wp-json/wp/v2/pages - not retrying'
+  started_at: '2026-09-24T16:31:05.154357+00:00'
+  finished_at: '2026-09-24T16:31:08.748085+00:00'
+  elapsed_seconds: 3.6
+- source_id: mit_graduate_fellowships_pappalardo
+  method: wp_rest
+  recipe_path: recipes\mit_graduate_fellowships_pappalardo.yaml
+  batch_file: data\raw\mit_graduate_fellowships_pappalardo\batch_20260924T163109Z.jsonl
+  batch_sha256: 9eb7c9184baf4f0dbcaea900710dc213536636b151642137fbf6bb624f40c9a1
+  records_seen: 145
+  records_new: 145
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors: []
+  started_at: '2026-09-24T16:31:09.060496+00:00'
+  finished_at: '2026-09-24T16:31:32.894684+00:00'
+  elapsed_seconds: 23.6
+- source_id: national_university_of_singapore_nus
+  method: wp_rest
+  recipe_path: recipes\national_university_of_singapore_nus.yaml
+  batch_file: data\raw\national_university_of_singapore_nus\batch_20260924T163133Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'JSONDecodeError: Expecting value: line 1 column 1 (char 0)'
+  started_at: '2026-09-24T16:31:33.173577+00:00'
+  finished_at: '2026-09-24T16:31:35.872942+00:00'
+  elapsed_seconds: 2.7
+- source_id: scholarship_position
+  method: wp_rest
+  recipe_path: recipes\scholarship_position.yaml
+  batch_file: data\raw\scholarship_position\batch_20260924T163136Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'JSONDecodeError: Expecting value: line 1 column 1 (char 0)'
+  started_at: '2026-09-24T16:31:36.303250+00:00'
+  finished_at: '2026-09-24T16:31:38.995155+00:00'
+  elapsed_seconds: 2.7
+- source_id: masterprograms_com
+  method: wp_rest
+  recipe_path: recipes\masterprograms_com.yaml
+  batch_file: data\raw\masterprograms_com\batch_20260924T163139Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'JSONDecodeError: Expecting value: line 1 column 1 (char 0)'
+  started_at: '2026-09-24T16:31:39.176697+00:00'
+  finished_at: '2026-09-24T16:31:41.407514+00:00'
+  elapsed_seconds: 2.2
+- source_id: european_science_foundation_esf
+  method: wp_rest
+  recipe_path: recipes\european_science_foundation_esf.yaml
+  batch_file: data\raw\european_science_foundation_esf\batch_20260924T163141Z.jsonl
+  batch_sha256: 2a1519c4b904d1e906ba777f4debf54258a4e49a88d90f1ca043dc57899dd43c
+  records_seen: 100
+  records_new: 100
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors: []
+  started_at: '2026-09-24T16:31:41.575823+00:00'
+  finished_at: '2026-09-24T16:31:51.423918+00:00'
+  elapsed_seconds: 9.7
+- source_id: interacademy_partnership_iap
+  method: wp_rest
+  recipe_path: recipes\interacademy_partnership_iap.yaml
+  batch_file: data\raw\interacademy_partnership_iap\batch_20260924T163151Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchFailed: client error (url=https://www.interacademies.org/wp-json/wp/v2/posts,
+    status=404)'
+  started_at: '2026-09-24T16:31:51.753301+00:00'
+  finished_at: '2026-09-24T16:31:55.099701+00:00'
+  elapsed_seconds: 3.3
+- source_id: world_academy_of_sciences_twas_unesco
+  method: wp_rest
+  recipe_path: recipes\world_academy_of_sciences_twas_unesco.yaml
+  batch_file: data\raw\world_academy_of_sciences_twas_unesco\batch_20260924T163155Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchFailed: client error (url=https://twas.org/wp-json/wp/v2/posts, status=404)'
+  started_at: '2026-09-24T16:31:55.657194+00:00'
+  finished_at: '2026-09-24T16:31:59.544180+00:00'
+  elapsed_seconds: 3.9
+- source_id: fulbright_nehru_opportunities_us_india
+  method: wp_rest
+  recipe_path: recipes\fulbright_nehru_opportunities_us_india.yaml
+  batch_file: data\raw\fulbright_nehru_opportunities_us_india\batch_20260924T163159Z.jsonl
+  batch_sha256: 09ac4702935d245270a46cfb1e17252a1390e27462ff676d9c45142e008dad03
+  records_seen: 58
+  records_new: 58
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors: []
+  started_at: '2026-09-24T16:31:59.923365+00:00'
+  finished_at: '2026-09-24T16:32:07.466931+00:00'
+  elapsed_seconds: 7.5
+- source_id: council_of_american_overseas_research_centers_caorc
+  method: wp_rest
+  recipe_path: recipes\council_of_american_overseas_research_centers_caorc.yaml
+  batch_file: data\raw\council_of_american_overseas_research_centers_caorc\batch_20260924T163207Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchFailed: client error (url=https://www.caorc.org/wp-json/wp/v2/posts, status=404)'
+  started_at: '2026-09-24T16:32:07.736664+00:00'
+  finished_at: '2026-09-24T16:32:11.447025+00:00'
+  elapsed_seconds: 3.7
+- source_id: asia_europe_foundation_asef
+  method: wp_rest
+  recipe_path: recipes\asia_europe_foundation_asef.yaml
+  batch_file: data\raw\asia_europe_foundation_asef\batch_20260924T163212Z.jsonl
+  batch_sha256: 6688b2c69fcf0fff903c484898bd0f1d236555f7aed02873d16dc7ef9a7532a9
+  records_seen: 4
+  records_new: 4
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors: []
+  started_at: '2026-09-24T16:32:12.606802+00:00'
+  finished_at: '2026-09-24T16:32:19.790151+00:00'
+  elapsed_seconds: 7.1
+- source_id: caldo_consortium
+  method: wp_rest
+  recipe_path: recipes\caldo_consortium.yaml
+  batch_file: data\raw\caldo_consortium\batch_20260924T163219Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchRefused: robots.txt disallows https://caldo.ca/wp-json/wp/v2/pages'
+  started_at: '2026-09-24T16:32:19.950771+00:00'
+  finished_at: '2026-09-24T16:32:20.733961+00:00'
+  elapsed_seconds: 0.8
+- source_id: national_research_foundation_nrf_south_africa
+  method: wp_rest
+  recipe_path: recipes\national_research_foundation_nrf_south_africa.yaml
+  batch_file: data\raw\national_research_foundation_nrf_south_africa\batch_20260924T163220Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchFailed: gave up after 3 attempts: network error: [SSL: CERTIFICATE_VERIFY_FAILED]
+    certificate verify failed: unable to get local issuer certificate (_ssl.c:1082)
+    (url=https://www.nrf.ac.za/wp-json/wp/v2/posts, status=None)'
+  started_at: '2026-09-24T16:32:20.903329+00:00'
+  finished_at: '2026-09-24T16:33:03.428349+00:00'
+  elapsed_seconds: 42.5
+- source_id: irish_research_council_irc
+  method: wp_rest
+  recipe_path: recipes\irish_research_council_irc.yaml
+  batch_file: data\raw\irish_research_council_irc\batch_20260924T163303Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchFailed: client error (url=https://research.ie/wp-json/wp/v2/posts, status=401)'
+  started_at: '2026-09-24T16:33:03.925059+00:00'
+  finished_at: '2026-09-24T16:33:06.749979+00:00'
+  elapsed_seconds: 2.8
+- source_id: flatiron_institute_simons_foundation
+  method: wp_rest
+  recipe_path: recipes\flatiron_institute_simons_foundation.yaml
+  batch_file: data\raw\flatiron_institute_simons_foundation\batch_20260924T163307Z.jsonl
+  batch_sha256: 03bd1bca70fc716ed3c62d6a17ee8a0d35bdb1a79ab316b72ca61336720a3310
+  records_seen: 250
+  records_new: 250
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors: []
+  started_at: '2026-09-24T16:33:07.111226+00:00'
+  finished_at: '2026-09-24T16:33:07.760200+00:00'
+  elapsed_seconds: 0.6
+- source_id: perimeter_institute_for_theoretical_physics
+  method: wp_rest
+  recipe_path: recipes\perimeter_institute_for_theoretical_physics.yaml
+  batch_file: data\raw\perimeter_institute_for_theoretical_physics\batch_20260924T163308Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchFailed: client error (url=https://perimeterinstitute.ca/wp-json/wp/v2/pages,
+    status=404)'
+  started_at: '2026-09-24T16:33:08.325635+00:00'
+  finished_at: '2026-09-24T16:33:12.036584+00:00'
+  elapsed_seconds: 3.7

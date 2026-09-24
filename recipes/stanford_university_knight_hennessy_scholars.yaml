@@ -1,0 +1,15 @@
+source_id: stanford_university_knight_hennessy_scholars
+source_name: Stanford University - Knight-Hennessy Scholars
+postings_page: https://knight-hennessy.stanford.edu
+method: wp_rest
+parser_version: 1
+last_tested: '2026-09-24'
+notes: auto-provisioned from source inventory; hand-tune as needed
+api_endpoint: https://knight-hennessy.stanford.edu/wp-json/wp/v2/pages
+per_page: 50
+max_records: 250
+embed_terms: true
+deadline_fields:
+- deadline
+- application_deadline
+- deadline_date

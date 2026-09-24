@@ -7,8 +7,8 @@ detail selectors. Cached responses keep re-parsing free.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
-from typing import Iterator
+from collections.abc import Iterator
+from datetime import UTC, datetime
 
 import feedparser
 from bs4 import BeautifulSoup
@@ -27,7 +27,7 @@ def _entry_date(entry) -> str | None:
     for key in ("published_parsed", "updated_parsed"):
         parsed = entry.get(key)
         if parsed:
-            return datetime(*parsed[:6], tzinfo=timezone.utc).isoformat()
+            return datetime(*parsed[:6], tzinfo=UTC).isoformat()
     return None
 
 
@@ -53,7 +53,9 @@ class RssCollector:
             raw_html = _entry_html(entry)
             clean_text = html_to_text(raw_html)
 
-            if recipe.get("detail") and link not in raw_html:
+            # Feeds carry summaries; fetch the detail page only when the feed
+            # gave us too little to work with.
+            if recipe.get("detail") and len(clean_text) < 1200:
                 page = self._fetch_detail(link, recipe)
                 if page:
                     raw_html, clean_text = page

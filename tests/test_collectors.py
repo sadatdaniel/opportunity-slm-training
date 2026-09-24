@@ -1,7 +1,5 @@
 """Fixture-based parser tests: no live network, httpx MockTransport only."""
 
-import json
-from urllib.parse import parse_qs, urlparse
 
 import httpx
 import pytest

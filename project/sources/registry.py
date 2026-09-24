@@ -38,7 +38,7 @@ def slugify(name: str) -> str:
 def domain_of(url: str) -> str:
     """Registrable host for a URL, with leading ``www.`` stripped."""
     host = urlparse(url).netloc.lower()
-    return host[4:] if host.startswith("www.") else host
+    return host.removeprefix("www.")
 
 
 def load_raw_sources(path: Path = DEFAULT_RAW_SOURCES) -> list[dict]:

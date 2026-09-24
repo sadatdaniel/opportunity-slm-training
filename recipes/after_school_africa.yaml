@@ -1,0 +1,15 @@
+source_id: after_school_africa
+source_name: After School Africa
+postings_page: https://www.afterschoolafrica.com
+method: wp_rest
+parser_version: 1
+last_tested: '2026-09-24'
+notes: auto-provisioned from source inventory; hand-tune as needed
+api_endpoint: https://www.afterschoolafrica.com/wp-json/wp/v2/posts
+per_page: 50
+max_records: 250
+embed_terms: true
+deadline_fields:
+- deadline
+- application_deadline
+- deadline_date
