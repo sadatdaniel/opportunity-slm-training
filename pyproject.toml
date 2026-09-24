@@ -12,6 +12,8 @@ dependencies = [
     "feedparser>=6.0",
     "tokenizers>=0.23.2",
     "streamlit>=1.64.0",
+    "fastapi>=0.141.1",
+    "uvicorn>=0.53.0",
 ]
 
 [dependency-groups]

@@ -1,0 +1,23 @@
+# Task registry (brief section 29): the API loads implementations from here.
+# Model paths point at versioned artifacts; `base:` means the untouched
+# Supra model (baseline mode) until a trained version is registered.
+
+summarizer:
+  model: base:SupraLabs/Supra2-100M-Instruct
+  type: generation
+  endpoint: /v1/summarize
+
+classifier:
+  model: base:SupraLabs/Supra2-100M-Instruct
+  type: choice
+  endpoint: /v1/categorize
+
+noul:
+  model: base:SupraLabs/Supra2-100M-Instruct
+  type: noul
+  endpoint: /v1/noul
+
+systemone:
+  model: base:SupraLabs/Supra2-100M-Instruct
+  type: decision_layer
+  endpoint: /v1/systemone

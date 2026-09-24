@@ -54,7 +54,13 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Train the Supra classifier")
     parser.add_argument("--config", default=str(CONFIG_PATH))
     parser.add_argument("--smoke", action="store_true", help="tiny CPU run to prove the pipeline")
-    parser.add_argument("--resume", action="store_true", help="resume from the latest checkpoint in the run dir")
+    parser.add_argument("--resume", action="store_true", help="resume from the latest checkpoint of the newest matching run")
+    parser.add_argument(
+        "--resume-from-checkpoint",
+        dest="resume_from_checkpoint",
+        default=None,
+        help="exact checkpoint dir (brief 24A); run identity continues from that run",
+    )
     args = parser.parse_args(argv)
 
     config = yaml.safe_load(Path(args.config).read_text(encoding="utf-8"))
@@ -62,8 +68,21 @@ def main(argv: list[str] | None = None) -> int:
     if smoke:
         config = {**config, "epochs": smoke["epochs"], "batch_size": smoke["batch_size"]}
 
+    resume_path = args.resume_from_checkpoint
+    if resume_path:
+        # continue the SAME run identity: runs/<run_id>/checkpoints/checkpoint-N
+        run_id = Path(resume_path).resolve().parents[1].name
+        config = {**config, "run_id": run_id}
+    elif args.resume:
+        existing = sorted((PROJECT_ROOT / "runs").glob("classifier_*/checkpoints/checkpoint-*"))
+        if existing:
+            resume_path = str(existing[-1])
+            config = {**config, "run_id": existing[-1].resolve().parents[1].name}
+
     exp = Experiment("classifier", config, Path(args.config))
     exp.log(f"device={exp.device} dataset={config['dataset_version']}")
+    if resume_path:
+        exp.log(f"resuming from {resume_path}")
 
     import torch  # noqa: F401 - imported after Experiment so errors are explicit
 
@@ -114,13 +133,6 @@ def main(argv: list[str] | None = None) -> int:
         eval_dataset=val_ds,
         processing_class=tokenizer,
     )
-
-    resume_path = None
-    if args.resume:
-        checkpoints = sorted((exp.output_dir / "checkpoints").glob("checkpoint-*"))
-        if checkpoints:
-            resume_path = str(checkpoints[-1])
-            exp.log(f"resuming from {resume_path}")
 
     trainer.train(resume_from_checkpoint=resume_path)
     metrics = trainer.evaluate()

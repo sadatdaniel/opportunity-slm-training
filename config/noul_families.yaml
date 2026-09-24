@@ -1,0 +1,69 @@
+# Noul question families (brief 4A). Fixed criteria text per family keeps
+# targets machine-testable and comparable across models. The prototype set
+# (step 7B) derives labels from teacher-verified facts + source metadata;
+# proper training data comes from the reviewed extraction pass later.
+
+families:
+  category_scholarships:
+    type: noul
+    instructions: "Is this posting a scholarship (financial support primarily for education costs)?"
+    criteria:
+      true: "This posting is primarily a scholarship offering financial support for education."
+      false: "This posting is not primarily a scholarship for education costs."
+    derives_from: primary_category
+
+  category_fellowships:
+    type: noul
+    instructions: "Is this posting a fellowship program?"
+    criteria:
+      true: "This posting is primarily a selective fellowship program."
+      false: "This posting is not primarily a fellowship program."
+    derives_from: primary_category
+
+  category_internships:
+    type: noul
+    instructions: "Is this posting an internship?"
+    criteria:
+      true: "This posting is primarily an internship offering work experience."
+      false: "This posting is not primarily an internship."
+    derives_from: primary_category
+
+  category_competitions:
+    type: noul
+    instructions: "Is this posting a competition or challenge?"
+    criteria:
+      true: "This posting is primarily a competition, contest, or challenge."
+      false: "This posting is not primarily a competition."
+    derives_from: primary_category
+
+  category_workshops:
+    type: noul
+    instructions: "Is this posting a workshop or training program?"
+    criteria:
+      true: "This posting is primarily a workshop, training, or summer school."
+      false: "This posting is not primarily a workshop or training program."
+    derives_from: primary_category
+
+  deadline_stated:
+    type: noul
+    instructions: "Is an application deadline explicitly stated for this opportunity?"
+    criteria:
+      true: "The posting explicitly states an application or submission deadline."
+      false: "No explicit application deadline is stated in the posting."
+    derives_from: source_metadata.deadline
+
+  is_funded:
+    type: noul
+    instructions: "Does this opportunity provide direct financial funding, stipend, salary, prize money, or tuition support?"
+    criteria:
+      true: "The opportunity explicitly provides direct financial support."
+      false: "No direct financial support is stated."
+    derives_from: teacher_extraction
+
+  german_mandatory:
+    type: noul
+    instructions: "Is German language proficiency a mandatory requirement?"
+    criteria:
+      true: "The opportunity requires German proficiency as a mandatory condition."
+      false: "German proficiency is not a mandatory condition (absent, optional, or only preferred)."
+    derives_from: teacher_extraction
