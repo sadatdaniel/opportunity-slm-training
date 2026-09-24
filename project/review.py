@@ -54,6 +54,21 @@ def save_annotations(path: Path, entries: list[dict]) -> None:
     tmp.replace(path)
 
 
+@st.cache_data
+def load_verification() -> dict:
+    """record_id -> verifier outcome for records the independent verifier disputed."""
+    path = ANNOTATION_DIR / "verify_classify.jsonl"
+    disputed: dict[str, dict] = {}
+    if not path.exists():
+        return disputed
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.strip():
+            row = json.loads(line)
+            if row.get("agreement") is False:
+                disputed[row["record_id"]] = row
+    return disputed
+
+
 def queue_sort_key(entry: dict) -> tuple:
     """Review-priority order: unresolved first, then by flag count."""
     status = entry.get("review_status")
@@ -75,8 +90,15 @@ def main() -> None:
     st.sidebar.metric("total", len(entries))
     st.sidebar.json(counts)
 
-    filter_status = st.sidebar.selectbox("Filter", ["pending", "ambiguous", "approved", "corrected", "rejected", "all"])
-    pool = [e for e in entries if filter_status == "all" or (e.get("review_status") or "pending") == filter_status]
+    filter_status = st.sidebar.selectbox(
+        "Filter",
+        ["pending", "deepseek-disputed", "ambiguous", "approved", "corrected", "rejected", "all"],
+    )
+    disputed = load_verification()
+    if filter_status == "deepseek-disputed":
+        pool = [e for e in entries if e["record_id"] in disputed]
+    else:
+        pool = [e for e in entries if filter_status == "all" or (e.get("review_status") or "pending") == filter_status]
     pool.sort(key=queue_sort_key)
 
     if not pool:
@@ -86,6 +108,7 @@ def main() -> None:
     entry = pool[index - 1]
     record = records.get(entry["record_id"], {})
     parsed = entry.get("parsed_annotation") or {}
+    dispute = disputed.get(entry["record_id"])
 
     st.title(f"Review: {task} ({index}/{len(pool)} in filter)")
     st.subheader(record.get("title", entry["record_id"]))
@@ -132,6 +155,12 @@ def main() -> None:
         st.write(f"validation: {entry.get('validation_status')} · needs_human_review: {entry.get('needs_human_review')}")
         if entry.get("adjudication_suggestion"):
             st.info(f"adjudicator ({entry.get('adjudication_provider')}) suggests: {entry['adjudication_suggestion']}")
+        if dispute:
+            st.warning(
+                f"DeepSeek ({dispute.get('verifier_model')}) disputed this: "
+                f"{dispute.get('original_label')} -> {dispute.get('verifier_label')}"
+                f"\n\nIts reason: {dispute.get('verifier_reason')}"
+            )
 
     st.subheader("ACTION")
     st.caption("Any field you change above is saved as a human correction "
