@@ -207,9 +207,11 @@ def main() -> None:
         entry["review_status"] = "corrected" if (action == "approved" and changed) else action
         entry["needs_human_review"] = action in ("mark ambiguous", "reject")
         save_annotations(path, entries)
-        # auto-advance: the saved record leaves the active queue, so keeping the
-        # same position shows the next one
-        st.session_state.record_idx = min(index, max(len(pool) - 1, 1))
+        # auto-advance: drop the widget state, then set the new initial value —
+        # Streamlit forbids mutating a widget key after instantiation
+        target = min(index, max(len(pool) - 1, 1))
+        st.session_state.pop("record_idx", None)
+        st.session_state.record_idx = target
         st.cache_data.clear()
         st.toast(f"Saved: {action} — {record.get('title', '')[:60]}")
         st.rerun()
