@@ -46,7 +46,8 @@ def test_splits_keep_duplicate_groups_together():
     assert not ("r0" in train and "r99" in test), "duplicate group leaked across splits"
     assert held_out, "unseen-source split should hold out at least one source"
     for held in held_out:
-        ids = [r["record_id"] for v in splits.values() for r in v if r["source_id"] == held]
-        assert all(r["source_id"] == held for r in splits["unseen_sources_test"] if r["source_id"] == held)
+        assert all(
+            r["source_id"] == held for r in splits["unseen_sources_test"] if r["source_id"] == held
+        )
     total = sum(len(v) for v in splits.values())
     assert total == 100

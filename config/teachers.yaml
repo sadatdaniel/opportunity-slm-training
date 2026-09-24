@@ -1,0 +1,74 @@
+# Teacher provider pool (v2 brief section 17A).
+# Limits below are OPERATING BUDGETS (configured safe budgets with margin),
+# not the providers' true maximums. Update here when provider quotas change.
+# API keys come from environment variables named in api_key_env; never store
+# key values in this file.
+
+providers:
+  - name: gemini_1
+    kind: gemini
+    api_key_env: GEMINI_API_KEY
+    model: gemini-3.5-flash-lite
+    role: primary
+    limits: {rpm: 15, tpm: 250000, rpd: 500}
+    safety_margin: 0.85
+
+  - name: gemini_2
+    kind: gemini
+    api_key_env: GEMINI_API_KEY2
+    model: gemini-3.5-flash-lite
+    role: primary
+    limits: {rpm: 15, tpm: 250000, rpd: 500}
+    safety_margin: 0.85
+
+  - name: gemini_3
+    kind: gemini
+    api_key_env: GEMINI_API_KEY3
+    model: gemini-3.5-flash-lite
+    role: primary
+    limits: {rpm: 15, tpm: 250000, rpd: 500}
+    safety_margin: 0.85
+
+  - name: gemini_4
+    kind: gemini
+    api_key_env: GEMINI_API_KEY4
+    model: gemini-3.5-flash-lite
+    role: primary
+    limits: {rpm: 15, tpm: 250000, rpd: 500}
+    safety_margin: 0.85
+
+  - name: openrouter
+    kind: openai
+    base_url: https://openrouter.ai/api/v1
+    api_key_env: OPENROUTER_API_KEY
+    model: nvidia/nemotron-nano-9b-v2:free
+    role: second_opinion
+    # daily quota unknown for free endpoints; keep a conservative cap
+    limits: {rpm: 15, tpm: 100000, rpd: 200}
+    safety_margin: 0.85
+
+  - name: zai
+    kind: openai
+    base_url: https://api.z.ai/api/paas/v4
+    api_key_env: ZAI_API_KEY
+    model: glm-5.3-flash
+    role: adjudicator
+    limits: {rpm: 30, tpm: 200000, rpd: 500}
+    safety_margin: 0.85
+
+  # Legacy single-teacher configuration (v1 .env): acts as an OpenAI-compatible
+  # fallback when TEACHER_* variables are set.
+  - name: legacy_teacher
+    kind: openai
+    base_url_env: TEACHER_BASE_URL
+    api_key_env: TEACHER_API_KEY
+    model_env: TEACHER_MODEL
+    role: primary
+    limits: {rpm: 20, tpm: 200000, rpd: 1000}
+    safety_margin: 0.85
+
+# Role order used when rotating providers for a normal record.
+routing:
+  primary_roles: [primary]
+  second_opinion_roles: [second_opinion]
+  adjudicator_roles: [adjudicator]

@@ -27,7 +27,7 @@ import hashlib
 import json
 import sys
 from collections import defaultdict
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import yaml
@@ -171,7 +171,7 @@ def build(task: str, version: str) -> Path:
         "task": task,
         "dataset": f"{task}_dataset_{version}",
         "version": version,
-        "created_at": datetime.now(timezone.utc).isoformat(),
+        "created_at": datetime.now(UTC).isoformat(),
         "seed": SEED,
         "taxonomy": "taxonomy_v1" if task == "classify" else None,
         "held_out_sources": held_out_sources,

@@ -19,7 +19,7 @@ import json
 import subprocess
 import sys
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import yaml
@@ -59,7 +59,7 @@ def freeze(version: str) -> Path:
     data_hash = hashlib.sha256(DEDUPED_PATH.read_bytes()).hexdigest()
     manifest = {
         "corpus": f"corpus_{version}",
-        "created_at": datetime.now(timezone.utc).isoformat(),
+        "created_at": datetime.now(UTC).isoformat(),
         "git_commit": git_commit(),
         "records_file": str(DEDUPED_PATH.relative_to(PROJECT_ROOT)),
         "records_sha256": data_hash,

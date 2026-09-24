@@ -1,0 +1,38 @@
+corpus: corpus_v1
+created_at: '2026-09-24T18:00:56.436936+00:00'
+git_commit: b9a5b7ac7c077aa7ef4e2a18c1370f4da51a05da
+records_file: data\normalized\deduped.jsonl
+records_sha256: c26f48646f34c52db2762f11f3cb4bb944b136c38f409d591035ede31c21abc0
+record_count: 3296
+source_distribution:
+  opportunities_for_youth: 597
+  opportunity_desk: 589
+  scholars4dev: 468
+  association_of_african_universities_aau: 465
+  opportunities_circle: 351
+  barcelona_institute_of_science_and_technology_bist: 243
+  paset_rsif: 183
+  mit_graduate_fellowships_pappalardo: 109
+  woods_hole_oceanographic_institution_whoi: 102
+  european_science_foundation_esf: 82
+  ihes: 54
+  fulbright_nehru_opportunities_us_india: 37
+  commonwealth_scholarship_commission: 9
+  inomics: 4
+  asia_europe_foundation_asef: 2
+  open_society_foundations_osf: 1
+productive_sources: 16
+duplicate_groups_total: 3296
+duplicate_groups_multi: 33
+records_in_multi_groups: 72
+cross_source_groups: 4
+normalization:
+  min_words: 40
+  language_filter: en
+  noise_patterns_version: 1
+taxonomy: taxonomy_v1
+dedupe:
+  similarity_threshold: 0.9
+  layers:
+  - content_hash
+  - title_similarity
