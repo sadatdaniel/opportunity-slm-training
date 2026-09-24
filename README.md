@@ -44,18 +44,33 @@ uv sync
 ## Commands (current)
 
 ```bash
-# Rebuild sources/registry.yaml from the human-curated 100_academic_sources.md
-uv run python -m project.sources.registry
+uv sync
 
-# Probe every registered source (APIs, feeds, robots) and write the inventory
-uv run python -m project.sources.inventory
+# Corpus pipeline
+uv run python -m project.sources.registry            # rebuild sources/registry.yaml
+uv run python -m project.sources.inventory           # probe sources (APIs, feeds, robots)
+uv run python -m project.collect --source SOURCE_ID  # collect raw records
+uv run python -m project.collect --all --methods wp_rest,rss
+uv run python -m project.normalize                   # raw -> normalized English records
+uv run python -m project.dedupe                      # layered dedup + duplicate groups
+uv run python -m project.freeze_corpus               # freeze corpus_v1 (immutable manifest)
 
-# Run tests
+# Measurement & audits
+uv run python -m project.token_stats                 # real Supra tokenizer statistics
+uv run python -m project.audit                       # taxonomy audit sample + imbalance
+
+# Teacher annotation (multi-provider pool; needs API keys in .env)
+uv run python -m project.annotate --task classify --pilot    # ~200 stratified pilot
+uv run python -m project.annotate --task classify            # full corpus
+uv run python -m project.annotate --task summarize --pilot 300
+
+# Datasets
+uv run python -m project.build_dataset --task classify      # after annotation
+uv run python -m project.build_dataset --task summarize
+
+# Tests
 uv run pytest
 ```
-
-Planned commands (collection, annotation, training) are tracked in
-`PROJECT_STATUS.md` and will appear here as they land.
 
 ## Status
 

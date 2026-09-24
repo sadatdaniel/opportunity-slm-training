@@ -1,0 +1,24 @@
+# Compose file for the Opportunity Intelligence project.
+#
+# Coexistence (v2 brief §27): project name `opportunity_slm` keeps every
+# resource clearly identifiable (opportunity_slm_*). This file must never
+# reference, stop, or remove resources belonging to other projects, and no
+# `docker ... prune` command may ever be run for this project.
+
+name: opportunity_slm
+
+services:
+  dev:
+    # Data tooling: collection, normalization, dedup, annotation.
+    # The workspace is mounted rather than copied so artifacts stay on the host.
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: opportunity_slm_dev
+    container_name: opportunity_slm_dev
+    volumes:
+      - ./:/workspace
+    env_file:
+      - path: .env
+        required: false
+    command: --version  # override: docker compose run dev -m project.normalize

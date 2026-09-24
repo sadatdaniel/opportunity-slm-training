@@ -1,0 +1,26 @@
+# Development / data-tooling image (collection, normalize, dedupe, annotate).
+# Inference has its own Dockerfile.api once the API service exists (v2 brief §27).
+#
+# Docker coexistence rules (v2 brief §27): this project may use the existing
+# Docker Desktop installation but MUST NOT delete, stop, rename, overwrite or
+# prune any resource it did not create. Never run docker system/volume/
+# network/image prune. All project resources are prefixed `opportunity_slm`.
+
+FROM python:3.12-slim
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
+WORKDIR /workspace
+
+COPY pyproject.toml uv.lock README.md ./
+COPY project ./project
+COPY collectors ./collectors
+COPY training ./training
+COPY config ./config
+COPY recipes ./recipes
+COPY prompts ./prompts
+COPY sources ./sources
+
+RUN uv sync --frozen --no-dev
+
+ENTRYPOINT ["uv", "run", "python"]
