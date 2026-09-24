@@ -1,0 +1,1041 @@
+# Machine-readable source registry.
+# Generated from 100_academic_sources.md by project.sources.registry; do not hand-edit.
+# Edit the markdown source, then re-run: python -m project.sources.registry
+- source_id: youth_opportunities
+  name: Youth Opportunities
+  domain: youthop.com
+  scope:
+  - scholarships
+  - fellowships
+  - phd
+  - competitions
+  - conferences
+  - internships
+  - grants
+  postings_page: https://www.youthop.com
+  api_endpoint: https://www.youthop.com/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: euraxess
+  name: EURAXESS
+  domain: euraxess.ec.europa.eu
+  scope:
+  - phd
+  - postdoc
+  - fellowships
+  - research_grants
+  postings_page: https://euraxess.ec.europa.eu/jobs/search
+  api_endpoint: https://euraxess.ec.europa.eu/api/jobs/search
+  origin_file: 100_academic_sources.md
+- source_id: opportunities_for_youth
+  name: Opportunities For Youth
+  domain: opportunitiesforyouth.org
+  scope:
+  - scholarships
+  - conferences
+  - exchange_programs
+  postings_page: https://www.opportunitiesforyouth.org
+  api_endpoint: https://www.opportunitiesforyouth.org/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: opportunity_desk
+  name: Opportunity Desk
+  domain: opportunitydesk.org
+  scope:
+  - scholarships
+  - fellowships
+  - competitions
+  - conferences
+  - internships
+  - grants
+  postings_page: https://opportunitydesk.org
+  api_endpoint: https://opportunitydesk.org/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: opportunities_circle
+  name: Opportunities Circle
+  domain: opportunitiescircle.com
+  scope:
+  - scholarships
+  - fellowships
+  - exchange_programs
+  - summer_schools
+  postings_page: https://www.opportunitiescircle.com
+  api_endpoint: https://www.opportunitiescircle.com/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: african_scholar_initiative
+  name: African Scholar Initiative
+  domain: scholarshipsforafricans.com
+  scope:
+  - scholarships
+  - fellowships
+  - phd
+  - internships
+  postings_page: https://scholarshipsforafricans.com
+  api_endpoint: https://scholarshipsforafricans.com/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: after_school_africa
+  name: After School Africa
+  domain: afterschoolafrica.com
+  scope:
+  - scholarships
+  - masters
+  - phd
+  postings_page: https://www.afterschoolafrica.com
+  api_endpoint: https://www.afterschoolafrica.com/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: scholars4dev
+  name: Scholars4Dev
+  domain: scholars4dev.com
+  scope:
+  - scholarships
+  - masters
+  - phd
+  postings_page: https://www.scholars4dev.com
+  api_endpoint: https://www.scholars4dev.com/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: erasmus_erasmus_mundus_joint_masters
+  name: Erasmus+ / Erasmus Mundus Joint Masters
+  domain: erasmus-plus.ec.europa.eu
+  scope:
+  - masters
+  - exchange_programs
+  postings_page: https://erasmus-plus.ec.europa.eu/opportunities/individuals/students/erasmus-mundus-joint-masters
+  api_endpoint: https://www.eacea.ec.europa.eu/scholarships/erasmus-mundus-catalogue_en
+  origin_file: 100_academic_sources.md
+- source_id: marie_skodowska_curie_actions_msca
+  name: Marie Skłodowska-Curie Actions (MSCA)
+  domain: marie-sklodowska-curie-actions.ec.europa.eu
+  scope:
+  - phd
+  - postdoc
+  - fellowships
+  postings_page: https://marie-sklodowska-curie-actions.ec.europa.eu
+  api_endpoint: https://marie-sklodowska-curie-actions.ec.europa.eu
+  origin_file: 100_academic_sources.md
+- source_id: paset_rsif
+  name: PASET RSIF
+  domain: rsif-paset.org
+  scope:
+  - phd
+  - fellowships
+  - grants
+  postings_page: https://www.rsif-paset.org
+  api_endpoint: https://www.rsif-paset.org/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: european_university_institute_eui
+  name: European University Institute (EUI)
+  domain: eui.eu
+  scope:
+  - postdoc
+  - doctoral_grants
+  - workshops
+  postings_page: https://www.eui.eu/ServicesAndAdmin/AcademicService/Fellowships
+  api_endpoint: https://www.eui.eu/_api/v2/news/events
+  origin_file: 100_academic_sources.md
+- source_id: association_of_african_universities_aau
+  name: Association of African Universities (AAU)
+  domain: blog.aau.org
+  scope:
+  - fellowships
+  - research_grants
+  - workshops
+  postings_page: https://blog.aau.org
+  api_endpoint: https://blog.aau.org/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: seameo
+  name: SEAMEO
+  domain: seameo.org
+  scope:
+  - exchange_programs
+  - fellowships
+  - research_grants
+  postings_page: https://www.seameo.org/Main_programme/opportunities
+  api_endpoint: https://www.seameo.org/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: human_frontier_science_program_hfsp
+  name: Human Frontier Science Program (HFSP)
+  domain: hfsp.org
+  scope:
+  - postdoc
+  - research_grants
+  postings_page: https://www.hfsp.org/funding/hfsp-funding
+  api_endpoint: https://www.hfsp.org/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: cern_careers_studentships
+  name: CERN Careers & Studentships
+  domain: careers.cern
+  scope:
+  - doctoral_programs
+  - technical_studentships
+  - postdoc
+  postings_page: https://careers.cern/students
+  api_endpoint: https://api.smartrecruiters.com/v1/companies/CERN/postings
+  origin_file: 100_academic_sources.md
+- source_id: daad_german_academic_exchange_service
+  name: DAAD - German Academic Exchange Service
+  domain: www2.daad.de
+  scope:
+  - scholarships
+  - phd
+  - exchange_programs
+  postings_page: https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database
+  api_endpoint: https://www.daad.de/api/scholarships/v1/en/
+  origin_file: 100_academic_sources.md
+- source_id: campus_france_eiffel_excellence
+  name: Campus France / Eiffel Excellence
+  domain: doctorat.campusfrance.org
+  scope:
+  - scholarships
+  - masters
+  - phd
+  postings_page: https://doctorat.campusfrance.org/phd/offers
+  api_endpoint: https://doctorat.campusfrance.org/api/offers
+  origin_file: 100_academic_sources.md
+- source_id: chevening_scholarships
+  name: Chevening Scholarships
+  domain: chevening.org
+  scope:
+  - scholarships
+  - masters
+  postings_page: https://www.chevening.org
+  api_endpoint: https://www.chevening.org/wp-json/wp/v2/pages
+  origin_file: 100_academic_sources.md
+- source_id: commonwealth_scholarship_commission
+  name: Commonwealth Scholarship Commission
+  domain: cscuk.fcdo.gov.uk
+  scope:
+  - scholarships
+  - masters
+  - phd
+  postings_page: https://cscuk.fcdo.gov.uk
+  api_endpoint: https://cscuk.fcdo.gov.uk
+  origin_file: 100_academic_sources.md
+- source_id: fulbright_program
+  name: Fulbright Program
+  domain: fulbrightscholars.org
+  scope:
+  - scholarships
+  - exchange_programs
+  - phd_research
+  postings_page: https://fulbrightscholars.org
+  api_endpoint: https://fulbrightscholars.org/wp-json/wp/v2/pages
+  origin_file: 100_academic_sources.md
+- source_id: australia_awards
+  name: Australia Awards
+  domain: dfat.gov.au
+  scope:
+  - scholarships
+  - exchange_programs
+  postings_page: https://www.dfat.gov.au/people-to-people/australia-awards
+  api_endpoint: https://www.dfat.gov.au/api/content
+  origin_file: 100_academic_sources.md
+- source_id: mext_scholarship_japan
+  name: MEXT Scholarship (Japan)
+  domain: studyinjapan.go.jp
+  scope:
+  - scholarships
+  - masters
+  - phd
+  - research_student
+  postings_page: https://www.studyinjapan.go.jp/en/planning/scholarship/
+  api_endpoint: https://www.studyinjapan.go.jp/api/v1/scholarships
+  origin_file: 100_academic_sources.md
+- source_id: china_scholarship_council_csc
+  name: China Scholarship Council (CSC)
+  domain: campuschina.org
+  scope:
+  - scholarships
+  - masters
+  - phd
+  postings_page: https://www.campuschina.org
+  api_endpoint: https://www.campuschina.org
+  origin_file: 100_academic_sources.md
+- source_id: nuffic_holland_scholarship
+  name: Nuffic / Holland Scholarship
+  domain: studyinnl.org
+  scope:
+  - scholarships
+  - masters
+  postings_page: https://www.studyinnl.org
+  api_endpoint: https://www.studyinnl.org
+  origin_file: 100_academic_sources.md
+- source_id: swedish_institute_scholarships
+  name: Swedish Institute Scholarships
+  domain: si.se
+  scope:
+  - scholarships
+  - masters
+  postings_page: https://si.se/en/apply/
+  api_endpoint: https://si.se/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: korean_government_scholarship_kgsp
+  name: Korean Government Scholarship (KGSP)
+  domain: studyinkorea.go.kr
+  scope:
+  - scholarships
+  - masters
+  - phd
+  postings_page: https://www.studyinkorea.go.kr
+  api_endpoint: https://www.studyinkorea.go.kr
+  origin_file: 100_academic_sources.md
+- source_id: vanier_canada_graduate_scholarships
+  name: Vanier Canada Graduate Scholarships
+  domain: vanier.gc.ca
+  scope:
+  - phd
+  postings_page: https://vanier.gc.ca
+  api_endpoint: https://vanier.gc.ca
+  origin_file: 100_academic_sources.md
+- source_id: swiss_government_excellence_scholarships
+  name: Swiss Government Excellence Scholarships
+  domain: sbfi.admin.ch
+  scope:
+  - phd
+  - postdoc
+  - research
+  postings_page: https://www.sbfi.admin.ch
+  api_endpoint: https://www.sbfi.admin.ch
+  origin_file: 100_academic_sources.md
+- source_id: academic_transfer
+  name: Academic Transfer
+  domain: academictransfer.com
+  scope:
+  - phd
+  - postdoc
+  - fellowships
+  postings_page: https://www.academictransfer.com/en/
+  api_endpoint: https://www.academictransfer.com/api/vacancies/
+  origin_file: 100_academic_sources.md
+- source_id: japan_society_for_the_promotion_of_science_jsps
+  name: Japan Society for the Promotion of Science (JSPS)
+  domain: jsps.go.jp
+  scope:
+  - postdoc
+  - exchange_programs
+  postings_page: https://www.jsps.go.jp/english/e-fellow/
+  api_endpoint: https://www.jsps.go.jp/english/e-fellow/application.html
+  origin_file: 100_academic_sources.md
+- source_id: swiss_national_science_foundation_snsf
+  name: Swiss National Science Foundation (SNSF)
+  domain: snf.ch
+  scope:
+  - postdoc
+  - doctoral_fellowships
+  - grants
+  postings_page: https://www.snf.ch/en/funding/opportunities
+  api_endpoint: https://p3.snf.ch/api/researcher
+  origin_file: 100_academic_sources.md
+- source_id: uk_research_and_innovation_ukri
+  name: UK Research and Innovation (UKRI)
+  domain: ukri.org
+  scope:
+  - fellowships
+  - phd_studentships
+  - grants
+  postings_page: https://www.ukri.org/opportunity/
+  api_endpoint: https://www.ukri.org/wp-json/wp/v2/opportunity
+  origin_file: 100_academic_sources.md
+- source_id: alexander_von_humboldt_foundation
+  name: Alexander von Humboldt Foundation
+  domain: humboldt-foundation.de
+  scope:
+  - fellowships
+  - awards
+  - postdoc_grants
+  postings_page: https://www.humboldt-foundation.de/en/apply
+  api_endpoint: https://www.humboldt-foundation.de/jsonapi/node/funding_program
+  origin_file: 100_academic_sources.md
+- source_id: nordforsk
+  name: NordForsk
+  domain: nordforsk.org
+  scope:
+  - research_grants
+  - fellowships
+  postings_page: https://www.nordforsk.org
+  api_endpoint: https://www.nordforsk.org
+  origin_file: 100_academic_sources.md
+- source_id: visegrad_fund
+  name: Visegrad Fund
+  domain: visegradfund.org
+  scope:
+  - scholarships
+  - exchange_programs
+  - grants
+  postings_page: https://www.visegradfund.org
+  api_endpoint: https://www.visegradfund.org
+  origin_file: 100_academic_sources.md
+- source_id: oas_scholarships
+  name: OAS Scholarships
+  domain: oas.org
+  scope:
+  - scholarships
+  - masters
+  - phd
+  postings_page: https://www.oas.org/en/scholarships
+  api_endpoint: https://www.oas.org/en/scholarships
+  origin_file: 100_academic_sources.md
+- source_id: max_planck_society_imprs
+  name: Max Planck Society / IMPRS
+  domain: mpg.de
+  scope:
+  - phd
+  - postdoc
+  - group_leads
+  postings_page: https://www.mpg.de/jobboard
+  api_endpoint: https://www.mpg.de/api/jobboard/offers
+  origin_file: 100_academic_sources.md
+- source_id: helmholtz_association
+  name: Helmholtz Association
+  domain: helmholtz.de
+  scope:
+  - phd
+  - postdoc
+  postings_page: https://www.helmholtz.de
+  api_endpoint: https://www.helmholtz.de
+  origin_file: 100_academic_sources.md
+- source_id: leibniz_association
+  name: Leibniz Association
+  domain: leibniz-gemeinschaft.de
+  scope:
+  - phd
+  - postdoc
+  postings_page: https://www.leibniz-gemeinschaft.de
+  api_endpoint: https://www.leibniz-gemeinschaft.de
+  origin_file: 100_academic_sources.md
+- source_id: fraunhofer_gesellschaft
+  name: Fraunhofer-Gesellschaft
+  domain: fraunhofer.de
+  scope:
+  - phd
+  - research_positions
+  postings_page: https://www.fraunhofer.de
+  api_endpoint: https://www.fraunhofer.de
+  origin_file: 100_academic_sources.md
+- source_id: european_molecular_biology_laboratory_embl
+  name: European Molecular Biology Laboratory (EMBL)
+  domain: embl.org
+  scope:
+  - postdoc
+  - phd
+  - conferences
+  postings_page: https://www.embl.org/training/
+  api_endpoint: https://www.embl.org/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: ictp_trieste
+  name: ICTP - Trieste
+  domain: ictp.it
+  scope:
+  - physics_fellowships
+  - workshops
+  - phd_sandwich
+  postings_page: https://www.ictp.it/opportunity
+  api_endpoint: https://www.ictp.it/api/v1/opportunities
+  origin_file: 100_academic_sources.md
+- source_id: cnrs
+  name: CNRS
+  domain: emploi.cnrs.fr
+  scope:
+  - postdoc
+  - visiting_fellowships
+  postings_page: https://emploi.cnrs.fr/
+  api_endpoint: https://emploi.cnrs.fr/api/Offres
+  origin_file: 100_academic_sources.md
+- source_id: santa_fe_institute
+  name: Santa Fe Institute
+  domain: santafe.edu
+  scope:
+  - fellowships
+  - postdocs
+  - summer_schools
+  postings_page: https://www.santafe.edu/academic
+  api_endpoint: https://www.santafe.edu/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: riken
+  name: RIKEN
+  domain: riken.jp
+  scope:
+  - spdr_postdoc
+  - phd_fellowships
+  postings_page: https://www.riken.jp/en/careers/
+  api_endpoint: https://www.riken.jp/en/careers/programs/
+  origin_file: 100_academic_sources.md
+- source_id: alan_turing_institute
+  name: Alan Turing Institute
+  domain: turing.ac.uk
+  scope:
+  - data_science_fellowships
+  - phd_enrichment
+  - workshops
+  postings_page: https://www.turing.ac.uk/work-turing/fellowships
+  api_endpoint: https://www.turing.ac.uk/jsonapi/node/opportunity
+  origin_file: 100_academic_sources.md
+- source_id: simons_foundation
+  name: Simons Foundation
+  domain: simonsfoundation.org
+  scope:
+  - fellowships
+  - grants
+  - symposia
+  postings_page: https://www.simonsfoundation.org/funding-opportunities/
+  api_endpoint: https://www.simonsfoundation.org/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: ihes
+  name: IHES
+  domain: ihes.fr
+  scope:
+  - visiting_fellowships
+  - postdocs
+  postings_page: https://www.ihes.fr/en/applications/
+  api_endpoint: https://www.ihes.fr/wp-json/wp/v2/pages
+  origin_file: 100_academic_sources.md
+- source_id: woods_hole_oceanographic_institution_whoi
+  name: Woods Hole Oceanographic Institution (WHOI)
+  domain: whoi.edu
+  scope:
+  - postdoc
+  - summer_fellowships
+  postings_page: https://www.whoi.edu/education/
+  api_endpoint: https://www.whoi.edu/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: harvard_gsas_harvard_fellowships
+  name: Harvard GSAS / Harvard Fellowships
+  domain: gsas.harvard.edu
+  scope:
+  - phd
+  - postdoc
+  - fellowships
+  postings_page: https://gsas.harvard.edu
+  api_endpoint: https://api.harvard.edu/v2/opportunities
+  origin_file: 100_academic_sources.md
+- source_id: columbia_university_graduate_school
+  name: Columbia University Graduate School
+  domain: grad.columbia.edu
+  scope:
+  - phd
+  - postdoc
+  - fellowships
+  postings_page: https://grad.columbia.edu
+  api_endpoint: https://grad.columbia.edu
+  origin_file: 100_academic_sources.md
+- source_id: stanford_university_knight_hennessy_scholars
+  name: Stanford University - Knight-Hennessy Scholars
+  domain: knight-hennessy.stanford.edu
+  scope:
+  - graduate_fellowships
+  - phd
+  postings_page: https://knight-hennessy.stanford.edu
+  api_endpoint: https://knight-hennessy.stanford.edu/wp-json/wp/v2/pages
+  origin_file: 100_academic_sources.md
+- source_id: university_of_oxford_graduate_funding
+  name: University of Oxford - Graduate Funding
+  domain: ox.ac.uk
+  scope:
+  - scholarships
+  - phd
+  - postdoc
+  postings_page: https://www.ox.ac.uk/admissions/graduate/fees-and-funding
+  api_endpoint: https://www.ox.ac.uk/api/v1/funding-opportunities
+  origin_file: 100_academic_sources.md
+- source_id: eth_zurich_doctorate_fellowships
+  name: ETH Zurich Doctorate & Fellowships
+  domain: ethz.ch
+  scope:
+  - phd
+  - postdoc
+  - workshops
+  postings_page: https://ethz.ch/en/doctorate
+  api_endpoint: https://ethz.ch/bin/ethz/news/api.json
+  origin_file: 100_academic_sources.md
+- source_id: cambridge_university_gates_cambridge
+  name: Cambridge University - Gates Cambridge
+  domain: gatescambridge.org
+  scope:
+  - scholarships
+  - postgraduate
+  postings_page: https://www.gatescambridge.org
+  api_endpoint: https://www.gatescambridge.org/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: princeton_university_society_of_fellows
+  name: Princeton University Society of Fellows
+  domain: sf.princeton.edu
+  scope:
+  - postdoc
+  - humanities_fellowships
+  postings_page: https://sf.princeton.edu
+  api_endpoint: https://sf.princeton.edu/wp-json/wp/v2/pages
+  origin_file: 100_academic_sources.md
+- source_id: mit_graduate_fellowships_pappalardo
+  name: MIT Graduate Fellowships & Pappalardo
+  domain: physics.mit.edu
+  scope:
+  - phd
+  - postdoc
+  - physics_fellowships
+  postings_page: https://physics.mit.edu/research/pappalardo-fellowships/
+  api_endpoint: https://physics.mit.edu/wp-json/wp/v2/pages
+  origin_file: 100_academic_sources.md
+- source_id: yale_university_macmillan_center
+  name: Yale University - MacMillan Center
+  domain: macmillan.yale.edu
+  scope:
+  - fellowships
+  - postdocs
+  postings_page: https://macmillan.yale.edu/grants-fellowships
+  api_endpoint: https://macmillan.yale.edu/jsonapi/node/opportunity
+  origin_file: 100_academic_sources.md
+- source_id: national_university_of_singapore_nus
+  name: National University of Singapore (NUS)
+  domain: nusgs.nus.edu.sg
+  scope:
+  - scholarships
+  - phd
+  - fellowships
+  postings_page: https://nusgs.nus.edu.sg/scholarships/
+  api_endpoint: https://nusgs.nus.edu.sg/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: university_of_tokyo
+  name: University of Tokyo
+  domain: u-tokyo.ac.jp
+  scope:
+  - visiting_research
+  - phd_fellowships
+  postings_page: https://www.u-tokyo.ac.jp/en/prospective-students/fellowships.html
+  api_endpoint: https://www.u-tokyo.ac.jp/api/search.json
+  origin_file: 100_academic_sources.md
+- source_id: australian_national_university_anu
+  name: Australian National University (ANU)
+  domain: anu.edu.au
+  scope:
+  - scholarships
+  - phd
+  - visiting_fellowships
+  postings_page: https://www.anu.edu.au/study/scholarships
+  api_endpoint: https://www.anu.edu.au/api/scholarships/search
+  origin_file: 100_academic_sources.md
+- source_id: university_of_melbourne
+  name: University of Melbourne
+  domain: scholarships.unimelb.edu.au
+  scope:
+  - scholarships
+  - phd
+  postings_page: https://scholarships.unimelb.edu.au
+  api_endpoint: https://scholarships.unimelb.edu.au
+  origin_file: 100_academic_sources.md
+- source_id: scholarship_position
+  name: Scholarship Position
+  domain: scholarship-positions.com
+  scope:
+  - scholarships
+  - phd_grants
+  - exchange_programs
+  postings_page: https://scholarship-positions.com
+  api_endpoint: https://scholarship-positions.com/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: mina7
+  name: Mina7
+  domain: mina7.net
+  scope:
+  - scholarships
+  - fellowships
+  - workshops
+  postings_page: https://mina7.net
+  api_endpoint: https://mina7.net/api/v1/opportunities
+  origin_file: 100_academic_sources.md
+- source_id: armacad
+  name: Armacad
+  domain: armacad.info
+  scope:
+  - conferences
+  - summer_schools
+  - fellowships
+  - phd
+  postings_page: https://armacad.info
+  api_endpoint: https://armacad.info/api/v1/announcements
+  origin_file: 100_academic_sources.md
+- source_id: conference_alert
+  name: Conference Alert
+  domain: conferencealerts.com
+  scope:
+  - conferences
+  - workshops
+  - symposia
+  postings_page: https://conferencealerts.com
+  api_endpoint: https://conferencealerts.com/api/events
+  origin_file: 100_academic_sources.md
+- source_id: wikicfp
+  name: WikiCFP
+  domain: wikicfp.com
+  scope:
+  - call_for_papers
+  - conferences
+  - workshops
+  postings_page: http://www.wikicfp.com/cfp/
+  api_endpoint: http://www.wikicfp.com/cfp/rss
+  origin_file: 100_academic_sources.md
+- source_id: 10times
+  name: 10Times
+  domain: 10times.com
+  scope:
+  - conferences
+  - symposia
+  postings_page: https://10times.com
+  api_endpoint: https://10times.com
+  origin_file: 100_academic_sources.md
+- source_id: heysuccess
+  name: HeySuccess
+  domain: heysuccess.com
+  scope:
+  - competitions
+  - fellowships
+  - internships
+  postings_page: https://www.heysuccess.com
+  api_endpoint: https://www.heysuccess.com/api/v1/opportunities
+  origin_file: 100_academic_sources.md
+- source_id: studyportals_scholarshipportal_mastersportal_phdportal
+  name: Studyportals (ScholarshipPortal / MastersPortal / PhDPortal)
+  domain: scholarshipportal.com
+  scope:
+  - scholarships
+  - masters
+  - phd
+  postings_page: https://www.scholarshipportal.com
+  api_endpoint: https://www.scholarshipportal.com/api/v1/search
+  origin_file: 100_academic_sources.md
+- source_id: findaphd_findamasters_findapostdoc
+  name: FindAPhD / FindAMasters / FindAPostDoc
+  domain: findaphd.com
+  scope:
+  - phd
+  - masters
+  - postdoc
+  postings_page: https://www.findaphd.com
+  api_endpoint: https://www.findaphd.com/api/search
+  origin_file: 100_academic_sources.md
+- source_id: inomics
+  name: Inomics
+  domain: inomics.com
+  scope:
+  - fellowships
+  - phd
+  - summer_schools
+  postings_page: https://inomics.com
+  api_endpoint: https://inomics.com/api/v1/offers
+  origin_file: 100_academic_sources.md
+- source_id: academic_positions
+  name: Academic Positions
+  domain: academicpositions.com
+  scope:
+  - phd
+  - postdoc
+  - faculty_jobs
+  postings_page: https://academicpositions.com
+  api_endpoint: https://academicpositions.com/api/v1/jobs
+  origin_file: 100_academic_sources.md
+- source_id: jobs_ac_uk
+  name: jobs.ac.uk
+  domain: jobs.ac.uk
+  scope:
+  - phd_studentships
+  - postdoc
+  - academic_jobs
+  postings_page: https://www.jobs.ac.uk
+  api_endpoint: https://www.jobs.ac.uk
+  origin_file: 100_academic_sources.md
+- source_id: academicjobsonline
+  name: AcademicJobsOnline
+  domain: academicjobsonline.org
+  scope:
+  - postdoc
+  - faculty
+  postings_page: https://academicjobsonline.org
+  api_endpoint: https://academicjobsonline.org
+  origin_file: 100_academic_sources.md
+- source_id: un_careers_internship_programme
+  name: UN Careers Internship Programme
+  domain: careers.un.org
+  scope:
+  - internships
+  - fellowships
+  postings_page: https://careers.un.org
+  api_endpoint: https://careers.un.org
+  origin_file: 100_academic_sources.md
+- source_id: idealist_org
+  name: Idealist.org
+  domain: idealist.org
+  scope:
+  - internships
+  - fellowships
+  postings_page: https://www.idealist.org
+  api_endpoint: https://www.idealist.org
+  origin_file: 100_academic_sources.md
+- source_id: researchgate_opportunities_platform
+  name: ResearchGate Opportunities Platform
+  domain: researchgate.net
+  scope:
+  - fellowships
+  - postdoc
+  - conferences
+  postings_page: https://www.researchgate.net/jobs/research
+  api_endpoint: https://www.researchgate.net/graphql
+  origin_file: 100_academic_sources.md
+- source_id: masterprograms_com
+  name: Masterprograms.com
+  domain: masterprograms.com
+  scope:
+  - masters
+  - fellowships
+  - phd
+  postings_page: https://www.masterprograms.com
+  api_endpoint: https://www.masterprograms.com/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: european_science_foundation_esf
+  name: European Science Foundation (ESF)
+  domain: esf.org
+  scope:
+  - grants
+  - workshops
+  - research_mobility
+  postings_page: https://www.esf.org/funding-opportunities/
+  api_endpoint: https://www.esf.org/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: african_academy_of_sciences_aas
+  name: African Academy of Sciences (AAS)
+  domain: aasciences.africa
+  scope:
+  - fellowships
+  - grants
+  - travel_awards
+  postings_page: https://aasciences.africa/Grants
+  api_endpoint: https://aasciences.africa/api/v1/grants
+  origin_file: 100_academic_sources.md
+- source_id: interacademy_partnership_iap
+  name: InterAcademy Partnership (IAP)
+  domain: interacademies.org
+  scope:
+  - fellowships
+  - workshops
+  - awards
+  postings_page: https://www.interacademies.org/opportunities
+  api_endpoint: https://www.interacademies.org/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: world_academy_of_sciences_twas_unesco
+  name: World Academy of Sciences (TWAS - UNESCO)
+  domain: twas.org
+  scope:
+  - phd
+  - postdoc_grants
+  - exchange_programs
+  postings_page: https://twas.org/opportunities
+  api_endpoint: https://twas.org/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: open_society_foundations_osf
+  name: Open Society Foundations (OSF)
+  domain: opensocietyfoundations.org
+  scope:
+  - fellowships
+  - research_grants
+  - scholarships
+  postings_page: https://www.opensocietyfoundations.org/grants
+  api_endpoint: https://www.opensocietyfoundations.org/api/v1/grants
+  origin_file: 100_academic_sources.md
+- source_id: fulbright_nehru_opportunities_us_india
+  name: Fulbright-Nehru Opportunities (US-India)
+  domain: usief.org.in
+  scope:
+  - fellowships
+  - doctoral_exchanges
+  - postdocs
+  postings_page: https://www.usief.org.in
+  api_endpoint: https://www.usief.org.in/wp-json/wp/v2/pages
+  origin_file: 100_academic_sources.md
+- source_id: council_of_american_overseas_research_centers_caorc
+  name: Council of American Overseas Research Centers (CAORC)
+  domain: caorc.org
+  scope:
+  - fellowships
+  - travel_grants
+  - seminar_awards
+  postings_page: https://www.caorc.org/fellowships
+  api_endpoint: https://www.caorc.org/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: academic_gates
+  name: Academic Gates
+  domain: academicgates.com
+  scope:
+  - phd
+  - research_grants
+  - postdoc
+  postings_page: https://www.academicgates.com
+  api_endpoint: https://www.academicgates.com/api/v1/jobs
+  origin_file: 100_academic_sources.md
+- source_id: asia_europe_foundation_asef
+  name: Asia-Europe Foundation (ASEF)
+  domain: asef.org
+  scope:
+  - workshops
+  - summer_universities
+  - research_projects
+  postings_page: https://asef.org/projects/
+  api_endpoint: https://asef.org/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: campus_austria_oead
+  name: Campus Austria (OeAD)
+  domain: grants.at
+  scope:
+  - scholarships
+  - exchange_programs
+  - phd
+  postings_page: https://grants.at/en/
+  api_endpoint: https://grants.at/api/v1/scholarships
+  origin_file: 100_academic_sources.md
+- source_id: caldo_consortium
+  name: Caldo Consortium
+  domain: caldo.ca
+  scope:
+  - graduate
+  - phd
+  postings_page: https://caldo.ca
+  api_endpoint: https://caldo.ca/wp-json/wp/v2/pages
+  origin_file: 100_academic_sources.md
+- source_id: turkiye_scholarships
+  name: Türkiye Scholarships
+  domain: turkiyeburslari.gov.tr
+  scope:
+  - scholarships
+  - masters
+  - phd
+  - fellowships
+  postings_page: https://www.turkiyeburslari.gov.tr
+  api_endpoint: https://tbbs.turkiyeburslari.gov.tr/api/announcements
+  origin_file: 100_academic_sources.md
+- source_id: national_research_foundation_nrf_south_africa
+  name: National Research Foundation (NRF South Africa)
+  domain: nrf.ac.za
+  scope:
+  - bursaries
+  - doctoral_grants
+  - postdoc_fellowships
+  postings_page: https://www.nrf.ac.za/funding/
+  api_endpoint: https://www.nrf.ac.za/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: irish_research_council_irc
+  name: Irish Research Council (IRC)
+  domain: research.ie
+  scope:
+  - fellowships
+  - postdoc
+  postings_page: https://research.ie/funding/
+  api_endpoint: https://research.ie/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: foundation_for_science_and_technology_fct_portugal
+  name: Foundation for Science and Technology (FCT Portugal)
+  domain: fct.pt
+  scope:
+  - phd_studentships
+  - grants
+  - sabbatical_fellowships
+  postings_page: https://www.fct.pt/en/concursos/
+  api_endpoint: https://www.fct.pt/jsonapi/node/call
+  origin_file: 100_academic_sources.md
+- source_id: nserc_canada
+  name: NSERC Canada
+  domain: nserc-crsng.gc.ca
+  scope:
+  - postdoc
+  - doctoral_awards
+  - grants
+  postings_page: https://www.nserc-crsng.gc.ca/Students-Etudiants/index_eng.asp
+  api_endpoint: https://open.canada.ca/data/api/action/package_show?id=nserc-funding
+  origin_file: 100_academic_sources.md
+- source_id: max_delbruck_center_for_molecular_medicine_mdc_berlin
+  name: Max Delbrück Center for Molecular Medicine (MDC Berlin)
+  domain: mdc-berlin.de
+  scope:
+  - phd
+  - postdoc
+  - phd_schools
+  postings_page: https://www.mdc-berlin.de/career
+  api_endpoint: https://www.mdc-berlin.de/jsonapi/node/job_posting
+  origin_file: 100_academic_sources.md
+- source_id: international_astronomical_union_iau
+  name: International Astronomical Union (IAU)
+  domain: iau.org
+  scope:
+  - travel_grants
+  - phd_schools
+  - symposia
+  postings_page: https://www.iau.org/science/grants/
+  api_endpoint: https://www.iau.org/api/v1/grants
+  origin_file: 100_academic_sources.md
+- source_id: european_southern_observatory_eso
+  name: European Southern Observatory (ESO)
+  domain: recruitment.eso.org
+  scope:
+  - studentships
+  - postdoc
+  postings_page: https://recruitment.eso.org
+  api_endpoint: https://recruitment.eso.org/api/v1/jobs
+  origin_file: 100_academic_sources.md
+- source_id: iiasa
+  name: IIASA
+  domain: iiasa.ac.at
+  scope:
+  - summer_program
+  - postdoc
+  postings_page: https://iiasa.ac.at/opportunities
+  api_endpoint: https://iiasa.ac.at/jsonapi/node/opportunity
+  origin_file: 100_academic_sources.md
+- source_id: flatiron_institute_simons_foundation
+  name: Flatiron Institute - Simons Foundation
+  domain: simonsfoundation.org
+  scope:
+  - computational_fellowships
+  - postdoc
+  postings_page: https://www.simonsfoundation.org/flatiron/careers/
+  api_endpoint: https://www.simonsfoundation.org/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: perimeter_institute_for_theoretical_physics
+  name: Perimeter Institute for Theoretical Physics
+  domain: perimeterinstitute.ca
+  scope:
+  - masters
+  - phd
+  - visiting_fellowships
+  postings_page: https://perimeterinstitute.ca/training
+  api_endpoint: https://perimeterinstitute.ca/wp-json/wp/v2/pages
+  origin_file: 100_academic_sources.md
+- source_id: pasteur_institute
+  name: Pasteur Institute
+  domain: pasteur.fr
+  scope:
+  - phd
+  - postdoc
+  postings_page: https://www.pasteur.fr/en/education
+  api_endpoint: https://www.pasteur.fr/en/jsonapi/node/education
+  origin_file: 100_academic_sources.md
+- source_id: barcelona_institute_of_science_and_technology_bist
+  name: Barcelona Institute of Science and Technology (BIST)
+  domain: bist.eu
+  scope:
+  - postdoc
+  - phd_grants
+  postings_page: https://bist.eu/education/
+  api_endpoint: https://bist.eu/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: oist_okinawa_institute_of_science_and_technology
+  name: OIST - Okinawa Institute of Science and Technology
+  domain: admissions.oist.jp
+  scope:
+  - phd
+  - internships
+  postings_page: https://admissions.oist.jp
+  api_endpoint: https://admissions.oist.jp/wp-json/wp/v2/pages
+  origin_file: 100_academic_sources.md
+- source_id: wellcome_sanger_institute
+  name: Wellcome Sanger Institute
+  domain: sanger.ac.uk
+  scope:
+  - phd
+  - postdoc
+  - visiting_scholar
+  postings_page: https://www.sanger.ac.uk/about/study-and-train/
+  api_endpoint: https://www.sanger.ac.uk/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md

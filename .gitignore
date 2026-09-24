@@ -1,0 +1,57 @@
+# --- Private working brief: never commit ---
+opportunity_intelligence_weekend_build.md
+
+# --- Secrets / credentials ---
+.env
+.env.*
+!.env.example
+*.key
+*token*.txt
+*token*.json
+cookies*
+*.session
+auth_state*
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Editors / OS ---
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# --- Collected data (kept private & out of git; manifests are committed) ---
+data/raw/
+data/normalized/
+data/curated/
+data/cache/
+data/inbox/
+
+# --- Model artifacts / training runs (weights never in git) ---
+models/
+checkpoints/
+runs/
+*.safetensors
+*.bin
+*.ckpt
+*.gguf
+*.onnx
+
+# --- Notebook / Colab droppings ---
+.ipynb_checkpoints/
+
+# --- Large temporary files ---
+*.tmp
+*.log
