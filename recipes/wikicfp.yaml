@@ -1,0 +1,9 @@
+source_id: wikicfp
+source_name: WikiCFP
+postings_page: http://www.wikicfp.com/cfp/
+method: rss
+parser_version: 1
+last_tested: '2026-09-24'
+notes: auto-provisioned from source inventory; hand-tune as needed
+feed_url: http://www.wikicfp.com/cfp/rss
+max_records: 120

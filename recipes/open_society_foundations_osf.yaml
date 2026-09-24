@@ -1,0 +1,9 @@
+source_id: open_society_foundations_osf
+source_name: Open Society Foundations (OSF)
+postings_page: https://www.opensocietyfoundations.org/grants
+method: rss
+parser_version: 1
+last_tested: '2026-09-24'
+notes: auto-provisioned from source inventory; hand-tune as needed
+feed_url: https://www.opensocietyfoundations.org/grants/rss
+max_records: 120

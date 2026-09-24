@@ -18,13 +18,29 @@ resume exactly where work stopped. Update after every milestone.
 - [x] Polite fetching framework `collectors/base.py` (cache, per-host delay+jitter,
       Retry-After/backoff, robots.txt check, honest User-Agent)
 - [x] Private GitHub repository `sadatdaniel/opportunity-slm-training` created and pushed
-- [x] Source inventory probe (`python -m project.sources.inventory`) — WP REST/other API,
-      RSS/Atom, robots.txt, response characteristics per source
-- [x] Inventory report: `reports/source_inventory.md` + machine-readable `data/inventory.json`
+- [x] Source inventory probe over all 106 sources → `reports/source_inventory.md`
+      + `data/inventory.json`: 14 wp_rest, 7 rss, 54 html, 17 needs_manual_review,
+      14 blocked (documented, not bypassed)
+- [x] Collector framework: WP REST (pagination, embedded terms, deadline fields),
+      RSS (optional detail fetch), recipe-driven HTML; provenance-complete records
+- [x] Recipe auto-provisioning from inventory (39 recipes) + manifest log
+- [x] Normalization pipeline (`project/normalize.py`) and layered deduplication
+      (`project/dedupe.py`) with duplicate-group evidence (tests: 23 passing)
+- [x] "Ponytail" simplification pass on collection code (user-installed plugin,
+      loaded from disk; simpler host-slot reservation, dead state removed)
 
 ## In progress
 
-- (nothing currently running)
+- Collection wave 1 (`wp_rest,rss` methods) running in background over ~21 viable
+  API/feed sources; adaptive quotas ~250 WP / ~120 RSS records per source
+
+## Notes for next session
+
+- After wave 1 finishes: run `python -m project.normalize` then `python -m project.dedupe`,
+  review `reports/normalization_report.md` and `reports/dedup_report.md`
+- HTML sources (54) need hand-written selector recipes — do the biggest first
+  (EURAXESS, DAAD, after_school_africa, academic_gates all have allowed HTML pages)
+- Blocked sources (14) stay blocked; documented in inventory, do not bypass
 
 ## Remaining (build-brief order)
 

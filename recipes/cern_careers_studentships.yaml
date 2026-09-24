@@ -1,0 +1,9 @@
+source_id: cern_careers_studentships
+source_name: CERN Careers & Studentships
+postings_page: https://careers.cern/students
+method: rss
+parser_version: 1
+last_tested: '2026-09-24'
+notes: auto-provisioned from source inventory; hand-tune as needed
+feed_url: https://careers.cern/students/feed
+max_records: 120
