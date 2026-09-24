@@ -16,19 +16,18 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import datetime, timezone
+import time
+from datetime import UTC, datetime
 from pathlib import Path
 
 import numpy as np
 import torch
-import time
 
-from training.common.datasets import label_maps, load_split, load_taxonomy_categories
+from training.common.datasets import load_split, load_taxonomy_categories
 from training.common.experiment import PROJECT_ROOT
 from training.common.metrics import (
     classification_metrics,
     fit_temperature,
-    measure_latency,
 )
 
 DEFAULT_MODEL = PROJECT_ROOT / "models" / "classifier" / "v0.1.0"
@@ -57,8 +56,9 @@ def predict_trained(model_path: Path, texts: list[str], labels: list[str], devic
 
 def predict_zero_shot(base_model: str, texts: list[str], categories: list[str], device: str, limit: int | None) -> tuple[np.ndarray, float]:
     """Zero-shot SystemOne baseline: softmax over per-category criterion scores."""
-    from training.systemone.engine import ChoiceQuestion, SystemOneEngine
     from transformers import AutoModelForCausalLM, AutoTokenizer
+
+    from training.systemone.engine import ChoiceQuestion, SystemOneEngine
 
     tokenizer = AutoTokenizer.from_pretrained(base_model)
     if tokenizer.pad_token is None:
@@ -96,7 +96,7 @@ def main(argv: list[str] | None = None) -> int:
     y_test = [r["target"] for r in test.examples]
     texts = [r["input"] for r in test.examples]
 
-    results: dict = {"evaluated_at": datetime.now(timezone.utc).isoformat(), "device": device,
+    results: dict = {"evaluated_at": datetime.now(UTC).isoformat(), "device": device,
                      "test_size": len(test.examples), "taxonomy": "taxonomy_v1"}
 
     # -- trained classifier ---------------------------------------------------
@@ -124,7 +124,7 @@ def main(argv: list[str] | None = None) -> int:
     results["zero_shot_baseline"]["median_latency_ms"] = round(latency_zs, 1)
 
     REPORT_DIR.mkdir(exist_ok=True)
-    out = REPORT_DIR / f"classifier_eval_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.json"
+    out = REPORT_DIR / f"classifier_eval_{datetime.now(UTC).strftime('%Y%m%d_%H%M%S')}.json"
     out.write_text(json.dumps(results, indent=1), encoding="utf-8")
 
     summary = {

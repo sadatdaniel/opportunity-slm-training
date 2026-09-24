@@ -23,12 +23,11 @@ import sys
 import threading
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime, timezone
-from pathlib import Path
+from datetime import UTC, datetime
 
 import yaml
 
-from project.annotate import build_messages, input_hash, parse_annotation, validate
+from project.annotate import build_messages, input_hash, parse_annotation
 from project.freeze_corpus import PROJECT_ROOT
 from project.teachers import TeacherPool, load_env
 
@@ -46,7 +45,7 @@ def verify_one(pool: TeacherPool, task: str, entry: dict, record: dict) -> dict:
         "original_label": (entry.get("parsed_annotation") or {}).get("primary_category"),
         "original_provider": entry.get("teacher_provider_slot"),
         "input_hash": input_hash(record),
-        "started_at": datetime.now(timezone.utc).isoformat(),
+        "started_at": datetime.now(UTC).isoformat(),
     }
     spec, raw = pool.call(build_messages(task, record), roles=["verifier", "second_opinion"])
     parsed = parse_annotation(raw)
@@ -58,7 +57,7 @@ def verify_one(pool: TeacherPool, task: str, entry: dict, record: dict) -> dict:
         verifier_label=label,
         verifier_validation=valid,
         verifier_reason=(parsed or {}).get("reason_for_label") if isinstance(parsed, dict) else None,
-        completed_at=datetime.now(timezone.utc).isoformat(),
+        completed_at=datetime.now(UTC).isoformat(),
     )
     outcome["agreement"] = outcome["original_label"] == label if valid == "valid" else None
     return outcome
@@ -125,7 +124,7 @@ def main(argv: list[str] | None = None) -> int:
                     "record_id": entry["record_id"],
                     "verify_task": args.task,
                     "error": f"{type(exc).__name__}: {exc}"[:200],
-                    "completed_at": datetime.now(timezone.utc).isoformat(),
+                    "completed_at": datetime.now(UTC).isoformat(),
                 }
             with write_lock:
                 out.write(json.dumps(outcome, ensure_ascii=False) + "\n")

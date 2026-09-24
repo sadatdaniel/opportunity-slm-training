@@ -42,7 +42,7 @@ def test_available_after_unblocks_next_day():
 
 def test_usage_roundtrip(tmp_path):
     usage = teachers._Usage({"rpm": 10, "rpd": 100}, 0.85)
-    usage.record_start()
+    assert usage.try_reserve()
     usage.record_result(ok=True, tokens=42)
     revived = teachers._Usage.from_dict(usage.to_dict(), {"rpm": 10, "rpd": 100}, 0.85)
     assert revived.requests_today == 1 and revived.tokens_today == 42

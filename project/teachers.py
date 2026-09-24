@@ -103,9 +103,35 @@ class _Usage:
                 self.minute_window.popleft()
             return len(self.minute_window) < self.max_rpm
 
-    def record_start(self) -> None:
+    def try_reserve(self) -> bool:
+        """Atomically check the budget AND reserve a request slot.
+
+        Reserving inside the lock prevents concurrent workers from bursting
+        past the per-minute limit (the check-then-start race that triggered
+        429 storms on the first full-corpus run).
+        """
         with self._lock:
-            self.minute_window.append(time.monotonic())
+            self._rollover()
+            if self.available_after:
+                if _today() >= self.available_after:
+                    self.available_after = None
+                else:
+                    return False
+            if self.requests_today >= self.max_rpd:
+                return False
+            now = time.monotonic()
+            while self.minute_window and now - self.minute_window[0] > 60:
+                self.minute_window.popleft()
+            if len(self.minute_window) >= self.max_rpm:
+                return False
+            self.minute_window.append(now)
+            return True
+
+    def daily_dry(self) -> bool:
+        """True when the daily budget is spent (vs a transient minute-window cooldown)."""
+        with self._lock:
+            self._rollover()
+            return self.requests_today >= self.max_rpd or bool(self.available_after)
 
     def record_result(self, *, ok: bool, tokens: int = 0, retry_after: str | None = None) -> None:
         with self._lock:
@@ -117,7 +143,7 @@ class _Usage:
             else:
                 self.failed += 1
                 if retry_after:
-                    self.last_429 = datetime.now(timezone.utc).isoformat()
+                    self.last_429 = datetime.now(UTC).isoformat()
                     self.available_after = retry_after
 
     def to_dict(self) -> dict:
@@ -179,7 +205,7 @@ class TeacherPool:
     def _candidates(self, roles: list[str]) -> list[dict]:
         return [
             p for p in self.providers
-            if p.get("role") in roles and p["usage"].budget_left() and not p.get("disabled")
+            if p.get("role") in roles and not p.get("disabled") and p["usage"].daily_dry() is False
         ]
 
     def save_state(self) -> None:
@@ -191,21 +217,41 @@ class TeacherPool:
 
     # -- calls ------------------------------------------------------------------
 
-    def call(self, messages: list[dict], *, roles: list[str] | None = None, json_mode: bool = True) -> tuple[dict, str]:
+    def call(self, messages: list[dict], *, roles: list[str] | None = None, json_mode: bool = True, max_cooldown_seconds: float = 300.0) -> tuple[dict, str]:
         """Call the first available provider matching `roles`; returns (provider_spec, text).
 
-        Rotates through same-role providers on quota exhaustion, honors
-        Retry-After, and backs off exponentially on 429/5xx (max 2 retries
-        per provider before rotating).
+        Rotates through same-role providers, honors Retry-After, backs off
+        exponentially on 429/5xx (max 2 retries per provider before rotating),
+        and WAITS OUT transient rate-limit cooldowns: when every matching slot
+        is minute-window-clogged but no daily budget is spent, the call sleeps
+        and retries rather than failing (the first full-corpus run died to a
+        429 storm here). Only real daily exhaustion (or a long dry spell)
+        raises QuotaExhausted.
         """
         roles = roles or ["primary"]
         attempted: set[str] = set()
+        cooldown = 0.0
         while True:
-            candidates = [p for p in self._candidates(roles) if p["name"] not in attempted]
-            if not candidates:
-                self.save_state()
-                raise QuotaExhausted(f"no provider available for roles={roles}")
-            spec = candidates[0]
+            spec = next((p for p in self._candidates(roles) if p["name"] not in attempted), None)
+            if spec is None:
+                # everything matching is either attempted-and-failed, disabled,
+                # or cooling down; distinguish daily exhaustion from transient
+                if any(
+                    p.get("role") in roles and not p.get("disabled") and p["usage"].daily_dry()
+                    for p in self.providers
+                ):
+                    self.save_state()
+                    raise QuotaExhausted(f"daily budget spent on all providers for roles={roles}")
+                if cooldown >= max_cooldown_seconds:
+                    self.save_state()
+                    raise QuotaExhausted(f"all providers cooling down for over {max_cooldown_seconds:.0f}s (roles={roles})")
+                time.sleep(30.0)
+                cooldown += 30.0
+                attempted.clear()  # minute windows refill; try everyone again
+                continue
+            if not spec["usage"].try_reserve():
+                attempted.add(spec["name"])
+                continue
             try:
                 text = self._call_one(spec, messages, json_mode)
                 return spec, text
@@ -220,7 +266,6 @@ class TeacherPool:
     def _call_one(self, spec: dict, messages: list[dict], json_mode: bool) -> str:
         backoff = 4.0
         for attempt in range(3):
-            spec["usage"].record_start()
             try:
                 if spec["kind"] == "gemini":
                     return self._call_gemini(spec, messages, json_mode)

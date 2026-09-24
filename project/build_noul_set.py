@@ -21,7 +21,6 @@ import json
 import random
 import sys
 from collections import Counter
-from pathlib import Path
 
 import yaml
 
@@ -133,7 +132,7 @@ def main(argv: list[str] | None = None) -> int:
     stats = Counter((item["family"], item["target"]) for item in items)
     print(f"wrote {len(items)} items -> {OUT_PATH}")
     for (family, target), count in sorted(stats.items()):
-        print(f"  {family:28} target={str(target):5} {count}")
+        print(f"  {family:28} target={target!s:5} {count}")
     return 0
 
 

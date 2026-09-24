@@ -11,7 +11,6 @@ import pytest
 import torch
 
 from training.systemone.engine import (
-    ChoiceAnswer,
     ChoiceQuestion,
     NoulQuestion,
     SystemOneEngine,
@@ -42,9 +41,10 @@ CHOICE_FUNDING = ChoiceQuestion(
 def engine():
     pytest.importorskip("transformers")
     try:
-        from transformers import AutoTokenizer, GPT2Config, GPT2LMHeadModel
-        from training.common.experiment import PROJECT_ROOT
         import os
+
+        from transformers import AutoTokenizer, GPT2Config, GPT2LMHeadModel
+
         os.environ.setdefault("HF_HUB_OFFLINE", "1")
         tokenizer = AutoTokenizer.from_pretrained("SupraLabs/Supra2-100M-Instruct")
     except Exception:  # noqa: BLE001 - offline machines skip rather than fail

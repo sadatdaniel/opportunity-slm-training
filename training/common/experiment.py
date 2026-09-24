@@ -9,13 +9,12 @@ path — so any run can be reconstructed and audited.
 from __future__ import annotations
 
 import hashlib
-import json
 import os
 import platform
 import random
 import subprocess
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import yaml
@@ -43,8 +42,8 @@ def detect_hardware(device: str) -> dict:
         info["torch"] = str(torch.__version__)
         info["transformers"] = str(transformers.__version__)
         try:
-            import trl
             import peft
+            import trl
 
             info["trl"] = trl.__version__
             info["peft"] = peft.__version__
@@ -101,7 +100,7 @@ class Experiment:
         self.capability = capability
         self.config = config
         self.config_path = config_path
-        self.run_id = config.get("run_id") or f"{capability}_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}"
+        self.run_id = config.get("run_id") or f"{capability}_{datetime.now(UTC).strftime('%Y%m%d_%H%M%S')}"
         self.seed = int(config.get("seed", 42))
         self.device = detect_device()
         self.started = time.time()
@@ -136,7 +135,7 @@ class Experiment:
             "checkpoint_path": checkpoint,
             "config_snapshot": self.config,
             "metrics": metrics,
-            "created_at": datetime.now(timezone.utc).isoformat(),
+            "created_at": datetime.now(UTC).isoformat(),
         }
         MANIFEST_DIR.mkdir(parents=True, exist_ok=True)
         path = MANIFEST_DIR / f"{self.run_id}.yaml"

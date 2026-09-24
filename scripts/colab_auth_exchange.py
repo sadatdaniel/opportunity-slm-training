@@ -12,8 +12,8 @@ from importlib import resources
 
 sys.path.insert(0, "/root/.local/share/uv/tools/google-colab-cli/lib/python3.12/site-packages")
 
-from google_auth_oauthlib.flow import InstalledAppFlow
 from colab_cli.auth import PUBLIC_SCOPES, REMOTE_REDIRECT_URI
+from google_auth_oauthlib.flow import InstalledAppFlow
 
 code = sys.argv[1]
 client_config = json.loads(resources.files("colab_cli").joinpath("oauth_config.json").read_text())

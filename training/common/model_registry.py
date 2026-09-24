@@ -7,7 +7,7 @@ version, and evaluation report reference. Never ``final_model``.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import yaml
@@ -31,7 +31,7 @@ def register(capability: str, version: str, *, run_id: str, dataset_version: str
         "dataset_version": dataset_version,
         "git_commit": git_commit,
         "taxonomy": taxonomy,
-        "registered_at": datetime.now(timezone.utc).isoformat(),
+        "registered_at": datetime.now(UTC).isoformat(),
         **(extra or {}),
     }
     (path / "metadata.yaml").write_text(yaml.safe_dump(metadata, sort_keys=False), encoding="utf-8")

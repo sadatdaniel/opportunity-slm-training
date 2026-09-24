@@ -18,8 +18,7 @@ import json
 import statistics
 import sys
 import time
-from datetime import datetime, timezone
-from pathlib import Path
+from datetime import UTC, datetime
 
 import torch
 
@@ -131,7 +130,6 @@ def main(argv: list[str] | None = None) -> int:
     from project.freeze_corpus import PROJECT_ROOT as ROOT
 
     lines = (ROOT / "data" / "normalized" / "deduped.jsonl").read_text(encoding="utf-8").splitlines()
-    import json
 
     state = json.loads(lines[0])["clean_text"]
 
@@ -142,7 +140,7 @@ def main(argv: list[str] | None = None) -> int:
         "state_words": args.state_words,
         "limitation": "v0 prototype re-encodes the state per question; tokens processed scale with question count (no KV reuse yet)",
         "rows": rows,
-        "benchmarked_at": datetime.now(timezone.utc).isoformat(),
+        "benchmarked_at": datetime.now(UTC).isoformat(),
     }
     REPORT_DIR.mkdir(exist_ok=True)
     out = REPORT_DIR / "systemone_batch_benchmark.json"

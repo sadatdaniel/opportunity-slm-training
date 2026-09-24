@@ -16,11 +16,10 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import numpy as np
-import yaml
 from sklearn.metrics import average_precision_score, precision_recall_fscore_support, roc_auc_score
 
 from training.common.experiment import PROJECT_ROOT
@@ -116,11 +115,11 @@ def main(argv: list[str] | None = None) -> int:
     payload = {
         "model": args.model,
         "items_file": args.items,
-        "evaluated_at": datetime.now(timezone.utc).isoformat(),
+        "evaluated_at": datetime.now(UTC).isoformat(),
         "results": results,
     }
     REPORT_DIR.mkdir(exist_ok=True)
-    out = REPORT_DIR / f"noul_eval_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.json"
+    out = REPORT_DIR / f"noul_eval_{datetime.now(UTC).strftime('%Y%m%d_%H%M%S')}.json"
     out.write_text(json.dumps(payload, indent=1), encoding="utf-8")
     print(json.dumps({k: v for k, v in results.items() if k != "calibration_bins"}, indent=1))
     print(f"full results -> {out}")

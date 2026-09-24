@@ -21,7 +21,6 @@ import sys
 from pathlib import Path
 
 import yaml
-from datasets import Dataset
 from transformers import (
     AutoModelForSequenceClassification,
     AutoTokenizer,
@@ -29,8 +28,9 @@ from transformers import (
     TrainingArguments,
 )
 
+from datasets import Dataset
 from training.common.datasets import label_maps, load_split, load_taxonomy_categories
-from training.common.experiment import Experiment, PROJECT_ROOT
+from training.common.experiment import PROJECT_ROOT, Experiment
 from training.common.model_registry import register
 
 CONFIG_PATH = PROJECT_ROOT / "training" / "classifier" / "config.yaml"

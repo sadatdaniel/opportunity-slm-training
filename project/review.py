@@ -14,7 +14,7 @@ Usage::
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import streamlit as st
@@ -177,7 +177,7 @@ def main() -> None:
     )
     if st.button("Save decision") and action != "skip":
         entry["original_teacher_parsed"] = entry.get("original_teacher_parsed") or entry.get("parsed_annotation")
-        entry["reviewed_at"] = datetime.now(timezone.utc).isoformat()
+        entry["reviewed_at"] = datetime.now(UTC).isoformat()
         entry["human_notes"] = note or entry.get("human_notes")
 
         changed: list[str] = []

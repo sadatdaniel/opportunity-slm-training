@@ -20,7 +20,6 @@ System-One engine used by `/v1/systemone` (brief 4B).
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 import yaml
 from fastapi import FastAPI, HTTPException
