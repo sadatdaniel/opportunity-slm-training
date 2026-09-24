@@ -235,10 +235,14 @@ class TeacherPool:
             spec = next((p for p in self._candidates(roles) if p["name"] not in attempted), None)
             if spec is None:
                 # everything matching is either attempted-and-failed, disabled,
-                # or cooling down; distinguish daily exhaustion from transient
-                if any(
-                    p.get("role") in roles and not p.get("disabled") and p["usage"].daily_dry()
+                # or cooling down; distinguish daily exhaustion from transient.
+                # ALL matching slots must be daily-dry: one exhausted slot must
+                # not starve its siblings that still have budget (observed when
+                # gemini_1 crossed its daily cap while 2-4 had ~500 left).
+                if all(
+                    p.get("role") in roles and (p.get("disabled") or p["usage"].daily_dry())
                     for p in self.providers
+                    if p.get("role") in roles
                 ):
                     self.save_state()
                     raise QuotaExhausted(f"daily budget spent on all providers for roles={roles}")
