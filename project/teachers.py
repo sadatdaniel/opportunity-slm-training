@@ -55,9 +55,11 @@ def _today() -> str:
 
 
 class _Usage:
-    """Rolling usage counters for one provider slot."""
+    """Rolling usage counters for one provider slot (thread-safe)."""
 
     def __init__(self, limits: dict, safety_margin: float):
+        import threading
+
         self.rpm = limits.get("rpm")
         self.tpm = limits.get("tpm")
         self.rpd = limits.get("rpd")
@@ -70,6 +72,7 @@ class _Usage:
         self.last_429: str | None = None
         self.available_after: str | None = None
         self.day = _today()
+        self._lock = threading.Lock()
 
     def _rollover(self) -> None:
         if self.day != _today():
@@ -87,32 +90,35 @@ class _Usage:
         return (self.rpm or 10**9) * self.margin
 
     def budget_left(self) -> bool:
-        self._rollover()
-        if self.available_after and _today() >= self.available_after:
-            self.available_after = None
-        if self.available_after:
-            return False
-        if self.requests_today >= self.max_rpd:
-            return False
-        now = time.monotonic()
-        while self.minute_window and now - self.minute_window[0] > 60:
-            self.minute_window.popleft()
-        return len(self.minute_window) < self.max_rpm
+        with self._lock:
+            self._rollover()
+            if self.available_after and _today() >= self.available_after:
+                self.available_after = None
+            if self.available_after:
+                return False
+            if self.requests_today >= self.max_rpd:
+                return False
+            now = time.monotonic()
+            while self.minute_window and now - self.minute_window[0] > 60:
+                self.minute_window.popleft()
+            return len(self.minute_window) < self.max_rpm
 
     def record_start(self) -> None:
-        self.minute_window.append(time.monotonic())
+        with self._lock:
+            self.minute_window.append(time.monotonic())
 
     def record_result(self, *, ok: bool, tokens: int = 0, retry_after: str | None = None) -> None:
-        self._rollover()
-        if ok:
-            self.successful += 1
-            self.requests_today += 1
-            self.tokens_today += tokens
-        else:
-            self.failed += 1
-            if retry_after:
-                self.last_429 = datetime.now(UTC).isoformat()
-                self.available_after = retry_after
+        with self._lock:
+            self._rollover()
+            if ok:
+                self.successful += 1
+                self.requests_today += 1
+                self.tokens_today += tokens
+            else:
+                self.failed += 1
+                if retry_after:
+                    self.last_429 = datetime.now(timezone.utc).isoformat()
+                    self.available_after = retry_after
 
     def to_dict(self) -> dict:
         return {

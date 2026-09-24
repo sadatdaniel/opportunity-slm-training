@@ -8,6 +8,7 @@ import project.collect
 import project.dedupe
 import project.normalize
 from project.sources import inventory, registry
+from training.common import experiment as training_experiment
 
 
 def test_project_roots_are_repo_root():
@@ -17,4 +18,6 @@ def test_project_roots_are_repo_root():
     assert project.normalize.PROJECT_ROOT == expected
     assert project.dedupe.PROJECT_ROOT == expected
     assert inventory.PROJECT_ROOT == expected
+    assert training_experiment.PROJECT_ROOT == expected
     assert (expected / "sources" / "registry.yaml").exists()
+    assert (expected / "training" / "classifier" / "config.yaml").exists()

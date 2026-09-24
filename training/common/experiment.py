@@ -20,7 +20,7 @@ from pathlib import Path
 
 import yaml
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 MANIFEST_DIR = PROJECT_ROOT / "experiments" / "manifests"
 
 

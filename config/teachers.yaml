@@ -53,8 +53,12 @@ providers:
     api_key_env: DEEPSEEK_API_KEY
     model: deepseek-flash
     role: verifier
-    limits: {rpm: 30, tpm: 200000, rpd: 500}
-    safety_margin: 0.85
+    # DeepSeek documents CONCURRENCY limits, not RPM (2500 simultaneous for
+    # deepseek-flash, 500 for v4-pro) — budgets below are effectively disabled
+    # and the real limiter is max_concurrency.
+    limits: {rpm: 100000, tpm: 100000000, rpd: 1000000}
+    safety_margin: 0.99
+    max_concurrency: 64
 
   - name: zai
     kind: openai

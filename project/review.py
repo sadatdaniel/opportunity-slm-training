@@ -117,7 +117,7 @@ def main() -> None:
     note = st.text_input("review note")
     action = st.radio(
         "decision",
-        ["skip", "approve", "corrected", "reject", "mark ambiguous"],
+        ["skip", "approved", "corrected", "reject", "mark ambiguous"],
         horizontal=True,
         label_visibility="collapsed",
     )

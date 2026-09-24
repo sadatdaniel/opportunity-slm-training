@@ -39,6 +39,8 @@ DATASETS_DIR = PROJECT_ROOT / "datasets"
 NORMALIZED_PATH = PROJECT_ROOT / "data" / "normalized" / "deduped.jsonl"
 
 TAXONOMY_CONFIG = PROJECT_ROOT / "config" / "taxonomy_v1.yaml"
+# annotation task name -> dataset capability directory (brief 28 layout)
+CAPABILITY_DIR = {"classify": "classifier", "summarize": "summarizer"}
 SPLIT_RATIOS = {"train": 0.8, "validation": 0.1, "test": 0.1}
 UNSEEN_SOURCES_FRACTION = 0.15  # of sources, held out entirely
 SEED = 42
@@ -59,7 +61,8 @@ def quality_tier(annotation: dict) -> str:
     parsed = annotation.get("parsed_annotation")
     if parsed is None:
         return "quarantine"
-    if annotation.get("review_status") in ("approved", "corrected"):
+    # review UI saves "approve"; normalize here for robustness
+    if annotation.get("review_status") in ("approved", "approve", "corrected"):
         return "gold"
     # any warning flag from the teacher keeps it out of silver
     if annotation.get("needs_human_review"):
@@ -141,7 +144,15 @@ def training_example(task: str, record: dict, annotation: dict) -> dict | None:
 
 
 def build(task: str, version: str) -> Path:
-    annotations = {a["record_id"]: a for a in load_jsonl(ANNOTATION_DIR / f"{task}.jsonl")}
+    entries = load_jsonl(ANNOTATION_DIR / f"{task}.jsonl")
+    # dedupe by record_id, preferring human-reviewed entries over unreviewed
+    # duplicates (the pilot wrote overlapping batches)
+    annotations: dict[str, dict] = {}
+    for entry in entries:
+        rid = entry["record_id"]
+        existing = annotations.get(rid)
+        if existing is None or (entry.get("review_status") and not existing.get("review_status")):
+            annotations[rid] = entry
     records = {r["record_id"]: r for r in load_jsonl(NORMALIZED_PATH)}
     if not annotations:
         print(f"no annotations found in {ANNOTATION_DIR / f'{task}.jsonl'} — run project.annotate first")
@@ -165,7 +176,7 @@ def build(task: str, version: str) -> Path:
     )
     by_id = {record["record_id"]: example for record, _, example in pairs}
 
-    out_dir = DATASETS_DIR / task / version
+    out_dir = DATASETS_DIR / CAPABILITY_DIR[task] / version
     out_dir.mkdir(parents=True, exist_ok=True)
     manifest = {
         "task": task,
