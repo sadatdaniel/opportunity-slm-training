@@ -100,12 +100,32 @@ def main() -> None:
         st.subheader("TEACHER TARGET")
         if task == "classify":
             categories = load_taxonomy()
-            chosen = st.selectbox("primary_category", categories, index=categories.index(parsed.get("primary_category", categories[0])) if parsed.get("primary_category") in categories else 0)
-            st.caption(f"secondary: {parsed.get('secondary_plausible_categories')} · ambiguity: {parsed.get('classification_ambiguity')}")
-            st.caption(f"reason: {parsed.get('reason_for_label')}")
+            current = parsed.get("primary_category", categories[0])
+            primary = st.selectbox(
+                "primary_category",
+                categories,
+                index=categories.index(current) if current in categories else 0,
+            )
+            secondary_default = [
+                s for s in (parsed.get("secondary_plausible_categories") or [])
+                if s in categories and s != primary
+            ]
+            secondary = st.multiselect(
+                "secondary_plausible_categories",
+                [c for c in categories if c != primary],
+                default=secondary_default,
+                help="Dispute or clear the teacher's secondary guesses here.",
+            )
+            ambiguity = st.number_input(
+                "classification_ambiguity",
+                min_value=0.0, max_value=1.0,
+                value=float(parsed.get("classification_ambiguity") or 0.0),
+                step=0.05,
+            )
+            reason = st.text_area("reason_for_label", parsed.get("reason_for_label", ""))
+            st.caption(f"provider: {entry.get('teacher_provider_slot')} · {entry.get('teacher_model')} · {entry.get('teacher_timestamp')}")
         else:
             edited_summary = st.text_area("summary target", parsed.get("summary", ""), height=360)
-        st.caption(f"provider: {entry.get('teacher_provider_slot')} · {entry.get('teacher_model')} · {entry.get('teacher_timestamp')}")
     with right:
         st.subheader("FLAGS")
         st.write(entry.get("review_flags") or [])
@@ -114,6 +134,8 @@ def main() -> None:
             st.info(f"adjudicator ({entry.get('adjudication_provider')}) suggests: {entry['adjudication_suggestion']}")
 
     st.subheader("ACTION")
+    st.caption("Any field you change above is saved as a human correction "
+               "(the teacher's original output stays preserved in original_teacher_parsed).")
     note = st.text_input("review note")
     action = st.radio(
         "decision",
@@ -123,16 +145,35 @@ def main() -> None:
     )
     if st.button("Save decision") and action != "skip":
         entry["original_teacher_parsed"] = entry.get("original_teacher_parsed") or entry.get("parsed_annotation")
-        entry["review_status"] = action
         entry["reviewed_at"] = datetime.now(timezone.utc).isoformat()
         entry["human_notes"] = note or entry.get("human_notes")
+
+        changed: list[str] = []
         if task == "classify":
-            if action == "corrected" or (action == "approve" and parsed.get("primary_category") != chosen):
-                entry["human_category"] = chosen
-                entry["parsed_annotation"] = {**parsed, "primary_category": chosen}
-        elif action == "corrected":
+            new_parsed = dict(parsed)
+            if primary != parsed.get("primary_category"):
+                new_parsed["primary_category"] = primary
+                changed.append("primary_category")
+            if sorted(secondary) != sorted(parsed.get("secondary_plausible_categories") or []):
+                new_parsed["secondary_plausible_categories"] = secondary
+                changed.append("secondary_plausible_categories")
+            if abs(float(ambiguity) - float(parsed.get("classification_ambiguity") or 0)) > 1e-9:
+                new_parsed["classification_ambiguity"] = float(ambiguity)
+                changed.append("classification_ambiguity")
+            if reason and reason != (parsed.get("reason_for_label") or ""):
+                new_parsed["reason_for_label"] = reason
+                changed.append("reason_for_label")
+            entry["parsed_annotation"] = new_parsed
+            entry["human_category"] = primary
+            if changed:
+                entry["human_edited_fields"] = sorted(set(entry.get("human_edited_fields") or []) | set(changed))
+        elif task == "summarize" and action == "corrected":
             entry["human_corrected_output"] = edited_summary
             entry["parsed_annotation"] = {**parsed, "summary": edited_summary}
+
+        # a human decision resolves the review flag; only explicit ambiguity/reject keep it
+        entry["review_status"] = "corrected" if (action == "approved" and changed) else action
+        entry["needs_human_review"] = action in ("mark ambiguous", "reject")
         save_annotations(path, entries)
         st.cache_data.clear()
         st.rerun()

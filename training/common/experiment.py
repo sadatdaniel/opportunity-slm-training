@@ -40,8 +40,8 @@ def detect_hardware(device: str) -> dict:
         import torch
         import transformers
 
-        info["torch"] = torch.__version__
-        info["transformers"] = transformers.__version__
+        info["torch"] = str(torch.__version__)
+        info["transformers"] = str(transformers.__version__)
         try:
             import trl
             import peft

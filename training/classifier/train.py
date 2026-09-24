@@ -106,6 +106,9 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     use_bf16 = config.get("precision") == "bf16" and exp.device == "cuda"
+    # transformers 5 dropped warmup_ratio; express the configured ratio in steps
+    steps_per_epoch = max(1, len(train_ds) // (config["batch_size"] * config.get("gradient_accumulation", 1)))
+    warmup_steps = int(steps_per_epoch * config["epochs"] * config.get("warmup_ratio", 0.06))
     training_args = TrainingArguments(
         output_dir=str(exp.output_dir / "checkpoints"),
         num_train_epochs=config["epochs"],
@@ -113,7 +116,7 @@ def main(argv: list[str] | None = None) -> int:
         per_device_eval_batch_size=config["batch_size"],
         gradient_accumulation_steps=config.get("gradient_accumulation", 1),
         learning_rate=config["learning_rate"],
-        warmup_ratio=config.get("warmup_ratio", 0.0),
+        warmup_steps=warmup_steps,
         weight_decay=config.get("weight_decay", 0.0),
         bf16=use_bf16,
         eval_strategy="epoch",
@@ -123,7 +126,7 @@ def main(argv: list[str] | None = None) -> int:
         metric_for_best_model="eval_loss",
         logging_steps=10,
         report_to=[],
-        seed=config["seed"],
+        seed=config.get("seed", 42),
     )
 
     trainer = Trainer(

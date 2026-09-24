@@ -1,0 +1,64 @@
+run_id: classifier_20260924_204929
+capability: classifier
+git_commit: a105f4c0d50f474b4810f4c836695a9a1a56cee9
+model: SupraLabs/Supra2-100M-Instruct
+model_revision: main
+dataset_version: v1
+dataset_sha256:
+  test.jsonl: d80e8e61ecfd2a3fb15551d9729a12f914d8061f9405e3fe148c91ab6ade5c83
+  train.jsonl: d2b78b10ada0a6972ca4a250196e8644b8878739fb05c17bdee91516f35913d5
+  unseen_sources_test.jsonl: f6e62c76e6cb7ebd4817da03cb4b480e33a7637981471bef7ac3b3806d3723d4
+  validation.jsonl: c08dddc98a4400e93f968a5c94d64a1aa3638138488f78f992ef701c8e237f6c
+taxonomy: taxonomy_v1
+prompt_version: null
+seed: 42
+hyperparameters:
+  max_seq_length: 512
+  epochs: 1
+  learning_rate: 2.0e-05
+  batch_size: 4
+  gradient_accumulation: 1
+  warmup_ratio: 0.06
+  weight_decay: 0.01
+  optimizer: adamw_torch
+  scheduler: linear
+  precision: bf16
+hardware:
+  device: cpu
+  platform: Windows-11-10.0.26200-SP0
+  python: 3.14.7
+  torch: 2.14.0+cpu
+  transformers: 5.17.0
+  trl: 1.13.0
+  peft: 0.21.0
+elapsed_seconds: 252.9
+checkpoint_path: C:\Users\sadat\PycharmProjects\llm_training_project\runs\classifier_20260924_204929\checkpoints
+config_snapshot:
+  model: SupraLabs/Supra2-100M-Instruct
+  model_revision: main
+  taxonomy: taxonomy_v1
+  dataset_version: v1
+  output_version: v0.1.0
+  max_seq_length: 512
+  epochs: 1
+  learning_rate: 2.0e-05
+  batch_size: 4
+  gradient_accumulation: 1
+  warmup_ratio: 0.06
+  weight_decay: 0.01
+  optimizer: adamw_torch
+  scheduler: linear
+  precision: bf16
+  smoke:
+    epochs: 1
+    max_examples: 32
+    batch_size: 4
+    output_version: smoke
+metrics:
+  validation:
+    eval_loss: 3.893317222595215
+    eval_runtime: 38.3154
+    eval_samples_per_second: 0.418
+    eval_steps_per_second: 0.104
+    epoch: 1.0
+created_at: '2026-09-24T20:53:42.484119+00:00'
