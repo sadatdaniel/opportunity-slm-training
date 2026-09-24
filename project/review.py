@@ -96,7 +96,8 @@ def main() -> None:
     )
     disputed = load_verification()
     if filter_status == "deepseek-disputed":
-        pool = [e for e in entries if e["record_id"] in disputed]
+        # decided records leave the disputed queue (find them under approved/corrected/rejected)
+        pool = [e for e in entries if e["record_id"] in disputed and not e.get("review_status")]
     else:
         pool = [e for e in entries if filter_status == "all" or (e.get("review_status") or "pending") == filter_status]
     pool.sort(key=queue_sort_key)
@@ -104,7 +105,9 @@ def main() -> None:
     if not pool:
         st.success("Queue empty for this filter.")
         return
-    index = st.sidebar.number_input("Record", min_value=1, max_value=len(pool), value=1)
+    if "record_idx" not in st.session_state:
+        st.session_state.record_idx = 1
+    index = st.sidebar.number_input("Record", min_value=1, max_value=len(pool), key="record_idx")
     entry = pool[index - 1]
     record = records.get(entry["record_id"], {})
     parsed = entry.get("parsed_annotation") or {}
@@ -204,7 +207,11 @@ def main() -> None:
         entry["review_status"] = "corrected" if (action == "approved" and changed) else action
         entry["needs_human_review"] = action in ("mark ambiguous", "reject")
         save_annotations(path, entries)
+        # auto-advance: the saved record leaves the active queue, so keeping the
+        # same position shows the next one
+        st.session_state.record_idx = min(index, max(len(pool) - 1, 1))
         st.cache_data.clear()
+        st.toast(f"Saved: {action} — {record.get('title', '')[:60]}")
         st.rerun()
 
 
