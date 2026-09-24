@@ -43,9 +43,9 @@ providers:
     api_key_env: OPENROUTER_API_KEY
     model: nvidia/nemotron-3.5-lightning:free
     role: second_opinion
-    # daily quota unknown for free endpoints; keep a conservative cap
-    limits: {rpm: 15, tpm: 100000, rpd: 200}
-    safety_margin: 0.85
+    # account documents 1000 requests/day for free models; 850 = safety margin
+    limits: {rpm: 20, tpm: 100000, rpd: 850}
+    safety_margin: 1.0
 
   - name: deepseek
     kind: openai

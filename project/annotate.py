@@ -28,6 +28,8 @@ import hashlib
 import json
 import re
 import sys
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -159,7 +161,7 @@ def entry_base(task: str, record: dict) -> dict:
     }
 
 
-def annotate(task: str, input_path: Path, limit: int | None, pilot: bool) -> int:
+def annotate(task: str, input_path: Path, limit: int | None, pilot: bool, args_workers: int | None = None) -> int:
     pool = TeacherPool()
     if not pool.providers:
         print(
@@ -189,47 +191,46 @@ def annotate(task: str, input_path: Path, limit: int | None, pilot: bool) -> int
                 if entry.get("status") == "completed":
                     done[entry["record_id"]] = entry
 
-    stats = {"completed": 0, "skipped": 0, "second_opinions": 0, "disagreements": 0, "errors": 0}
-    with out_path.open("a", encoding="utf-8") as out:
-        for index, record in enumerate(records):
-            if record["record_id"] in done:
-                stats["skipped"] += 1
-                continue
-            entry = entry_base(task, record)
-            entry["started_at"] = datetime.now(UTC).isoformat()
-            entry["attempt_count"] = 1
+    stats = {"completed": 0, "skipped": 0, "second_opinions": 0, "disagreements": 0, "errors": 0, "rate_limited": 0}
+    targets = [r for r in records if r["record_id"] not in done]
+    stats["skipped"] = len(records) - len(targets)
+    write_lock = threading.Lock()
+    quota_dry = threading.Event()
+
+    def annotate_one(record: dict) -> dict:
+        entry = entry_base(task, record)
+        entry["started_at"] = datetime.now(UTC).isoformat()
+        entry["attempt_count"] = 1
+        if quota_dry.is_set():
+            entry.update(status="rate_limited", error_type="quota exhausted before processing")
+            return entry
+        try:
+            spec, raw = pool.call(build_messages(task, record))
+        except QuotaExhausted as exc:
+            quota_dry.set()
+            entry.update(status="rate_limited", error_type=str(exc)[:120])
+            return entry
+        except Exception as exc:  # noqa: BLE001 - record and continue
+            entry.update(status="error", error_type=f"{type(exc).__name__}: {exc}"[:200])
+            return entry
+
+        parsed = parse_annotation(raw)
+        validation = validate(task, parsed)
+        flags: list[str] = []
+        provider_meta = {
+            "teacher_provider": spec["kind"],
+            "teacher_provider_slot": spec["name"],
+            "teacher_model": spec["model"],
+        }
+
+        if validation == "invalid":
+            # one second opinion before giving up on the record
             try:
-                spec, raw = pool.call(build_messages(task, record))
-            except QuotaExhausted as exc:
-                entry.update(status="rate_limited", error_type=str(exc)[:120])
-                out.write(json.dumps(entry, ensure_ascii=False) + "\n")
-                stats["errors"] += 1
-                print(f"quota exhausted after {index} records; state saved - resume later")
-                break
-            except Exception as exc:  # noqa: BLE001 - record and continue
-                entry.update(status="error", error_type=f"{type(exc).__name__}: {exc}"[:200])
-                out.write(json.dumps(entry, ensure_ascii=False) + "\n")
-                stats["errors"] += 1
-                continue
-
-            parsed = parse_annotation(raw)
-            validation = validate(task, parsed)
-            flags: list[str] = []
-            provider_meta = {
-                "teacher_provider": spec["kind"],
-                "teacher_provider_slot": spec["name"],
-                "teacher_model": spec["model"],
-            }
-
-            if validation == "invalid":
-                # one second opinion before giving up on the record
-                try:
-                    spec2, raw2 = pool.call(build_messages(task, record), roles=["second_opinion", "primary"])
-                except Exception:  # noqa: BLE001 - fall back to primary result
-                    parsed2, provider2 = None, None
-                else:
-                    parsed2, provider2 = parse_annotation(raw2), spec2
-                    stats["second_opinions"] += 1
+                spec2, raw2 = pool.call(build_messages(task, record), roles=["second_opinion", "primary"])
+            except Exception:  # noqa: BLE001 - fall back to primary result
+                parsed2, provider2 = None, None
+            else:
+                parsed2, provider2 = parse_annotation(raw2), spec2
                 if validate(task, parsed2) in ("valid", "ambiguous") and provider2:
                     parsed, raw = parsed2, raw2
                     validation = validate(task, parsed)
@@ -240,40 +241,55 @@ def annotate(task: str, input_path: Path, limit: int | None, pilot: bool) -> int
                     )
                     flags.append("recovered_by_second_opinion")
 
-            if validation == "ambiguous" and task == "classify":
-                try:
-                    spec3, raw3 = pool.call(build_messages(task, record), roles=["adjudicator", "second_opinion"])
-                    adjudication = parse_annotation(raw3)
-                    if adjudication:
-                        entry["adjudication_suggestion"] = adjudication.get("primary_category")
-                        entry["adjudication_provider"] = spec3["name"]
-                        outcome = agreement(task, parsed, adjudication)
-                        flags.append("adjudicator_" + (outcome or "unparseable"))
-                except Exception:  # noqa: BLE001 - adjudication is best-effort
-                    flags.append("adjudication_unavailable")
+        if validation == "ambiguous" and task == "classify":
+            try:
+                spec3, raw3 = pool.call(build_messages(task, record), roles=["adjudicator", "second_opinion"])
+                adjudication = parse_annotation(raw3)
+                if adjudication:
+                    entry["adjudication_suggestion"] = adjudication.get("primary_category")
+                    entry["adjudication_provider"] = spec3["name"]
+                    outcome = agreement(task, parsed, adjudication)
+                    flags.append("adjudicator_" + (outcome or "unparseable"))
+            except Exception:  # noqa: BLE001 - adjudication is best-effort
+                flags.append("adjudication_unavailable")
 
-            entry.update(
-                status="completed" if validation != "invalid" else "needs_review",
-                validation_status=validation,
-                review_flags=flags,
-                teacher_timestamp=datetime.now(UTC).isoformat(),
-                teacher_raw_response=raw,
-                parsed_annotation=parsed,
-                needs_human_review=validation != "valid" or bool(flags),
-                **provider_meta,
-            )
-            out.write(json.dumps(entry, ensure_ascii=False) + "\n")
-            out.flush()
+        entry.update(
+            status="completed" if validation != "invalid" else "needs_review",
+            validation_status=validation,
+            review_flags=flags,
+            teacher_timestamp=datetime.now(UTC).isoformat(),
+            teacher_raw_response=raw,
+            parsed_annotation=parsed,
+            needs_human_review=validation != "valid" or bool(flags),
+            **provider_meta,
+        )
+        return entry
+
+    workers = args_workers or 8
+    print(f"annotating {len(targets)} records with {workers} workers", flush=True)
+    with out_path.open("a", encoding="utf-8") as out, ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = {executor.submit(annotate_one, r): r for r in targets}
+        for index, future in enumerate(as_completed(futures), 1):
+            entry = future.result()
+            with write_lock:
+                out.write(json.dumps(entry, ensure_ascii=False) + "\n")
+                out.flush()
             pool.save_state()
-            stats["completed" if entry["status"] == "completed" else "errors"] += 1
-            if "disagree" in " ".join(flags):
+            key = {"completed": "completed", "error": "errors", "rate_limited": "rate_limited",
+                   "needs_review": "errors"}.get(entry.get("status"), "errors")
+            stats[key] += 1
+            if "disagree" in " ".join(entry.get("review_flags") or []):
                 stats["disagreements"] += 1
-            if (index + 1) % 25 == 0:
-                print(f"  {index + 1}/{len(records)} done", flush=True)
+            if "recovered_by_second_opinion" in (entry.get("review_flags") or []):
+                stats["second_opinions"] += 1
+            if index % 50 == 0 or index == len(futures):
+                print(f"  {index}/{len(futures)} (quota_dry={quota_dry.is_set()})", flush=True)
 
     pool.save_state()
     print(json.dumps(stats))
     print(f"annotations -> {out_path}")
+    if stats["rate_limited"]:
+        print("some records hit provider budgets - re-run tomorrow to resume (resumable by design)")
     return 0
 
 
@@ -283,9 +299,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--pilot", action="store_true", help="stratified pilot sample (v2 brief step 5)")
+    parser.add_argument("--workers", type=int, default=8, help="concurrent in-flight teacher calls")
     args = parser.parse_args(argv)
     load_env()
-    return annotate(args.task, args.input, args.limit, args.pilot)
+    return annotate(args.task, args.input, args.limit, args.pilot, args.workers)
 
 
 if __name__ == "__main__":
