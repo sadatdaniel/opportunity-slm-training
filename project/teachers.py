@@ -171,7 +171,10 @@ class TeacherPool:
     # -- selection ------------------------------------------------------------
 
     def _candidates(self, roles: list[str]) -> list[dict]:
-        return [p for p in self.providers if p.get("role") in roles and p["usage"].budget_left()]
+        return [
+            p for p in self.providers
+            if p.get("role") in roles and p["usage"].budget_left() and not p.get("disabled")
+        ]
 
     def save_state(self) -> None:
         STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -258,7 +261,7 @@ class TeacherPool:
 
     def _call_openai(self, spec: dict, messages: list[dict], json_mode: bool) -> str:
         body: dict = {"model": spec["model"], "messages": messages, "temperature": 0.1}
-        if json_mode:
+        if json_mode and spec.get("json_mode", True):
             body["response_format"] = {"type": "json_object"}
         resp = self._client.post(
             f"{spec['base_url'].rstrip('/')}/chat/completions",
@@ -266,6 +269,11 @@ class TeacherPool:
             json=body,
         )
         if resp.status_code in (429, 403):
+            if "insufficient balance" in resp.text.lower():
+                # subscription exhausted: disable the slot for this run instead
+                # of retrying into a refuser
+                spec["disabled"] = True
+                raise ProviderError(f"{spec['name']}: no balance - slot disabled for this run")
             raise _RateLimited(spec["name"], resp.headers.get("Retry-After"))
         if resp.status_code >= 400:
             raise ProviderError(f"{spec['name']}: HTTP {resp.status_code}: {resp.text[:200]}")

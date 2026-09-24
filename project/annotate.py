@@ -95,7 +95,11 @@ def validate(task: str, parsed: dict | None) -> str:
     if task == "classify":
         if parsed.get("primary_category") not in load_taxonomy():
             return "invalid"
-        if parsed.get("classification_ambiguity", 0) >= 0.6 or parsed.get("secondary_plausible_categories"):
+        ambiguity = parsed.get("classification_ambiguity", 0)
+        # Only genuinely torn records earn extra API calls; a listed secondary
+        # with low stated ambiguity is a review note, not a routing trigger
+        # (brief 17A: do not spend multiple calls on easy cases).
+        if ambiguity >= 0.6 or (parsed.get("secondary_plausible_categories") and ambiguity >= 0.4):
             return "ambiguous"
         return "valid"
     summary = parsed.get("summary")

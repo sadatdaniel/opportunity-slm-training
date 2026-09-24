@@ -1,0 +1,72 @@
+{
+ "gemini_1": {
+  "day": "2026-09-24",
+  "minute_window": [
+   388393.139401,
+   388399.0675351,
+   388404.785631,
+   388411.5165679,
+   388418.6377113,
+   388427.5192026,
+   388438.947841
+  ],
+  "requests_today": 154,
+  "tokens_today": 193656,
+  "successful": 154,
+  "failed": 0,
+  "last_429": null,
+  "available_after": null
+ },
+ "gemini_2": {
+  "day": "2026-09-24",
+  "minute_window": [],
+  "requests_today": 29,
+  "tokens_today": 33775,
+  "successful": 29,
+  "failed": 0,
+  "last_429": null,
+  "available_after": null
+ },
+ "gemini_3": {
+  "day": "2026-09-24",
+  "minute_window": [],
+  "requests_today": 6,
+  "tokens_today": 5916,
+  "successful": 6,
+  "failed": 0,
+  "last_429": null,
+  "available_after": null
+ },
+ "gemini_4": {
+  "day": "2026-09-24",
+  "minute_window": [],
+  "requests_today": 0,
+  "tokens_today": 0,
+  "successful": 0,
+  "failed": 0,
+  "last_429": null,
+  "available_after": null
+ },
+ "openrouter": {
+  "day": "2026-09-24",
+  "minute_window": [
+   388290.1904589
+  ],
+  "requests_today": 5,
+  "tokens_today": 26037,
+  "successful": 5,
+  "failed": 0,
+  "last_429": null,
+  "available_after": null
+ },
+ "zai": {
+  "day": "2026-09-24",
+  "minute_window": [],
+  "requests_today": 0,
+  "tokens_today": 0,
+  "successful": 0,
+  "failed": 9,
+  "last_429": null,
+  "available_after": null
+ }
+}

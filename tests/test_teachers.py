@@ -48,10 +48,15 @@ def test_usage_roundtrip(tmp_path):
     assert revived.requests_today == 1 and revived.tokens_today == 42
 
 
-def test_validate_classify(monkeypatch):
-    monkeypatch.chdir  # taxonomy loaded from project config; ensure import works
+def test_validate_classify():
     assert annotate.validate("classify", {"primary_category": "scholarships"}) == "valid"
-    assert annotate.validate("classify", {"primary_category": "scholarships", "secondary_plausible_categories": ["grants"]}) == "ambiguous"
+    # secondary listed with low stated ambiguity: review note, not a routing trigger
+    assert annotate.validate("classify", {"primary_category": "scholarships", "secondary_plausible_categories": ["grants"]}) == "valid"
+    assert annotate.validate(
+        "classify",
+        {"primary_category": "scholarships", "secondary_plausible_categories": ["grants"], "classification_ambiguity": 0.5},
+    ) == "ambiguous"
+    assert annotate.validate("classify", {"primary_category": "scholarships", "classification_ambiguity": 0.7}) == "ambiguous"
     assert annotate.validate("classify", {"primary_category": "not_a_category"}) == "invalid"
     assert annotate.validate("classify", None) == "invalid"
 

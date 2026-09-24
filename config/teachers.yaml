@@ -41,7 +41,7 @@ providers:
     kind: openai
     base_url: https://openrouter.ai/api/v1
     api_key_env: OPENROUTER_API_KEY
-    model: nvidia/nemotron-nano-9b-v2:free
+    model: nvidia/nemotron-3.5-lightning:free
     role: second_opinion
     # daily quota unknown for free endpoints; keep a conservative cap
     limits: {rpm: 15, tpm: 100000, rpd: 200}
@@ -49,10 +49,13 @@ providers:
 
   - name: zai
     kind: openai
-    base_url: https://api.z.ai/api/paas/v4
+    # Coding Plan subscription key: uses the coding endpoint (verified against
+    # the account; the standard /api/paas/v4 rejects it with "insufficient balance")
+    base_url: https://api.z.ai/api/coding/paas/v4
     api_key_env: ZAI_API_KEY
     model: glm-5.3-flash
     role: adjudicator
+    json_mode: false  # GLM returns clean JSON in content; reasoning goes to reasoning_content
     limits: {rpm: 30, tpm: 200000, rpd: 500}
     safety_margin: 0.85
 

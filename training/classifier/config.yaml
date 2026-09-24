@@ -1,0 +1,24 @@
+# Supra-Classifier: System-One decision model (one forward pass, no generation)
+model: SupraLabs/Supra2-100M-Instruct
+model_revision: main
+taxonomy: taxonomy_v1
+dataset_version: v1
+output_version: v0.1.0
+
+max_seq_length: 512          # classification truncates harder than summarization; measured in reports/token_stats.md
+epochs: 3
+learning_rate: 2.0e-5
+batch_size: 16
+gradient_accumulation: 1
+warmup_ratio: 0.06
+weight_decay: 0.01
+optimizer: adamw_torch
+scheduler: linear
+precision: bf16              # falls back to fp32 on cpu
+
+# CPU smoke test: tiny subset to prove the pipeline end to end
+smoke:
+  epochs: 1
+  max_examples: 32
+  batch_size: 4
+  output_version: smoke
