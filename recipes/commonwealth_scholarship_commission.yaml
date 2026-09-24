@@ -7,3 +7,5 @@ last_tested: '2026-09-24'
 notes: auto-provisioned from source inventory; hand-tune as needed
 feed_url: https://cscuk.fcdo.gov.uk/feed
 max_records: 120
+detail:
+  content_selector: article, div.entry-content, div.post-content, main

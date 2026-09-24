@@ -1,0 +1,34 @@
+# Taxonomy v1 — canonical classifier categories.
+# Frozen once classifier dataset v1 is built; changes create taxonomy_v2.
+# Rationale and frequency evidence: reports/taxonomy_v1.md
+version: taxonomy_v1
+frozen: false
+categories:
+  - scholarships
+  - fellowships
+  - phd
+  - postdoc
+  - grants
+  - internships
+  - competitions
+  - awards
+  - conferences
+  - workshops
+  - exchange_programs
+  - miscellaneous
+aliases:
+  # raw source-scope / site terms -> canonical categories (coverage analysis
+  # only; never used as direct labels, per brief section 6)
+  masters: scholarships
+  undergraduate: scholarships
+  bursaries: scholarships
+  research_grants: grants
+  doctoral_grants: grants
+  travel_grants: grants
+  summer_schools: workshops
+  trainings: workshops
+  seminars: workshops
+  symposia: conferences
+  call_for_papers: conferences
+  prizes: awards
+  travel_awards: awards
