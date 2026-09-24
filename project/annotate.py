@@ -242,16 +242,29 @@ def annotate(task: str, input_path: Path, limit: int | None, pilot: bool, args_w
                     flags.append("recovered_by_second_opinion")
 
         if validation == "ambiguous" and task == "classify":
+            # brief 17A routing: second opinion first, adjudicator only on disagreement
+            spec2, parsed2 = None, None
             try:
-                spec3, raw3 = pool.call(build_messages(task, record), roles=["adjudicator", "second_opinion"])
-                adjudication = parse_annotation(raw3)
-                if adjudication:
-                    entry["adjudication_suggestion"] = adjudication.get("primary_category")
-                    entry["adjudication_provider"] = spec3["name"]
-                    outcome = agreement(task, parsed, adjudication)
-                    flags.append("adjudicator_" + (outcome or "unparseable"))
-            except Exception:  # noqa: BLE001 - adjudication is best-effort
-                flags.append("adjudication_unavailable")
+                spec2, raw2 = pool.call(build_messages(task, record), roles=["second_opinion", "primary"])
+                parsed2 = parse_annotation(raw2)
+            except Exception:  # noqa: BLE001 - second opinion is best-effort
+                parsed2 = None
+            if validate(task, parsed2) == "valid":
+                entry["second_opinion_label"] = parsed2.get("primary_category")
+                entry["second_opinion_provider"] = spec2["name"]
+                outcome = agreement(task, parsed, parsed2)
+                flags.append("second_opinion_" + outcome)
+                if outcome == "disagree":
+                    try:
+                        spec3, raw3 = pool.call(build_messages(task, record), roles=["adjudicator", "second_opinion"])
+                        adjudication = parse_annotation(raw3)
+                        if adjudication:
+                            entry["adjudication_suggestion"] = adjudication.get("primary_category")
+                            entry["adjudication_provider"] = spec3["name"]
+                            outcome3 = agreement(task, parsed, adjudication)
+                            flags.append("adjudicator_" + (outcome3 or "unparseable"))
+                    except Exception:  # noqa: BLE001 - adjudication is best-effort
+                        flags.append("adjudication_unavailable")
 
         entry.update(
             status="completed" if validation != "invalid" else "needs_review",
@@ -260,7 +273,10 @@ def annotate(task: str, input_path: Path, limit: int | None, pilot: bool, args_w
             teacher_timestamp=datetime.now(UTC).isoformat(),
             teacher_raw_response=raw,
             parsed_annotation=parsed,
-            needs_human_review=validation != "valid" or bool(flags),
+            # second-opinion agreement resolves ambiguity ("strong agreement -> SAVE",
+            # brief 17A); disagreements and adjudications stay flagged for review
+            needs_human_review=(validation != "valid" and "second_opinion_agree" not in flags)
+            or any(f.startswith("adjudicator_") for f in flags),
             **provider_meta,
         )
         return entry
