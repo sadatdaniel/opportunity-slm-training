@@ -1,0 +1,67 @@
+run_id: classifier_20260924_213430
+capability: classifier
+git_commit: null
+model: SupraLabs/Supra2-100M-Instruct
+model_revision: main
+dataset_version: v1
+dataset_sha256:
+  test.jsonl: d80e8e61ecfd2a3fb15551d9729a12f914d8061f9405e3fe148c91ab6ade5c83
+  train.jsonl: d2b78b10ada0a6972ca4a250196e8644b8878739fb05c17bdee91516f35913d5
+  unseen_sources_test.jsonl: f6e62c76e6cb7ebd4817da03cb4b480e33a7637981471bef7ac3b3806d3723d4
+  validation.jsonl: c08dddc98a4400e93f968a5c94d64a1aa3638138488f78f992ef701c8e237f6c
+taxonomy: taxonomy_v1
+prompt_version: null
+seed: 42
+hyperparameters:
+  max_seq_length: 512
+  epochs: 3
+  learning_rate: 2.0e-05
+  batch_size: 16
+  gradient_accumulation: 1
+  warmup_ratio: 0.06
+  weight_decay: 0.01
+  optimizer: adamw_torch
+  scheduler: linear
+  precision: bf16
+hardware:
+  device: cuda
+  platform: Linux-6.6.122+-x86_64-with-glibc2.39
+  python: 3.13.15
+  torch: 2.14.0+cu130
+  transformers: 5.17.0
+  trl: 1.13.0
+  peft: 0.21.0
+  gpu: Tesla T4
+  vram_gb: 15.6
+  cuda: '13.0'
+elapsed_seconds: 92.4
+checkpoint_path: /content/repo/runs/classifier_20260924_213430/checkpoints
+config_snapshot:
+  model: SupraLabs/Supra2-100M-Instruct
+  model_revision: main
+  taxonomy: taxonomy_v1
+  dataset_version: v1
+  output_version: v0.1.0
+  max_seq_length: 512
+  epochs: 3
+  learning_rate: 2.0e-05
+  batch_size: 16
+  gradient_accumulation: 1
+  warmup_ratio: 0.06
+  weight_decay: 0.01
+  optimizer: adamw_torch
+  scheduler: linear
+  precision: bf16
+  smoke:
+    epochs: 1
+    max_examples: 32
+    batch_size: 4
+    output_version: smoke
+metrics:
+  validation:
+    eval_loss: 2.99755859375
+    eval_runtime: 0.7233
+    eval_samples_per_second: 22.12
+    eval_steps_per_second: 1.383
+    epoch: 3.0
+created_at: '2026-09-24T21:36:03.303649+00:00'

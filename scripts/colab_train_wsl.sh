@@ -6,6 +6,7 @@
 #   cp ~/.oi_github_token ~/.colab_oi_github_token   # token available to the driver
 set -euo pipefail
 
+export PATH="$HOME/.local/bin:$PATH"
 SESSION="${SESSION:-oi-trainer}"
 GPU="${GPU:-T4}"
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
@@ -63,5 +64,7 @@ PY
 colab download -s "$SESSION" /content/oi_artifacts.tar "$REPO_DIR/models/classifier_artifacts.tar" || true
 colab download -s "$SESSION" /content/repo/experiments/manifests "$REPO_DIR/experiments/manifests" || true
 
-echo "== done. Keep the session with: colab status -s $SESSION =="
-echo "Stop later with: colab stop -s $SESSION (checkpoints must be on Drive first!)"
+echo "== 7. release the runtime (quota is billed on connection time) =="
+colab stop -s "$SESSION"
+
+echo "== done =="
