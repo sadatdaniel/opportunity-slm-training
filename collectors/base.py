@@ -30,6 +30,9 @@ DEFAULT_DELAY = 2.0
 DEFAULT_JITTER = 1.5
 DEFAULT_TIMEOUT = 30.0
 
+# Response headers kept alongside cached responses (lowercase).
+KEPT_HEADERS = ["content-type", "x-wp-total", "x-wp-totalpages", "retry-after", "server"]
+
 
 class FetchRefused(Exception):
     """The host actively refused automated access (403/robots-deny)."""
@@ -52,6 +55,7 @@ class FetchResult:
     content_type: str
     from_cache: bool
     fetched_at: str  # ISO timestamp of the original retrieval
+    headers: dict  # selected response headers (lowercased)
 
 
 class _HostState:
@@ -172,6 +176,7 @@ class PoliteFetcher:
                     content_type=cached.get("content_type", ""),
                     from_cache=True,
                     fetched_at=cached["fetched_at"],
+                    headers=cached.get("headers", {}),
                 )
         if self.offline:
             raise FetchFailed(url, None, "offline mode and no cached response")
@@ -214,6 +219,7 @@ class PoliteFetcher:
                 "text": resp.text,
                 # raw bytes kept for anything text decoding mangles
                 "content_b64": base64.b64encode(resp.content).decode("ascii"),
+                "headers": {h: resp.headers.get(h, "") for h in KEPT_HEADERS if resp.headers.get(h)},
             }
             self._write_cache(cache_path, record)
             return FetchResult(
@@ -224,6 +230,7 @@ class PoliteFetcher:
                 content_type=record["content_type"],
                 from_cache=False,
                 fetched_at=record["fetched_at"],
+                headers=record["headers"],
             )
         raise FetchFailed(url, None, f"gave up after {self.max_retries + 1} attempts: {last_error}")
 

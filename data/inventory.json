@@ -1,0 +1,3839 @@
+{
+  "10times": {
+    "domain": "10times.com",
+    "name": "10Times",
+    "probe": {
+      "api": {
+        "error": "robots.txt disallows https://10times.com",
+        "kind": "refused"
+      },
+      "page": {
+        "error": "10times.com refused automated access earlier this session",
+        "refused": true,
+        "status": 403
+      },
+      "recommended_method": "blocked_document",
+      "robots": {
+        "postings_page_allowed": false
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "conferences",
+      "symposia"
+    ],
+    "source_id": "10times"
+  },
+  "academic_gates": {
+    "domain": "academicgates.com",
+    "name": "Academic Gates",
+    "probe": {
+      "api": {
+        "error": "robots.txt disallows https://www.academicgates.com/api/v1/jobs",
+        "kind": "refused"
+      },
+      "page": {
+        "article_tags": 9,
+        "final_url": "https://www.academicgates.com",
+        "html_bytes": 81238,
+        "links": 93,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "research_grants",
+      "postdoc"
+    ],
+    "source_id": "academic_gates"
+  },
+  "academic_positions": {
+    "domain": "academicpositions.com",
+    "name": "Academic Positions",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://academicpositions.com/api/v1/jobs, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://academicpositions.com",
+        "html_bytes": 206286,
+        "links": 231,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc",
+      "faculty_jobs"
+    ],
+    "source_id": "academic_positions"
+  },
+  "academic_transfer": {
+    "domain": "academictransfer.com",
+    "name": "Academic Transfer",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.academictransfer.com/api/vacancies/, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 3,
+        "final_url": "https://www.academictransfer.com/en/",
+        "html_bytes": 123950,
+        "links": 53,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": false,
+        "spa_markers": [
+          "nuxt"
+        ],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc",
+      "fellowships"
+    ],
+    "source_id": "academic_transfer"
+  },
+  "academicjobsonline": {
+    "domain": "academicjobsonline.org",
+    "name": "AcademicJobsOnline",
+    "probe": {
+      "api": {
+        "final_url": "https://academicjobsonline.org",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://academicjobsonline.org",
+        "html_bytes": 8865,
+        "links": 32,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": false,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "postdoc",
+      "faculty"
+    ],
+    "source_id": "academicjobsonline"
+  },
+  "african_academy_of_sciences_aas": {
+    "domain": "aasciences.africa",
+    "name": "African Academy of Sciences (AAS)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://aasciences.africa/api/v1/grants, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "error": "client error (url=https://aasciences.africa/Grants, status=404)"
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "fellowships",
+      "grants",
+      "travel_awards"
+    ],
+    "source_id": "african_academy_of_sciences_aas"
+  },
+  "african_scholar_initiative": {
+    "domain": "scholarshipsforafricans.com",
+    "name": "African Scholar Initiative",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://scholarshipsforafricans.com/wp-json/wp/v2/posts, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 6,
+        "final_url": "https://scholarshipsforafricans.com",
+        "html_bytes": 73436,
+        "links": 96,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "fellowships",
+      "phd",
+      "internships"
+    ],
+    "source_id": "african_scholar_initiative"
+  },
+  "after_school_africa": {
+    "domain": "afterschoolafrica.com",
+    "name": "After School Africa",
+    "probe": {
+      "api": {
+        "error": "robots.txt disallows https://www.afterschoolafrica.com/wp-json/wp/v2/posts",
+        "kind": "refused"
+      },
+      "page": {
+        "article_tags": 1,
+        "final_url": "https://www.afterschoolafrica.com",
+        "html_bytes": 249973,
+        "links": 59,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "masters",
+      "phd"
+    ],
+    "source_id": "after_school_africa"
+  },
+  "alan_turing_institute": {
+    "domain": "turing.ac.uk",
+    "name": "Alan Turing Institute",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.turing.ac.uk/jsonapi/node/opportunity, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "error": "client error (url=https://www.turing.ac.uk/work-turing/fellowships, status=404)"
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "data_science_fellowships",
+      "phd_enrichment",
+      "workshops"
+    ],
+    "source_id": "alan_turing_institute"
+  },
+  "alexander_von_humboldt_foundation": {
+    "domain": "humboldt-foundation.de",
+    "name": "Alexander von Humboldt Foundation",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.humboldt-foundation.de/jsonapi/node/funding_program, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 10,
+        "final_url": "https://www.humboldt-foundation.de/en/apply/sponsorship-programmes",
+        "html_bytes": 68496,
+        "links": 68,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "fellowships",
+      "awards",
+      "postdoc_grants"
+    ],
+    "source_id": "alexander_von_humboldt_foundation"
+  },
+  "armacad": {
+    "domain": "armacad.info",
+    "name": "Armacad",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://armacad.info/api/v1/announcements, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://armacad.info",
+        "html_bytes": 211632,
+        "links": 105,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "conferences",
+      "summer_schools",
+      "fellowships",
+      "phd"
+    ],
+    "source_id": "armacad"
+  },
+  "asia_europe_foundation_asef": {
+    "domain": "asef.org",
+    "name": "Asia-Europe Foundation (ASEF)",
+    "probe": {
+      "api": {
+        "final_url": "https://asef.org/wp-json/wp/v2/posts?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "acf",
+          "author",
+          "categories",
+          "class_list",
+          "comment_status",
+          "content",
+          "date",
+          "date_gmt",
+          "excerpt",
+          "featured_media",
+          "format",
+          "guid",
+          "id",
+          "link",
+          "meta",
+          "modified",
+          "modified_gmt",
+          "ping_status",
+          "slug",
+          "status",
+          "sticky",
+          "tags",
+          "template",
+          "title"
+        ],
+        "status": 200
+      },
+      "page": {
+        "error": "client error (url=https://asef.org/projects/, status=404)"
+      },
+      "recommended_method": "wp_rest",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "workshops",
+      "summer_universities",
+      "research_projects"
+    ],
+    "source_id": "asia_europe_foundation_asef"
+  },
+  "association_of_african_universities_aau": {
+    "domain": "blog.aau.org",
+    "name": "Association of African Universities (AAU)",
+    "probe": {
+      "api": {
+        "final_url": "https://blog.aau.org/wp-json/wp/v2/posts?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "author",
+          "categories",
+          "class_list",
+          "comment_status",
+          "content",
+          "date",
+          "date_gmt",
+          "excerpt",
+          "featured_media",
+          "format",
+          "guid",
+          "id",
+          "jetpack-related-posts",
+          "jetpack_featured_media_url",
+          "jetpack_publicize_connections",
+          "jetpack_sharing_enabled",
+          "link",
+          "meta",
+          "modified",
+          "modified_gmt",
+          "ping_status",
+          "slug",
+          "status",
+          "sticky"
+        ],
+        "status": 200
+      },
+      "page": {
+        "article_tags": 18,
+        "final_url": "https://blog.aau.org",
+        "html_bytes": 316639,
+        "links": 147,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "wp_rest",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 10,
+        "kind": "rss",
+        "status": 200,
+        "title": "AAU Blog",
+        "url": "https://blog.aau.org/feed"
+      }
+    },
+    "scope": [
+      "fellowships",
+      "research_grants",
+      "workshops"
+    ],
+    "source_id": "association_of_african_universities_aau"
+  },
+  "australia_awards": {
+    "domain": "dfat.gov.au",
+    "name": "Australia Awards",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.dfat.gov.au/api/content, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 1,
+        "final_url": "https://www.dfat.gov.au/people-to-people/australia-awards",
+        "html_bytes": 83961,
+        "links": 246,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "exchange_programs"
+    ],
+    "source_id": "australia_awards"
+  },
+  "australian_national_university_anu": {
+    "domain": "anu.edu.au",
+    "name": "Australian National University (ANU)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.anu.edu.au/api/scholarships/search, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 1,
+        "final_url": "https://study.anu.edu.au/scholarships",
+        "html_bytes": 53989,
+        "links": 101,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "phd",
+      "visiting_fellowships"
+    ],
+    "source_id": "australian_national_university_anu"
+  },
+  "barcelona_institute_of_science_and_technology_bist": {
+    "domain": "bist.eu",
+    "name": "Barcelona Institute of Science and Technology (BIST)",
+    "probe": {
+      "api": {
+        "final_url": "https://bist.eu/wp-json/wp/v2/posts?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "acf",
+          "author",
+          "categories",
+          "class_list",
+          "comment_status",
+          "content",
+          "date",
+          "date_gmt",
+          "excerpt",
+          "featured_media",
+          "format",
+          "guid",
+          "id",
+          "link",
+          "meta",
+          "modified",
+          "modified_gmt",
+          "ping_status",
+          "slug",
+          "status",
+          "sticky",
+          "tags",
+          "template",
+          "title"
+        ],
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://bist.eu/talent/",
+        "html_bytes": 205412,
+        "links": 151,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "wp_rest",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 0,
+        "kind": "rss",
+        "status": 200,
+        "title": "Comments on: Education",
+        "url": "https://bist.eu/education/feed"
+      }
+    },
+    "scope": [
+      "postdoc",
+      "phd_grants"
+    ],
+    "source_id": "barcelona_institute_of_science_and_technology_bist"
+  },
+  "caldo_consortium": {
+    "domain": "caldo.ca",
+    "name": "Caldo Consortium",
+    "probe": {
+      "api": {
+        "error": "robots.txt disallows https://caldo.ca/wp-json/wp/v2/pages",
+        "kind": "refused"
+      },
+      "page": {
+        "error": "caldo.ca refused automated access earlier this session",
+        "refused": true,
+        "status": 403
+      },
+      "recommended_method": "blocked_document",
+      "robots": {
+        "postings_page_allowed": false
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "graduate",
+      "phd"
+    ],
+    "source_id": "caldo_consortium"
+  },
+  "cambridge_university_gates_cambridge": {
+    "domain": "gatescambridge.org",
+    "name": "Cambridge University - Gates Cambridge",
+    "probe": {
+      "api": {
+        "final_url": "https://www.gatescambridge.org/wp-json/wp/v2/posts?per_page=1",
+        "has_posts": false,
+        "kind": "wp_rest",
+        "sample_fields": [],
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.gatescambridge.org",
+        "html_bytes": 59430,
+        "links": 105,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "wp_rest",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 0,
+        "kind": "rss",
+        "status": 200,
+        "title": "Gates Cambridge",
+        "url": "https://www.gatescambridge.org/feed"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "postgraduate"
+    ],
+    "source_id": "cambridge_university_gates_cambridge"
+  },
+  "campus_austria_oead": {
+    "domain": "grants.at",
+    "name": "Campus Austria (OeAD)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://grants.at/api/v1/scholarships, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://grants.at/en/",
+        "html_bytes": 119501,
+        "links": 104,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": false,
+        "spa_markers": [
+          "ng-app"
+        ],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "exchange_programs",
+      "phd"
+    ],
+    "source_id": "campus_austria_oead"
+  },
+  "campus_france_eiffel_excellence": {
+    "domain": "doctorat.campusfrance.org",
+    "name": "Campus France / Eiffel Excellence",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://doctorat.campusfrance.org/api/offers, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://doctorat.campusfrance.org/phd/offers",
+        "html_bytes": 80506,
+        "links": 45,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "masters",
+      "phd"
+    ],
+    "source_id": "campus_france_eiffel_excellence"
+  },
+  "cern_careers_studentships": {
+    "domain": "careers.cern",
+    "name": "CERN Careers & Studentships",
+    "probe": {
+      "api": {
+        "error": "robots.txt disallows https://api.smartrecruiters.com/v1/companies/CERN/postings",
+        "kind": "refused"
+      },
+      "page": {
+        "error": "client error (url=https://careers.cern/students, status=404)"
+      },
+      "recommended_method": "rss",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 0,
+        "kind": "rss",
+        "status": 200,
+        "title": "Comments on:",
+        "url": "https://careers.cern/students/feed"
+      }
+    },
+    "scope": [
+      "doctoral_programs",
+      "technical_studentships",
+      "postdoc"
+    ],
+    "source_id": "cern_careers_studentships"
+  },
+  "chevening_scholarships": {
+    "domain": "chevening.org",
+    "name": "Chevening Scholarships",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.chevening.org/wp-json/wp/v2/pages, status=401)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 9,
+        "final_url": "https://www.chevening.org",
+        "html_bytes": 109653,
+        "links": 88,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "rss",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 1,
+        "kind": "rss",
+        "status": 200,
+        "title": "Chevening",
+        "url": "https://www.chevening.org/feed"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "masters"
+    ],
+    "source_id": "chevening_scholarships"
+  },
+  "china_scholarship_council_csc": {
+    "domain": "campuschina.org",
+    "name": "China Scholarship Council (CSC)",
+    "probe": {
+      "api": {
+        "error": "robots.txt disallows https://www.campuschina.org",
+        "kind": "refused"
+      },
+      "page": {
+        "error": "www.campuschina.org refused automated access earlier this session",
+        "refused": true,
+        "status": 403
+      },
+      "recommended_method": "blocked_document",
+      "robots": {
+        "postings_page_allowed": false
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "masters",
+      "phd"
+    ],
+    "source_id": "china_scholarship_council_csc"
+  },
+  "cnrs": {
+    "domain": "emploi.cnrs.fr",
+    "name": "CNRS",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://emploi.cnrs.fr/api/Offres, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "error": "emploi.cnrs.fr refused automated access earlier this session",
+        "refused": true,
+        "status": 403
+      },
+      "recommended_method": "blocked_document",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "postdoc",
+      "visiting_fellowships"
+    ],
+    "source_id": "cnrs"
+  },
+  "columbia_university_graduate_school": {
+    "domain": "grad.columbia.edu",
+    "name": "Columbia University Graduate School",
+    "probe": {
+      "api": {
+        "error": "gave up after 3 attempts: network error: [Errno 11001] getaddrinfo failed (url=https://grad.columbia.edu, status=None)",
+        "kind": "error"
+      },
+      "page": {
+        "error": "gave up after 3 attempts: network error: [Errno 11001] getaddrinfo failed (url=https://grad.columbia.edu, status=None)"
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc",
+      "fellowships"
+    ],
+    "source_id": "columbia_university_graduate_school"
+  },
+  "commonwealth_scholarship_commission": {
+    "domain": "cscuk.fcdo.gov.uk",
+    "name": "Commonwealth Scholarship Commission",
+    "probe": {
+      "api": {
+        "final_url": "https://cscuk.fcdo.gov.uk",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 7,
+        "final_url": "https://cscuk.fcdo.gov.uk",
+        "html_bytes": 205209,
+        "links": 84,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "rss",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 10,
+        "kind": "rss",
+        "status": 200,
+        "title": "Commonwealth Scholarship Commission in the UK",
+        "url": "https://cscuk.fcdo.gov.uk/feed"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "masters",
+      "phd"
+    ],
+    "source_id": "commonwealth_scholarship_commission"
+  },
+  "conference_alert": {
+    "domain": "conferencealerts.com",
+    "name": "Conference Alert",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://conferencealerts.com/api/events, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://conferencealerts.com",
+        "html_bytes": 290071,
+        "links": 466,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "conferences",
+      "workshops",
+      "symposia"
+    ],
+    "source_id": "conference_alert"
+  },
+  "council_of_american_overseas_research_centers_caorc": {
+    "domain": "caorc.org",
+    "name": "Council of American Overseas Research Centers (CAORC)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.caorc.org/wp-json/wp/v2/posts, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.caorc.org/fellowships",
+        "html_bytes": 802221,
+        "links": 32,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "fellowships",
+      "travel_grants",
+      "seminar_awards"
+    ],
+    "source_id": "council_of_american_overseas_research_centers_caorc"
+  },
+  "daad_german_academic_exchange_service": {
+    "domain": "www2.daad.de",
+    "name": "DAAD - German Academic Exchange Service",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.daad.de/api/scholarships/v1/en/, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database",
+        "html_bytes": 22641,
+        "links": 9,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": false,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "phd",
+      "exchange_programs"
+    ],
+    "source_id": "daad_german_academic_exchange_service"
+  },
+  "erasmus_erasmus_mundus_joint_masters": {
+    "domain": "erasmus-plus.ec.europa.eu",
+    "name": "Erasmus+ / Erasmus Mundus Joint Masters",
+    "probe": {
+      "api": {
+        "final_url": "https://www.eacea.ec.europa.eu/scholarships/erasmus-mundus-catalogue_en",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 1,
+        "final_url": "https://erasmus-plus.ec.europa.eu/opportunities/individuals/students/erasmus-mundus-joint-masters",
+        "html_bytes": 194448,
+        "links": 73,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "masters",
+      "exchange_programs"
+    ],
+    "source_id": "erasmus_erasmus_mundus_joint_masters"
+  },
+  "eth_zurich_doctorate_fellowships": {
+    "domain": "ethz.ch",
+    "name": "ETH Zurich Doctorate & Fellowships",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://ethz.ch/bin/ethz/news/api.json, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://ethz.ch/en/doctorate.html",
+        "html_bytes": 51262,
+        "links": 57,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc",
+      "workshops"
+    ],
+    "source_id": "eth_zurich_doctorate_fellowships"
+  },
+  "euraxess": {
+    "domain": "euraxess.ec.europa.eu",
+    "name": "EURAXESS",
+    "probe": {
+      "api": {
+        "error": "robots.txt disallows https://euraxess.ec.europa.eu/api/jobs/search",
+        "kind": "refused"
+      },
+      "page": {
+        "article_tags": 11,
+        "final_url": "https://euraxess.ec.europa.eu/jobs/search",
+        "html_bytes": 177830,
+        "links": 146,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc",
+      "fellowships",
+      "research_grants"
+    ],
+    "source_id": "euraxess"
+  },
+  "european_molecular_biology_laboratory_embl": {
+    "domain": "embl.org",
+    "name": "European Molecular Biology Laboratory (EMBL)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.embl.org/wp-json/wp/v2/posts, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 14,
+        "final_url": "https://www.embl.org/training/",
+        "html_bytes": 27034,
+        "links": 33,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "postdoc",
+      "phd",
+      "conferences"
+    ],
+    "source_id": "european_molecular_biology_laboratory_embl"
+  },
+  "european_science_foundation_esf": {
+    "domain": "esf.org",
+    "name": "European Science Foundation (ESF)",
+    "probe": {
+      "api": {
+        "final_url": "https://www.esf.org/wp-json/wp/v2/posts?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "author",
+          "categories",
+          "class_list",
+          "comment_status",
+          "content",
+          "date",
+          "date_gmt",
+          "excerpt",
+          "featured_media",
+          "format",
+          "guid",
+          "id",
+          "link",
+          "meta",
+          "modified",
+          "modified_gmt",
+          "ping_status",
+          "slug",
+          "status",
+          "sticky",
+          "tags",
+          "template",
+          "title",
+          "type"
+        ],
+        "status": 200
+      },
+      "page": {
+        "error": "client error (url=https://www.esf.org/funding-opportunities/, status=404)"
+      },
+      "recommended_method": "wp_rest",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "grants",
+      "workshops",
+      "research_mobility"
+    ],
+    "source_id": "european_science_foundation_esf"
+  },
+  "european_southern_observatory_eso": {
+    "domain": "recruitment.eso.org",
+    "name": "European Southern Observatory (ESO)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://recruitment.eso.org/api/v1/jobs, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://recruitment.eso.org",
+        "html_bytes": 81245,
+        "links": 449,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "studentships",
+      "postdoc"
+    ],
+    "source_id": "european_southern_observatory_eso"
+  },
+  "european_university_institute_eui": {
+    "domain": "eui.eu",
+    "name": "European University Institute (EUI)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.eui.eu/_api/v2/news/events, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.eui.eu/apply?cms_programmes[refinementList][item.type][0]=Fellowship",
+        "html_bytes": 43055,
+        "links": 58,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "postdoc",
+      "doctoral_grants",
+      "workshops"
+    ],
+    "source_id": "european_university_institute_eui"
+  },
+  "findaphd_findamasters_findapostdoc": {
+    "domain": "findaphd.com",
+    "name": "FindAPhD / FindAMasters / FindAPostDoc",
+    "probe": {
+      "api": {
+        "error": "403 for https://www.findaphd.com/api/search - not retrying",
+        "kind": "refused"
+      },
+      "page": {
+        "error": "www.findaphd.com refused automated access earlier this session",
+        "refused": true,
+        "status": 403
+      },
+      "recommended_method": "blocked_document",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "masters",
+      "postdoc"
+    ],
+    "source_id": "findaphd_findamasters_findapostdoc"
+  },
+  "flatiron_institute_simons_foundation": {
+    "domain": "simonsfoundation.org",
+    "name": "Flatiron Institute - Simons Foundation",
+    "probe": {
+      "api": {
+        "final_url": "https://www.simonsfoundation.org/wp-json/wp/v2/posts?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "acf",
+          "author",
+          "categories",
+          "class_list",
+          "comment_status",
+          "content",
+          "date",
+          "date_gmt",
+          "excerpt",
+          "featured_media",
+          "format",
+          "guid",
+          "id",
+          "link",
+          "meta",
+          "modified",
+          "modified_gmt",
+          "ping_status",
+          "slug",
+          "status",
+          "sticky",
+          "tags",
+          "template",
+          "title"
+        ],
+        "status": 200
+      },
+      "page": {
+        "error": "www.simonsfoundation.org refused automated access earlier this session",
+        "refused": true,
+        "status": 403
+      },
+      "recommended_method": "blocked_document",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "computational_fellowships",
+      "postdoc"
+    ],
+    "source_id": "flatiron_institute_simons_foundation"
+  },
+  "foundation_for_science_and_technology_fct_portugal": {
+    "domain": "fct.pt",
+    "name": "Foundation for Science and Technology (FCT Portugal)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.fct.pt/jsonapi/node/call, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 4,
+        "final_url": "https://www.fct.pt/en/concursos/",
+        "html_bytes": 100418,
+        "links": 113,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd_studentships",
+      "grants",
+      "sabbatical_fellowships"
+    ],
+    "source_id": "foundation_for_science_and_technology_fct_portugal"
+  },
+  "fraunhofer_gesellschaft": {
+    "domain": "fraunhofer.de",
+    "name": "Fraunhofer-Gesellschaft",
+    "probe": {
+      "api": {
+        "final_url": "https://www.fraunhofer.de",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 4,
+        "final_url": "https://www.fraunhofer.de",
+        "html_bytes": 172347,
+        "links": 286,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "research_positions"
+    ],
+    "source_id": "fraunhofer_gesellschaft"
+  },
+  "fulbright_nehru_opportunities_us_india": {
+    "domain": "usief.org.in",
+    "name": "Fulbright-Nehru Opportunities (US-India)",
+    "probe": {
+      "api": {
+        "final_url": "https://www.usief.org.in/wp-json/wp/v2/pages?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "acf",
+          "author",
+          "class_list",
+          "comment_status",
+          "content",
+          "date",
+          "date_gmt",
+          "excerpt",
+          "featured_media",
+          "guid",
+          "id",
+          "link",
+          "menu_order",
+          "meta",
+          "modified",
+          "modified_gmt",
+          "parent",
+          "ping_status",
+          "slug",
+          "status",
+          "template",
+          "title",
+          "type",
+          "yoast_head"
+        ],
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.usief.org.in",
+        "html_bytes": 56078,
+        "links": 71,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "wp_rest",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 3,
+        "kind": "rss",
+        "status": 200,
+        "title": "Welcome to",
+        "url": "https://www.usief.org.in/feed"
+      }
+    },
+    "scope": [
+      "fellowships",
+      "doctoral_exchanges",
+      "postdocs"
+    ],
+    "source_id": "fulbright_nehru_opportunities_us_india"
+  },
+  "fulbright_program": {
+    "domain": "fulbrightscholars.org",
+    "name": "Fulbright Program",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://fulbrightscholars.org/wp-json/wp/v2/pages, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 6,
+        "final_url": "https://fulbrightscholars.org",
+        "html_bytes": 71476,
+        "links": 154,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "exchange_programs",
+      "phd_research"
+    ],
+    "source_id": "fulbright_program"
+  },
+  "harvard_gsas_harvard_fellowships": {
+    "domain": "gsas.harvard.edu",
+    "name": "Harvard GSAS / Harvard Fellowships",
+    "probe": {
+      "api": {
+        "error": "gave up after 3 attempts: network error: [Errno 11001] getaddrinfo failed (url=https://api.harvard.edu/v2/opportunities, status=None)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 4,
+        "final_url": "https://gsas.harvard.edu",
+        "html_bytes": 65391,
+        "links": 145,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc",
+      "fellowships"
+    ],
+    "source_id": "harvard_gsas_harvard_fellowships"
+  },
+  "helmholtz_association": {
+    "domain": "helmholtz.de",
+    "name": "Helmholtz Association",
+    "probe": {
+      "api": {
+        "final_url": "https://www.helmholtz.de",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 13,
+        "final_url": "https://www.helmholtz.de",
+        "html_bytes": 284214,
+        "links": 242,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc"
+    ],
+    "source_id": "helmholtz_association"
+  },
+  "heysuccess": {
+    "domain": "heysuccess.com",
+    "name": "HeySuccess",
+    "probe": {
+      "api": {
+        "error": "gave up after 3 attempts: HTTP 500 (url=https://www.heysuccess.com/api/v1/opportunities, status=None)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.heysuccess.com",
+        "html_bytes": 189972,
+        "links": 178,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": false,
+        "spa_markers": [
+          "ng-app"
+        ],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "competitions",
+      "fellowships",
+      "internships"
+    ],
+    "source_id": "heysuccess"
+  },
+  "human_frontier_science_program_hfsp": {
+    "domain": "hfsp.org",
+    "name": "Human Frontier Science Program (HFSP)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.hfsp.org/wp-json/wp/v2/posts, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "error": "client error (url=https://www.hfsp.org/funding/hfsp-funding, status=404)"
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "postdoc",
+      "research_grants"
+    ],
+    "source_id": "human_frontier_science_program_hfsp"
+  },
+  "ictp_trieste": {
+    "domain": "ictp.it",
+    "name": "ICTP - Trieste",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.ictp.it/api/v1/opportunities, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "error": "client error (url=https://www.ictp.it/opportunity, status=404)"
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "physics_fellowships",
+      "workshops",
+      "phd_sandwich"
+    ],
+    "source_id": "ictp_trieste"
+  },
+  "idealist_org": {
+    "domain": "idealist.org",
+    "name": "Idealist.org",
+    "probe": {
+      "api": {
+        "final_url": "https://www.idealist.org/en",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.idealist.org/en",
+        "html_bytes": 272545,
+        "links": 85,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "internships",
+      "fellowships"
+    ],
+    "source_id": "idealist_org"
+  },
+  "ihes": {
+    "domain": "ihes.fr",
+    "name": "IHES",
+    "probe": {
+      "api": {
+        "final_url": "https://www.ihes.fr/wp-json/wp/v2/pages?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "acf",
+          "author",
+          "comment_status",
+          "content",
+          "date",
+          "date_gmt",
+          "excerpt",
+          "featured_media",
+          "guid",
+          "id",
+          "link",
+          "menu_order",
+          "meta",
+          "modified",
+          "modified_gmt",
+          "parent",
+          "ping_status",
+          "slug",
+          "status",
+          "tags",
+          "template",
+          "title",
+          "type",
+          "yoast_head"
+        ],
+        "status": 200
+      },
+      "page": {
+        "article_tags": 1,
+        "final_url": "https://www.ihes.fr/en/applications/",
+        "html_bytes": 118684,
+        "links": 159,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "wp_rest",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 0,
+        "kind": "rss",
+        "status": 200,
+        "title": "Comments on: Applications",
+        "url": "https://www.ihes.fr/en/applications/feed"
+      }
+    },
+    "scope": [
+      "visiting_fellowships",
+      "postdocs"
+    ],
+    "source_id": "ihes"
+  },
+  "iiasa": {
+    "domain": "iiasa.ac.at",
+    "name": "IIASA",
+    "probe": {
+      "api": {
+        "error": "robots.txt disallows https://iiasa.ac.at/jsonapi/node/opportunity",
+        "kind": "refused"
+      },
+      "page": {
+        "error": "iiasa.ac.at refused automated access earlier this session",
+        "refused": true,
+        "status": 403
+      },
+      "recommended_method": "blocked_document",
+      "robots": {
+        "postings_page_allowed": false
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "summer_program",
+      "postdoc"
+    ],
+    "source_id": "iiasa"
+  },
+  "inomics": {
+    "domain": "inomics.com",
+    "name": "Inomics",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://inomics.com/api/v1/offers, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 16,
+        "final_url": "https://inomics.com",
+        "html_bytes": 220023,
+        "links": 206,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "rss",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 10,
+        "kind": "rss",
+        "status": 200,
+        "title": "Social Media RSS Feed",
+        "url": "https://inomics.com/rss"
+      }
+    },
+    "scope": [
+      "fellowships",
+      "phd",
+      "summer_schools"
+    ],
+    "source_id": "inomics"
+  },
+  "interacademy_partnership_iap": {
+    "domain": "interacademies.org",
+    "name": "InterAcademy Partnership (IAP)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.interacademies.org/wp-json/wp/v2/posts, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "error": "client error (url=https://www.interacademies.org/opportunities, status=404)"
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "fellowships",
+      "workshops",
+      "awards"
+    ],
+    "source_id": "interacademy_partnership_iap"
+  },
+  "international_astronomical_union_iau": {
+    "domain": "iau.org",
+    "name": "International Astronomical Union (IAU)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.iau.org/api/v1/grants, status=401)",
+        "kind": "error"
+      },
+      "page": {
+        "error": "client error (url=https://www.iau.org/science/grants/, status=404)"
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "travel_grants",
+      "phd_schools",
+      "symposia"
+    ],
+    "source_id": "international_astronomical_union_iau"
+  },
+  "irish_research_council_irc": {
+    "domain": "research.ie",
+    "name": "Irish Research Council (IRC)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://research.ie/wp-json/wp/v2/posts, status=401)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://research.ie/funding/",
+        "html_bytes": 24844,
+        "links": 89,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "fellowships",
+      "postdoc"
+    ],
+    "source_id": "irish_research_council_irc"
+  },
+  "japan_society_for_the_promotion_of_science_jsps": {
+    "domain": "jsps.go.jp",
+    "name": "Japan Society for the Promotion of Science (JSPS)",
+    "probe": {
+      "api": {
+        "final_url": "https://www.jsps.go.jp/english/e-fellow/application.html",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.jsps.go.jp/english/e-fellow/",
+        "html_bytes": 75349,
+        "links": 111,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "postdoc",
+      "exchange_programs"
+    ],
+    "source_id": "japan_society_for_the_promotion_of_science_jsps"
+  },
+  "jobs_ac_uk": {
+    "domain": "jobs.ac.uk",
+    "name": "jobs.ac.uk",
+    "probe": {
+      "api": {
+        "final_url": "https://www.jobs.ac.uk",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.jobs.ac.uk",
+        "html_bytes": 72767,
+        "links": 114,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd_studentships",
+      "postdoc",
+      "academic_jobs"
+    ],
+    "source_id": "jobs_ac_uk"
+  },
+  "korean_government_scholarship_kgsp": {
+    "domain": "studyinkorea.go.kr",
+    "name": "Korean Government Scholarship (KGSP)",
+    "probe": {
+      "api": {
+        "final_url": "https://www.studyinkorea.go.kr/ko/main.do;jsessionid=6cIA1Zz_3Zw0JG4e1nBGYT6hgsmPS-KFQ7wLNIGX.studyinkorea10",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.studyinkorea.go.kr/ko/main.do;jsessionid=6cIA1Zz_3Zw0JG4e1nBGYT6hgsmPS-KFQ7wLNIGX.studyinkorea10",
+        "html_bytes": 127032,
+        "links": 183,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "masters",
+      "phd"
+    ],
+    "source_id": "korean_government_scholarship_kgsp"
+  },
+  "leibniz_association": {
+    "domain": "leibniz-gemeinschaft.de",
+    "name": "Leibniz Association",
+    "probe": {
+      "api": {
+        "final_url": "https://www.leibniz-gemeinschaft.de",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.leibniz-gemeinschaft.de",
+        "html_bytes": 73187,
+        "links": 61,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc"
+    ],
+    "source_id": "leibniz_association"
+  },
+  "marie_skodowska_curie_actions_msca": {
+    "domain": "marie-sklodowska-curie-actions.ec.europa.eu",
+    "name": "Marie Skłodowska-Curie Actions (MSCA)",
+    "probe": {
+      "api": {
+        "final_url": "https://marie-sklodowska-curie-actions.ec.europa.eu",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 1,
+        "final_url": "https://marie-sklodowska-curie-actions.ec.europa.eu",
+        "html_bytes": 133450,
+        "links": 40,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc",
+      "fellowships"
+    ],
+    "source_id": "marie_skodowska_curie_actions_msca"
+  },
+  "masterprograms_com": {
+    "domain": "masterprograms.com",
+    "name": "Masterprograms.com",
+    "probe": {
+      "api": {
+        "final_url": "https://www.masterprograms.com/wp-json/wp/v2/posts?per_page=1",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.masterprograms.com",
+        "html_bytes": 114,
+        "links": 0,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": false,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "masters",
+      "fellowships",
+      "phd"
+    ],
+    "source_id": "masterprograms_com"
+  },
+  "max_delbruck_center_for_molecular_medicine_mdc_berlin": {
+    "domain": "mdc-berlin.de",
+    "name": "Max Delbrück Center for Molecular Medicine (MDC Berlin)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.mdc-berlin.de/jsonapi/node/job_posting, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 5,
+        "final_url": "https://www.mdc-berlin.de/careers",
+        "html_bytes": 108151,
+        "links": 177,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc",
+      "phd_schools"
+    ],
+    "source_id": "max_delbruck_center_for_molecular_medicine_mdc_berlin"
+  },
+  "max_planck_society_imprs": {
+    "domain": "mpg.de",
+    "name": "Max Planck Society / IMPRS",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.mpg.de/api/jobboard/offers, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.mpg.de/jobboard",
+        "html_bytes": 95887,
+        "links": 157,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc",
+      "group_leads"
+    ],
+    "source_id": "max_planck_society_imprs"
+  },
+  "mext_scholarship_japan": {
+    "domain": "studyinjapan.go.jp",
+    "name": "MEXT Scholarship (Japan)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.studyinjapan.go.jp/api/v1/scholarships, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.studyinjapan.go.jp/en/planning/scholarships/",
+        "html_bytes": 16861,
+        "links": 97,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "masters",
+      "phd",
+      "research_student"
+    ],
+    "source_id": "mext_scholarship_japan"
+  },
+  "mina7": {
+    "domain": "mina7.net",
+    "name": "Mina7",
+    "probe": {
+      "api": {
+        "error": "gave up after 3 attempts: network error: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1082) (url=https://mina7.net/api/v1/opportunities, status=None)",
+        "kind": "error"
+      },
+      "page": {
+        "error": "gave up after 3 attempts: network error: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1082) (url=https://mina7.net, status=None)"
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "fellowships",
+      "workshops"
+    ],
+    "source_id": "mina7"
+  },
+  "mit_graduate_fellowships_pappalardo": {
+    "domain": "physics.mit.edu",
+    "name": "MIT Graduate Fellowships & Pappalardo",
+    "probe": {
+      "api": {
+        "final_url": "https://physics.mit.edu/wp-json/wp/v2/pages?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "acf",
+          "author",
+          "class_list",
+          "comment_status",
+          "content",
+          "date",
+          "date_gmt",
+          "excerpt",
+          "featured_media",
+          "guid",
+          "id",
+          "link",
+          "menu_order",
+          "meta",
+          "modified",
+          "modified_gmt",
+          "parent",
+          "ping_status",
+          "slug",
+          "status",
+          "template",
+          "title",
+          "type",
+          "yoast_head"
+        ],
+        "status": 200
+      },
+      "page": {
+        "error": "client error (url=https://physics.mit.edu/research/pappalardo-fellowships/, status=404)"
+      },
+      "recommended_method": "wp_rest",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc",
+      "physics_fellowships"
+    ],
+    "source_id": "mit_graduate_fellowships_pappalardo"
+  },
+  "national_research_foundation_nrf_south_africa": {
+    "domain": "nrf.ac.za",
+    "name": "National Research Foundation (NRF South Africa)",
+    "probe": {
+      "api": {
+        "error": "gave up after 3 attempts: network error: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1082) (url=https://www.nrf.ac.za/wp-json/wp/v2/posts, status=None)",
+        "kind": "error"
+      },
+      "page": {
+        "error": "gave up after 3 attempts: network error: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1082) (url=https://www.nrf.ac.za/funding/, status=None)"
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "bursaries",
+      "doctoral_grants",
+      "postdoc_fellowships"
+    ],
+    "source_id": "national_research_foundation_nrf_south_africa"
+  },
+  "national_university_of_singapore_nus": {
+    "domain": "nusgs.nus.edu.sg",
+    "name": "National University of Singapore (NUS)",
+    "probe": {
+      "api": {
+        "final_url": "https://nusgs.nus.edu.sg/wp-json/wp/v2/posts?per_page=1",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://nusgs.nus.edu.sg/scholarships/",
+        "html_bytes": 209535,
+        "links": 111,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "phd",
+      "fellowships"
+    ],
+    "source_id": "national_university_of_singapore_nus"
+  },
+  "nordforsk": {
+    "domain": "nordforsk.org",
+    "name": "NordForsk",
+    "probe": {
+      "api": {
+        "final_url": "https://www.nordforsk.org",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 4,
+        "final_url": "https://www.nordforsk.org",
+        "html_bytes": 43842,
+        "links": 95,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "research_grants",
+      "fellowships"
+    ],
+    "source_id": "nordforsk"
+  },
+  "nserc_canada": {
+    "domain": "nserc-crsng.gc.ca",
+    "name": "NSERC Canada",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://open.canada.ca/data/api/action/package_show?id=nserc-funding, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://nserc-crsng.canada.ca/en/funding/students-and-postdoctoral-researchers",
+        "html_bytes": 14335,
+        "links": 0,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": false,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "postdoc",
+      "doctoral_awards",
+      "grants"
+    ],
+    "source_id": "nserc_canada"
+  },
+  "nuffic_holland_scholarship": {
+    "domain": "studyinnl.org",
+    "name": "Nuffic / Holland Scholarship",
+    "probe": {
+      "api": {
+        "final_url": "https://www.studyinnl.org",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 1,
+        "final_url": "https://www.studyinnl.org",
+        "html_bytes": 39176,
+        "links": 42,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "masters"
+    ],
+    "source_id": "nuffic_holland_scholarship"
+  },
+  "oas_scholarships": {
+    "domain": "oas.org",
+    "name": "OAS Scholarships",
+    "probe": {
+      "api": {
+        "error": "robots.txt disallows https://www.oas.org/en/scholarships",
+        "kind": "refused"
+      },
+      "page": {
+        "error": "www.oas.org refused automated access earlier this session",
+        "refused": true,
+        "status": 403
+      },
+      "recommended_method": "blocked_document",
+      "robots": {
+        "postings_page_allowed": false
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "masters",
+      "phd"
+    ],
+    "source_id": "oas_scholarships"
+  },
+  "oist_okinawa_institute_of_science_and_technology": {
+    "domain": "admissions.oist.jp",
+    "name": "OIST - Okinawa Institute of Science and Technology",
+    "probe": {
+      "api": {
+        "final_url": "https://www.oist.jp/admissions",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 10,
+        "final_url": "https://www.oist.jp/admissions",
+        "html_bytes": 236336,
+        "links": 405,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": false,
+        "spa_markers": [
+          "id=\"root\""
+        ],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "internships"
+    ],
+    "source_id": "oist_okinawa_institute_of_science_and_technology"
+  },
+  "open_society_foundations_osf": {
+    "domain": "opensocietyfoundations.org",
+    "name": "Open Society Foundations (OSF)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.opensocietyfoundations.org/api/v1/grants, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.opensocietyfoundations.org/grants",
+        "html_bytes": 40697,
+        "links": 97,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "rss",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 9,
+        "kind": "atom",
+        "status": 200,
+        "title": "Open Society Grants",
+        "url": "https://www.opensocietyfoundations.org/grants/rss"
+      }
+    },
+    "scope": [
+      "fellowships",
+      "research_grants",
+      "scholarships"
+    ],
+    "source_id": "open_society_foundations_osf"
+  },
+  "opportunities_circle": {
+    "domain": "opportunitiescircle.com",
+    "name": "Opportunities Circle",
+    "probe": {
+      "api": {
+        "final_url": "https://www.opportunitiescircle.com/wp-json/wp/v2/posts?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "acf",
+          "author",
+          "categories",
+          "class_list",
+          "comment_status",
+          "content",
+          "date",
+          "date_gmt",
+          "di_urgency",
+          "excerpt",
+          "featured_media",
+          "format",
+          "guid",
+          "id",
+          "jetpack_featured_media_url",
+          "jetpack_sharing_enabled",
+          "jetpack_shortlink",
+          "link",
+          "meta",
+          "modified",
+          "modified_gmt",
+          "ping_status",
+          "publishpress_future_action",
+          "publishpress_future_workflow_manual_trigger"
+        ],
+        "status": 200
+      },
+      "page": {
+        "article_tags": 15,
+        "final_url": "https://www.opportunitiescircle.com",
+        "html_bytes": 519689,
+        "links": 107,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "wp_rest",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 10,
+        "kind": "rss",
+        "status": 200,
+        "title": "Opportunities Circle",
+        "url": "https://www.opportunitiescircle.com/feed"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "fellowships",
+      "exchange_programs",
+      "summer_schools"
+    ],
+    "source_id": "opportunities_circle"
+  },
+  "opportunities_for_youth": {
+    "domain": "opportunitiesforyouth.org",
+    "name": "Opportunities For Youth",
+    "probe": {
+      "api": {
+        "final_url": "https://opportunitiesforyouth.org/wp-json/wp/v2/posts?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "amp_enabled",
+          "ams_acf",
+          "author",
+          "blog_images",
+          "categories",
+          "class_list",
+          "comment_status",
+          "content",
+          "date",
+          "date_gmt",
+          "excerpt",
+          "featured_image_src",
+          "featured_media",
+          "format",
+          "guid",
+          "id",
+          "jetpack-related-posts",
+          "jetpack_featured_media_url",
+          "jetpack_likes_enabled",
+          "jetpack_sharing_enabled",
+          "jetpack_shortlink",
+          "link",
+          "meta",
+          "modified"
+        ],
+        "status": 200
+      },
+      "page": {
+        "article_tags": 92,
+        "final_url": "https://opportunitiesforyouth.org/",
+        "html_bytes": 431934,
+        "links": 608,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "wp_rest",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 10,
+        "kind": "rss",
+        "status": 200,
+        "title": "Opportunities for Youth",
+        "url": "https://www.opportunitiesforyouth.org/feed"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "conferences",
+      "exchange_programs"
+    ],
+    "source_id": "opportunities_for_youth"
+  },
+  "opportunity_desk": {
+    "domain": "opportunitydesk.org",
+    "name": "Opportunity Desk",
+    "probe": {
+      "api": {
+        "final_url": "https://opportunitydesk.org/wp-json/wp/v2/posts?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "acf",
+          "author",
+          "categories",
+          "class_list",
+          "comment_status",
+          "content",
+          "date",
+          "date_gmt",
+          "excerpt",
+          "featured_media",
+          "format",
+          "guid",
+          "id",
+          "link",
+          "meta",
+          "modified",
+          "modified_gmt",
+          "ping_status",
+          "slug",
+          "status",
+          "sticky",
+          "tags",
+          "template",
+          "title"
+        ],
+        "status": 200
+      },
+      "page": {
+        "article_tags": 43,
+        "final_url": "https://opportunitydesk.org",
+        "html_bytes": 209458,
+        "links": 251,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "wp_rest",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 10,
+        "kind": "rss",
+        "status": 200,
+        "title": "Opportunity Desk",
+        "url": "https://opportunitydesk.org/feed"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "fellowships",
+      "competitions",
+      "conferences",
+      "internships",
+      "grants"
+    ],
+    "source_id": "opportunity_desk"
+  },
+  "paset_rsif": {
+    "domain": "rsif-paset.org",
+    "name": "PASET RSIF",
+    "probe": {
+      "api": {
+        "final_url": "https://www.rsif-paset.org/wp-json/wp/v2/posts?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "author",
+          "categories",
+          "class_list",
+          "comment_status",
+          "content",
+          "date",
+          "date_gmt",
+          "excerpt",
+          "featured_media",
+          "format",
+          "guid",
+          "id",
+          "link",
+          "meta",
+          "modified",
+          "modified_gmt",
+          "ping_status",
+          "slug",
+          "status",
+          "sticky",
+          "tags",
+          "template",
+          "title",
+          "type"
+        ],
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.rsif-paset.org",
+        "html_bytes": 113317,
+        "links": 145,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "wp_rest",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 10,
+        "kind": "rss",
+        "status": 200,
+        "title": "The PASET Regional Scholarship and Innovation Fund",
+        "url": "https://www.rsif-paset.org/feed"
+      }
+    },
+    "scope": [
+      "phd",
+      "fellowships",
+      "grants"
+    ],
+    "source_id": "paset_rsif"
+  },
+  "pasteur_institute": {
+    "domain": "pasteur.fr",
+    "name": "Pasteur Institute",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.pasteur.fr/en/jsonapi/node/education, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 6,
+        "final_url": "https://www.pasteur.fr/en/about-us/our-missions/education",
+        "html_bytes": 123114,
+        "links": 112,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc"
+    ],
+    "source_id": "pasteur_institute"
+  },
+  "perimeter_institute_for_theoretical_physics": {
+    "domain": "perimeterinstitute.ca",
+    "name": "Perimeter Institute for Theoretical Physics",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://perimeterinstitute.ca/wp-json/wp/v2/pages, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 1,
+        "final_url": "https://perimeterinstitute.ca/training",
+        "html_bytes": 83454,
+        "links": 110,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "masters",
+      "phd",
+      "visiting_fellowships"
+    ],
+    "source_id": "perimeter_institute_for_theoretical_physics"
+  },
+  "princeton_university_society_of_fellows": {
+    "domain": "sf.princeton.edu",
+    "name": "Princeton University Society of Fellows",
+    "probe": {
+      "api": {
+        "error": "403 for https://sf.princeton.edu/wp-json/wp/v2/pages - not retrying",
+        "kind": "refused"
+      },
+      "page": {
+        "error": "sf.princeton.edu refused automated access earlier this session",
+        "refused": true,
+        "status": 403
+      },
+      "recommended_method": "blocked_document",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "postdoc",
+      "humanities_fellowships"
+    ],
+    "source_id": "princeton_university_society_of_fellows"
+  },
+  "researchgate_opportunities_platform": {
+    "domain": "researchgate.net",
+    "name": "ResearchGate Opportunities Platform",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.researchgate.net/graphql, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "error": "client error (url=https://www.researchgate.net/jobs/research, status=404)"
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "fellowships",
+      "postdoc",
+      "conferences"
+    ],
+    "source_id": "researchgate_opportunities_platform"
+  },
+  "riken": {
+    "domain": "riken.jp",
+    "name": "RIKEN",
+    "probe": {
+      "api": {
+        "final_url": "https://www.riken.jp/en/careers/programs/",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.riken.jp/en/careers/",
+        "html_bytes": 16696,
+        "links": 97,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "spdr_postdoc",
+      "phd_fellowships"
+    ],
+    "source_id": "riken"
+  },
+  "santa_fe_institute": {
+    "domain": "santafe.edu",
+    "name": "Santa Fe Institute",
+    "probe": {
+      "api": {
+        "final_url": "https://www.santafe.edu/wp-json/wp/v2/posts?per_page=1",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.santafe.edu/academic",
+        "html_bytes": 108015,
+        "links": 74,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": false,
+        "spa_markers": [
+          "id=\"app\""
+        ],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "fellowships",
+      "postdocs",
+      "summer_schools"
+    ],
+    "source_id": "santa_fe_institute"
+  },
+  "scholars4dev": {
+    "domain": "scholars4dev.com",
+    "name": "Scholars4Dev",
+    "probe": {
+      "api": {
+        "final_url": "https://www.scholars4dev.com/wp-json/wp/v2/posts?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "aioseo_notices",
+          "author",
+          "categories",
+          "class_list",
+          "comment_status",
+          "content",
+          "date",
+          "date_gmt",
+          "excerpt",
+          "featured_media",
+          "format",
+          "guid",
+          "id",
+          "link",
+          "meta",
+          "modified",
+          "modified_gmt",
+          "ping_status",
+          "slug",
+          "status",
+          "sticky",
+          "tags",
+          "template",
+          "title"
+        ],
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.scholars4dev.com",
+        "html_bytes": 61049,
+        "links": 129,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "wp_rest",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 0,
+        "kind": "rss",
+        "status": 200,
+        "title": "International Scholarships for Developing Countries | Scholarships for Development",
+        "url": "https://www.scholars4dev.com/feed"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "masters",
+      "phd"
+    ],
+    "source_id": "scholars4dev"
+  },
+  "scholarship_position": {
+    "domain": "scholarship-positions.com",
+    "name": "Scholarship Position",
+    "probe": {
+      "api": {
+        "final_url": "https://cloudflare.vc/",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://cloudflare.vc/",
+        "html_bytes": 1934,
+        "links": 0,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": false,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "phd_grants",
+      "exchange_programs"
+    ],
+    "source_id": "scholarship_position"
+  },
+  "seameo": {
+    "domain": "seameo.org",
+    "name": "SEAMEO",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.seameo.org/wp-json/wp/v2/posts, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.seameo.org",
+        "html_bytes": 367888,
+        "links": 60,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "exchange_programs",
+      "fellowships",
+      "research_grants"
+    ],
+    "source_id": "seameo"
+  },
+  "simons_foundation": {
+    "domain": "simonsfoundation.org",
+    "name": "Simons Foundation",
+    "probe": {
+      "api": {
+        "final_url": "https://www.simonsfoundation.org/wp-json/wp/v2/posts?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "acf",
+          "author",
+          "categories",
+          "class_list",
+          "comment_status",
+          "content",
+          "date",
+          "date_gmt",
+          "excerpt",
+          "featured_media",
+          "format",
+          "guid",
+          "id",
+          "link",
+          "meta",
+          "modified",
+          "modified_gmt",
+          "ping_status",
+          "slug",
+          "status",
+          "sticky",
+          "tags",
+          "template",
+          "title"
+        ],
+        "status": 200
+      },
+      "page": {
+        "error": "www.simonsfoundation.org refused automated access earlier this session",
+        "refused": true,
+        "status": 403
+      },
+      "recommended_method": "blocked_document",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "fellowships",
+      "grants",
+      "symposia"
+    ],
+    "source_id": "simons_foundation"
+  },
+  "stanford_university_knight_hennessy_scholars": {
+    "domain": "knight-hennessy.stanford.edu",
+    "name": "Stanford University - Knight-Hennessy Scholars",
+    "probe": {
+      "api": {
+        "error": "403 for https://knight-hennessy.stanford.edu/wp-json/wp/v2/pages - not retrying",
+        "kind": "refused"
+      },
+      "page": {
+        "error": "knight-hennessy.stanford.edu refused automated access earlier this session",
+        "refused": true,
+        "status": 403
+      },
+      "recommended_method": "blocked_document",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "graduate_fellowships",
+      "phd"
+    ],
+    "source_id": "stanford_university_knight_hennessy_scholars"
+  },
+  "studyportals_scholarshipportal_mastersportal_phdportal": {
+    "domain": "scholarshipportal.com",
+    "name": "Studyportals (ScholarshipPortal / MastersPortal / PhDPortal)",
+    "probe": {
+      "api": {
+        "final_url": "https://www.mastersportal.com/scholarships/",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 3,
+        "final_url": "https://www.mastersportal.com/scholarships/",
+        "html_bytes": 146443,
+        "links": 236,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "masters",
+      "phd"
+    ],
+    "source_id": "studyportals_scholarshipportal_mastersportal_phdportal"
+  },
+  "swedish_institute_scholarships": {
+    "domain": "si.se",
+    "name": "Swedish Institute Scholarships",
+    "probe": {
+      "api": {
+        "error": "robots.txt disallows https://si.se/wp-json/wp/v2/posts",
+        "kind": "refused"
+      },
+      "page": {
+        "error": "si.se refused automated access earlier this session",
+        "refused": true,
+        "status": 403
+      },
+      "recommended_method": "blocked_document",
+      "robots": {
+        "postings_page_allowed": false
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "masters"
+    ],
+    "source_id": "swedish_institute_scholarships"
+  },
+  "swiss_government_excellence_scholarships": {
+    "domain": "sbfi.admin.ch",
+    "name": "Swiss Government Excellence Scholarships",
+    "probe": {
+      "api": {
+        "final_url": "https://www.sbfi.admin.ch/en",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.sbfi.admin.ch/en",
+        "html_bytes": 180121,
+        "links": 22,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": false,
+        "spa_markers": [
+          "nuxt"
+        ],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc",
+      "research"
+    ],
+    "source_id": "swiss_government_excellence_scholarships"
+  },
+  "swiss_national_science_foundation_snsf": {
+    "domain": "snf.ch",
+    "name": "Swiss National Science Foundation (SNSF)",
+    "probe": {
+      "api": {
+        "error": "gave up after 3 attempts: network error: [Errno 11001] getaddrinfo failed (url=https://p3.snf.ch/api/researcher, status=None)",
+        "kind": "error"
+      },
+      "page": {
+        "error": "client error (url=https://www.snf.ch/en/funding/opportunities, status=404)"
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "postdoc",
+      "doctoral_fellowships",
+      "grants"
+    ],
+    "source_id": "swiss_national_science_foundation_snsf"
+  },
+  "turkiye_scholarships": {
+    "domain": "turkiyeburslari.gov.tr",
+    "name": "Türkiye Scholarships",
+    "probe": {
+      "api": {
+        "final_url": "https://tbbs.turkiyeburslari.gov.tr/Home/PageNotFound?aspxerrorpath=/api/announcements",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "error": "www.turkiyeburslari.gov.tr refused automated access earlier this session",
+        "refused": true,
+        "status": 403
+      },
+      "recommended_method": "blocked_document",
+      "robots": {
+        "postings_page_allowed": false
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "masters",
+      "phd",
+      "fellowships"
+    ],
+    "source_id": "turkiye_scholarships"
+  },
+  "uk_research_and_innovation_ukri": {
+    "domain": "ukri.org",
+    "name": "UK Research and Innovation (UKRI)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.ukri.org/wp-json/wp/v2/opportunity, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.ukri.org/opportunity/",
+        "html_bytes": 113981,
+        "links": 118,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "rss",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 20,
+        "kind": "rss",
+        "status": 200,
+        "title": "Opportunities – UKRI",
+        "url": "https://www.ukri.org/opportunity/feed"
+      }
+    },
+    "scope": [
+      "fellowships",
+      "phd_studentships",
+      "grants"
+    ],
+    "source_id": "uk_research_and_innovation_ukri"
+  },
+  "un_careers_internship_programme": {
+    "domain": "careers.un.org",
+    "name": "UN Careers Internship Programme",
+    "probe": {
+      "api": {
+        "final_url": "https://careers.un.org",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://careers.un.org",
+        "html_bytes": 120074,
+        "links": 0,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": false,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "internships",
+      "fellowships"
+    ],
+    "source_id": "un_careers_internship_programme"
+  },
+  "university_of_melbourne": {
+    "domain": "scholarships.unimelb.edu.au",
+    "name": "University of Melbourne",
+    "probe": {
+      "api": {
+        "final_url": "https://scholarships.unimelb.edu.au",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://scholarships.unimelb.edu.au",
+        "html_bytes": 30147,
+        "links": 53,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "phd"
+    ],
+    "source_id": "university_of_melbourne"
+  },
+  "university_of_oxford_graduate_funding": {
+    "domain": "ox.ac.uk",
+    "name": "University of Oxford - Graduate Funding",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.ox.ac.uk/api/v1/funding-opportunities, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 6,
+        "final_url": "https://www.ox.ac.uk/admissions/graduate/fees-and-funding",
+        "html_bytes": 335971,
+        "links": 367,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "phd",
+      "postdoc"
+    ],
+    "source_id": "university_of_oxford_graduate_funding"
+  },
+  "university_of_tokyo": {
+    "domain": "u-tokyo.ac.jp",
+    "name": "University of Tokyo",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.u-tokyo.ac.jp/api/search.json, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "error": "client error (url=https://www.u-tokyo.ac.jp/en/prospective-students/fellowships.html, status=404)"
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "visiting_research",
+      "phd_fellowships"
+    ],
+    "source_id": "university_of_tokyo"
+  },
+  "vanier_canada_graduate_scholarships": {
+    "domain": "vanier.gc.ca",
+    "name": "Vanier Canada Graduate Scholarships",
+    "probe": {
+      "api": {
+        "error": "gave up after 3 attempts: network error: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1082) (url=https://vanier.gc.ca, status=None)",
+        "kind": "error"
+      },
+      "page": {
+        "error": "gave up after 3 attempts: network error: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1082) (url=https://vanier.gc.ca, status=None)"
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd"
+    ],
+    "source_id": "vanier_canada_graduate_scholarships"
+  },
+  "visegrad_fund": {
+    "domain": "visegradfund.org",
+    "name": "Visegrad Fund",
+    "probe": {
+      "api": {
+        "final_url": "https://www.visegradfund.org",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "https://www.visegradfund.org",
+        "html_bytes": 149348,
+        "links": 82,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "exchange_programs",
+      "grants"
+    ],
+    "source_id": "visegrad_fund"
+  },
+  "wellcome_sanger_institute": {
+    "domain": "sanger.ac.uk",
+    "name": "Wellcome Sanger Institute",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://www.sanger.ac.uk/wp-json/wp/v2/posts, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "error": "client error (url=https://www.sanger.ac.uk/about/study-and-train/, status=404)"
+      },
+      "recommended_method": "needs_manual_review",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc",
+      "visiting_scholar"
+    ],
+    "source_id": "wellcome_sanger_institute"
+  },
+  "wikicfp": {
+    "domain": "wikicfp.com",
+    "name": "WikiCFP",
+    "probe": {
+      "api": {
+        "final_url": "http://www.wikicfp.com/cfp/rss",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 0,
+        "final_url": "http://www.wikicfp.com/cfp/",
+        "html_bytes": 25112,
+        "links": 63,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "rss",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "entries_on_first_page": 50,
+        "kind": "rss",
+        "status": 200,
+        "title": "WikiCFP",
+        "url": "http://www.wikicfp.com/cfp/rss"
+      }
+    },
+    "scope": [
+      "call_for_papers",
+      "conferences",
+      "workshops"
+    ],
+    "source_id": "wikicfp"
+  },
+  "woods_hole_oceanographic_institution_whoi": {
+    "domain": "whoi.edu",
+    "name": "Woods Hole Oceanographic Institution (WHOI)",
+    "probe": {
+      "api": {
+        "final_url": "https://www.whoi.edu/wp-json/wp/v2/posts?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "author",
+          "capital_campaign_tag",
+          "categories",
+          "class_list",
+          "comment_status",
+          "content",
+          "date",
+          "date_gmt",
+          "excerpt",
+          "featured_media",
+          "fimg_url",
+          "format",
+          "guid",
+          "id",
+          "link",
+          "meta",
+          "modified",
+          "modified_gmt",
+          "ping_status",
+          "slug",
+          "status",
+          "sticky",
+          "tags",
+          "template"
+        ],
+        "status": 200
+      },
+      "page": {
+        "error": "www.whoi.edu refused automated access earlier this session",
+        "refused": true,
+        "status": 403
+      },
+      "recommended_method": "blocked_document",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "postdoc",
+      "summer_fellowships"
+    ],
+    "source_id": "woods_hole_oceanographic_institution_whoi"
+  },
+  "world_academy_of_sciences_twas_unesco": {
+    "domain": "twas.org",
+    "name": "World Academy of Sciences (TWAS - UNESCO)",
+    "probe": {
+      "api": {
+        "error": "client error (url=https://twas.org/wp-json/wp/v2/posts, status=404)",
+        "kind": "error"
+      },
+      "page": {
+        "article_tags": 1,
+        "final_url": "https://twas.org/opportunities",
+        "html_bytes": 114831,
+        "links": 278,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "phd",
+      "postdoc_grants",
+      "exchange_programs"
+    ],
+    "source_id": "world_academy_of_sciences_twas_unesco"
+  },
+  "yale_university_macmillan_center": {
+    "domain": "macmillan.yale.edu",
+    "name": "Yale University - MacMillan Center",
+    "probe": {
+      "api": {
+        "final_url": "https://macmillan.yale.edu/search?keywords=jsonapi%20node%20opportunity",
+        "kind": "html",
+        "status": 200
+      },
+      "page": {
+        "article_tags": 1,
+        "final_url": "https://macmillan.yale.edu/refugee/grants-fellowships",
+        "html_bytes": 124249,
+        "links": 45,
+        "looks_like_wordpress": false,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "html",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "fellowships",
+      "postdocs"
+    ],
+    "source_id": "yale_university_macmillan_center"
+  },
+  "youth_opportunities": {
+    "domain": "youthop.com",
+    "name": "Youth Opportunities",
+    "probe": {
+      "api": {
+        "final_url": "https://www.youthop.com/wp-json/wp/v2/posts?per_page=1",
+        "has_posts": true,
+        "kind": "wp_rest",
+        "sample_fields": [
+          "_links",
+          "category",
+          "deadline",
+          "has-deadline",
+          "id",
+          "region",
+          "thumbnail",
+          "title"
+        ],
+        "status": 200
+      },
+      "page": {
+        "article_tags": 1,
+        "final_url": "https://www.youthop.com",
+        "html_bytes": 101546,
+        "links": 127,
+        "looks_like_wordpress": true,
+        "server_rendered_guess": true,
+        "spa_markers": [],
+        "status": 200
+      },
+      "recommended_method": "wp_rest",
+      "robots": {
+        "postings_page_allowed": true
+      },
+      "rss": {
+        "error": "no feed found"
+      }
+    },
+    "scope": [
+      "scholarships",
+      "fellowships",
+      "phd",
+      "competitions",
+      "conferences",
+      "internships",
+      "grants"
+    ],
+    "source_id": "youth_opportunities"
+  }
+}
