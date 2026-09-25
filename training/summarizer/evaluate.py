@@ -25,16 +25,10 @@ import torch
 
 from training.common.datasets import load_split
 from training.common.experiment import PROJECT_ROOT
+from training.summarizer.prompt import render_prompt
 
 REPORT_DIR = PROJECT_ROOT / "reports"
 BASE_MODEL = "SupraLabs/Supra2-100M-Instruct"
-PROMPT = (
-    "Summarize the following opportunity posting as high-signal intelligence. "
-    "Use sections DEADLINE / MANDATORY / RESTRICTIONS / TARGET GROUP / "
-    "FUNDING / BENEFITS / APPLICATION / OTHER IMPORTANT CONDITIONS / SUMMARY "
-    "(omit empty sections), at most 150 words, and never invent information.\n\n"
-    "OPPORTUNITY:\n{input}"
-)
 SECTIONS = ["DEADLINE", "MANDATORY", "RESTRICTIONS", "TARGET GROUP", "FUNDING", "APPLICATION", "SUMMARY"]
 
 
@@ -100,7 +94,7 @@ def main(argv: list[str] | None = None) -> int:
 
     device = args.device or ("cuda" if torch.cuda.is_available() else "cpu")
     test = load_split("summarizer", args.dataset_version, "test")
-    prompts = [PROMPT.format(input=r["input"]) for r in test.examples]
+    prompts = [render_prompt(tokenizer, r["input"]) for r in test.examples]
     refs = [r["target"] for r in test.examples]
     results: dict = {
         "evaluated_at": datetime.now(timezone.utc).isoformat(),
