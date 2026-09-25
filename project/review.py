@@ -116,45 +116,82 @@ def main() -> None:
     parsed = entry.get("parsed_annotation") or {}
     dispute = disputed.get(entry["record_id"])
 
+    # a pasted decision belongs to one record: drop it when the shown record changes
+    if st.session_state.get("fetched_rid") != entry["record_id"]:
+        st.session_state.pop("fetched", None)
+
     st.title(f"Review: {task} ({index}/{len(pool)} in filter)")
     st.subheader(record.get("title", entry["record_id"]))
     st.caption(f"{record.get('source_id', '?')} · {record.get('canonical_url', '')}")
 
-    with st.expander("SOURCE OPPORTUNITY", expanded=True):
-        words = (record.get("clean_text") or "").split()
-        st.text(" ".join(words[:900]) + (" …" if len(words) > 900 else ""))
+    # ---- LEFT: one clean, copyable text block (st.code ships a copy button) ----
+    words = (record.get("clean_text") or "").split()
+    left_text = "\n".join([
+        f'TITLE: {record.get("title", entry["record_id"])}',
+        f'SOURCE: {record.get("source_id", "?")} · {record.get("canonical_url", "")}',
+        "",
+        "SOURCE OPPORTUNITY:",
+        " ".join(words[:900]) + (" …" if len(words) > 900 else ""),
+        "",
+        f'TEACHER TARGET: primary={parsed.get("primary_category")} · '
+        f'secondary={parsed.get("secondary_plausible_categories")} · '
+        f'ambiguity={parsed.get("classification_ambiguity")}',
+        f'REASON: {parsed.get("reason_for_label")}',
+        f'FLAGS: {entry.get("review_flags") or []} · validation={entry.get("validation_status")}',
+        f'PROVIDER: {entry.get("teacher_provider_slot")} · {entry.get("teacher_model")} · {entry.get("teacher_timestamp")}',
+    ])
+    st.code(left_text, language=None)
 
-    left, right = st.columns(2)
-    with left:
-        st.subheader("TEACHER TARGET")
-        if task == "classify":
-            categories = load_taxonomy()
-            current = parsed.get("primary_category", categories[0])
-            primary = st.selectbox(
-                "primary_category",
-                categories,
-                index=categories.index(current) if current in categories else 0,
+    # ---- fetch handler: parse the pasted decision JSON ----
+    def do_fetch() -> None:
+        try:
+            pasted = json.loads(st.session_state.get("paste_box", "") or "{}")
+        except json.JSONDecodeError as exc:
+            st.session_state["fetch_error"] = f"invalid JSON: {exc}"
+            return
+        if not isinstance(pasted, dict) or not pasted:
+            st.session_state["fetch_error"] = "paste a non-empty JSON object"
+            return
+        pasted_title = (pasted.get("title") or "").strip().lower()
+        if pasted_title and pasted_title != (record.get("title") or "").strip().lower():
+            st.session_state["fetch_error"] = (
+                f'title mismatch: pasted "{pasted_title[:60]}" but this record is '
+                f'"{(record.get("title") or "")[:60]}" — not applying'
             )
-            secondary_default = [
-                s for s in (parsed.get("secondary_plausible_categories") or [])
-                if s in categories and s != primary
-            ]
-            secondary = st.multiselect(
-                "secondary_plausible_categories",
-                [c for c in categories if c != primary],
-                default=secondary_default,
-                help="Dispute or clear the teacher's secondary guesses here.",
-            )
-            ambiguity = st.number_input(
-                "classification_ambiguity",
-                min_value=0.0, max_value=1.0,
-                value=float(parsed.get("classification_ambiguity") or 0.0),
-                step=0.05,
-            )
-            reason = st.text_area("reason_for_label", parsed.get("reason_for_label", ""))
-            st.caption(f"provider: {entry.get('teacher_provider_slot')} · {entry.get('teacher_model')} · {entry.get('teacher_timestamp')}")
-        else:
-            edited_summary = st.text_area("summary target", parsed.get("summary", ""), height=360)
+            return
+        st.session_state.pop("fetch_error", None)
+        st.session_state["fetched"] = pasted
+        st.session_state["fetched_rid"] = entry["record_id"]
+
+    fetched = st.session_state.get("fetched") or {}
+    fetch_error = st.session_state.get("fetch_error")
+
+    if task == "classify":
+        categories = load_taxonomy()
+        # fetched verdict takes precedence; teacher parsed is the fallback
+        base = {**parsed, **{k: v for k, v in fetched.items() if k != "action" and v is not None}}
+        current = base.get("primary_category", categories[0])
+        primary = st.selectbox(
+            "primary_category",
+            categories,
+            index=categories.index(current) if current in categories else 0,
+        )
+        secondary = st.multiselect(
+            "secondary_plausible_categories",
+            [c for c in categories if c != primary],
+            default=[s for s in (base.get("secondary_plausible_categories") or []) if s in categories and s != primary],
+            help="Dispute or clear the teacher's secondary guesses here.",
+        )
+        ambiguity = st.number_input(
+            "classification_ambiguity",
+            min_value=0.0, max_value=1.0,
+            value=float(base.get("classification_ambiguity") or 0.0),
+            step=0.05,
+        )
+        reason = st.text_area("reason_for_label", base.get("reason_for_label", ""))
+    else:
+        edited_summary = st.text_area("summary target", parsed.get("summary", ""), height=360)
+
     with right:
         st.subheader("FLAGS")
         st.write(entry.get("review_flags") or [])
@@ -169,14 +206,31 @@ def main() -> None:
             )
 
     st.subheader("ACTION")
-    st.caption("Any field you change above is saved as a human correction "
-               "(the teacher's original output stays preserved in original_teacher_parsed).")
-    note = st.text_input("review note")
+    st.caption("Paste a decision JSON on the right and hit Fetch to fill the fields, "
+               "or edit the widgets directly. The teacher's original output stays preserved.")
+    left, right = st.columns(2)
+    with left:
+        if fetch_error:
+            st.error(fetch_error)
+        elif fetched:
+            st.success(f'fetched decision for: {fetched.get("title", entry["record_id"])[:60]}')
+        note = st.text_input("review note", key="note_box",
+                             value=(fetched or {}).get("review_note", "") if fetched else "")
+    with right:
+        paste_box = st.text_area("paste decision JSON", key="paste_box", height=140,
+                                 placeholder='{"primary_category": "...", "action": "corrected", ...}')
+        if st.button("Fetch pasted decision", on_click=do_fetch):
+            pass
+
+    _ACTION_MAP = {"approve": "approved", "approved": "approved", "corrected": "corrected",
+                   "reject": "reject", "mark ambiguous": "mark ambiguous"}
+    default_action = _ACTION_MAP.get((fetched or {}).get("action"), "skip")
     action = st.radio(
         "decision",
         ["skip", "approved", "corrected", "reject", "mark ambiguous"],
         horizontal=True,
         label_visibility="collapsed",
+        index=["skip", "approved", "corrected", "reject", "mark ambiguous"].index(default_action),
     )
     if st.button("Save decision") and action != "skip":
         entry["original_teacher_parsed"] = entry.get("original_teacher_parsed") or entry.get("parsed_annotation")
@@ -215,6 +269,9 @@ def main() -> None:
         target = min(index, max(len(pool) - 1, 1))
         st.session_state.pop("record_idx", None)
         st.session_state.record_idx = target
+        st.session_state.pop("paste_box", None)   # clear for the next record
+        st.session_state.pop("fetched", None)
+        st.session_state.pop("fetched_rid", None)
         st.cache_data.clear()
         st.toast(f"Saved: {action} — {record.get('title', '')[:60]}")
         st.rerun()
