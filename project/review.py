@@ -124,24 +124,6 @@ def main() -> None:
     st.subheader(record.get("title", entry["record_id"]))
     st.caption(f"{record.get('source_id', '?')} · {record.get('canonical_url', '')}")
 
-    # ---- LEFT: one clean, copyable text block (st.code ships a copy button) ----
-    words = (record.get("clean_text") or "").split()
-    left_text = "\n".join([
-        f'TITLE: {record.get("title", entry["record_id"])}',
-        f'SOURCE: {record.get("source_id", "?")} · {record.get("canonical_url", "")}',
-        "",
-        "SOURCE OPPORTUNITY:",
-        " ".join(words[:900]) + (" …" if len(words) > 900 else ""),
-        "",
-        f'TEACHER TARGET: primary={parsed.get("primary_category")} · '
-        f'secondary={parsed.get("secondary_plausible_categories")} · '
-        f'ambiguity={parsed.get("classification_ambiguity")}',
-        f'REASON: {parsed.get("reason_for_label")}',
-        f'FLAGS: {entry.get("review_flags") or []} · validation={entry.get("validation_status")}',
-        f'PROVIDER: {entry.get("teacher_provider_slot")} · {entry.get("teacher_model")} · {entry.get("teacher_timestamp")}',
-    ])
-    st.code(left_text, language=None)
-
     # ---- fetch handler: parse the pasted decision JSON ----
     def do_fetch() -> None:
         try:
@@ -157,63 +139,92 @@ def main() -> None:
         st.session_state["fetched"] = pasted
         st.session_state["fetched_rid"] = entry["record_id"]
 
+    # ---- PANE 2: everything in one copyable box + copy-all underneath ----
+    words = (record.get("clean_text") or "").split()
+    left_text = "\n".join([
+        f'TITLE: {record.get("title", entry["record_id"])}',
+        f'SOURCE: {record.get("source_id", "?")} · {record.get("canonical_url", "")}',
+        "",
+        "SOURCE OPPORTUNITY:",
+        " ".join(words[:900]) + (" …" if len(words) > 900 else ""),
+        "",
+        f'TEACHER TARGET: primary={parsed.get("primary_category")} · '
+        f'secondary={parsed.get("secondary_plausible_categories")} · '
+        f'ambiguity={parsed.get("classification_ambiguity")}',
+        f'REASON: {parsed.get("reason_for_label")}',
+        f'FLAGS: {entry.get("review_flags") or []} · validation={entry.get("validation_status")}',
+        f'PROVIDER: {entry.get("teacher_provider_slot")} · {entry.get("teacher_model")} · {entry.get("teacher_timestamp")}',
+    ])
+
     fetched = st.session_state.get("fetched") or {}
     fetch_error = st.session_state.get("fetch_error")
 
-    if task == "classify":
-        categories = load_taxonomy()
-        # fetched verdict takes precedence; teacher parsed is the fallback
-        base = {**parsed, **{k: v for k, v in fetched.items() if k != "action" and v is not None}}
-        current = base.get("primary_category", categories[0])
-        primary = st.selectbox(
-            "primary_category",
-            categories,
-            index=categories.index(current) if current in categories else 0,
-        )
-        secondary = st.multiselect(
-            "secondary_plausible_categories",
-            [c for c in categories if c != primary],
-            default=[s for s in (base.get("secondary_plausible_categories") or []) if s in categories and s != primary],
-            help="Dispute or clear the teacher's secondary guesses here.",
-        )
-        ambiguity = st.number_input(
-            "classification_ambiguity",
-            min_value=0.0, max_value=1.0,
-            value=float(base.get("classification_ambiguity") or 0.0),
-            step=0.05,
-        )
-        reason = st.text_area("reason_for_label", base.get("reason_for_label", ""))
-    else:
-        edited_summary = st.text_area("summary target", parsed.get("summary", ""), height=360)
+    info_pane, fields_pane = st.columns(2)
+    with info_pane:
+        st.code(left_text, language=None)
+        if st.button("Copy all"):
+            try:
+                import pyperclip
 
-    st.subheader("FLAGS")
-    st.write(entry.get("review_flags") or [])
-    st.write(f"validation: {entry.get('validation_status')} · needs_human_review: {entry.get('needs_human_review')}")
-    if entry.get("adjudication_suggestion"):
-        st.info(f"adjudicator ({entry.get('adjudication_provider')}) suggests: {entry['adjudication_suggestion']}")
-    if dispute:
-        st.warning(
-            f"DeepSeek ({dispute.get('verifier_model')}) disputed this: "
-            f"{dispute.get('original_label')} -> {dispute.get('verifier_label')}"
-            f"\n\nIts reason: {dispute.get('verifier_reason')}"
-        )
+                pyperclip.copy(left_text)
+                st.toast("Copied to clipboard")
+            except Exception as exc:  # noqa: BLE001 - clipboard can be unavailable
+                st.warning(f"clipboard unavailable ({exc}); use the copy icon on the box above")
 
-    st.subheader("ACTION")
-    st.caption("Paste a decision JSON on the right and hit Fetch to fill the fields, "
-               "or edit the widgets directly. The teacher's original output stays preserved.")
-    left, right = st.columns(2)
-    with left:
+    with fields_pane:
+        if task == "classify":
+            categories = load_taxonomy()
+            # fetched verdict takes precedence; teacher parsed is the fallback
+            base = {**parsed, **{k: v for k, v in fetched.items() if k != "action" and v is not None}}
+            current = base.get("primary_category", categories[0])
+            primary = st.selectbox(
+                "primary_category",
+                categories,
+                index=categories.index(current) if current in categories else 0,
+            )
+            secondary = st.multiselect(
+                "secondary_plausible_categories",
+                [c for c in categories if c != primary],
+                default=[s for s in (base.get("secondary_plausible_categories") or []) if s in categories and s != primary],
+                help="Dispute or clear the teacher's secondary guesses here.",
+            )
+            ambiguity = st.number_input(
+                "classification_ambiguity",
+                min_value=0.0, max_value=1.0,
+                value=float(base.get("classification_ambiguity") or 0.0),
+                step=0.05,
+            )
+            reason = st.text_area("reason_for_label", base.get("reason_for_label", ""))
+        else:
+            edited_summary = st.text_area("summary target", parsed.get("summary", ""), height=360)
+
+        st.caption(
+            f'FLAGS: {entry.get("review_flags") or []} · validation={entry.get("validation_status")} · '
+            f'provider={entry.get("teacher_provider_slot")}/{entry.get("teacher_model")}'
+        )
+        if entry.get("adjudication_suggestion"):
+            st.info(f"adjudicator ({entry.get('adjudication_provider')}) suggests: {entry['adjudication_suggestion']}")
+        if dispute:
+            st.warning(
+                f"DeepSeek ({dispute.get('verifier_model')}) disputed this: "
+                f"{dispute.get('original_label')} -> {dispute.get('verifier_label')}"
+                f"\n\nIts reason: {dispute.get('verifier_reason')}"
+            )
+
+        st.caption("Paste a decision JSON below and hit Fetch — it fills the fields above.")
+        paste_box = st.text_area(
+            "paste decision JSON", key="paste_box", height=130,
+            placeholder='{"primary_category": "...", "action": "corrected", ...}',
+        )
+        if st.button("Fetch pasted decision", on_click=do_fetch):
+            pass
         if fetch_error:
             st.error(fetch_error)
         elif fetched:
-            st.success(f'fetched decision for: {fetched.get("title", entry["record_id"])[:60]}')
-        note = st.text_input("review note", key="note_box",
-                             value=(fetched or {}).get("review_note", "") if fetched else "")
-    with right:
-        paste_box = st.text_area("paste decision JSON", key="paste_box", height=140,
-                                 placeholder='{"primary_category": "...", "action": "corrected", ...}')
-        if st.button("Fetch pasted decision", on_click=do_fetch):
-            pass
+            st.success(f'fetched decision: {fetched.get("title", entry["record_id"])[:60]}')
+        # no key here: a keyed widget ignores its value param on later renders,
+        # which was why the fetched review_note never showed
+        note = st.text_input("review note", value=(fetched or {}).get("review_note", ""))
 
     _ACTION_MAP = {"approve": "approved", "approved": "approved", "corrected": "corrected",
                    "reject": "reject", "mark ambiguous": "mark ambiguous"}
