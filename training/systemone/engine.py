@@ -132,7 +132,9 @@ class SystemOneEngine:
                 seq_len = int(attention_mask[row].sum())
                 criterion_len = seq_len - prompt_len
                 if criterion_len <= 0:
-                    scores.append(float("-inf"))
+                    # criterion fully truncated: deterministic neutral score,
+                    # never -inf (inf - inf -> NaN would poison the response)
+                    scores.append(-1.0e9)
                     continue
                 relevant = token_log_probs[row, prompt_len - 1 : seq_len - 1]
                 scores.append(float(relevant.mean()))

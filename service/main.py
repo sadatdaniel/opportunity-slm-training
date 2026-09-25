@@ -142,6 +142,13 @@ def systemone(request: SystemOneRequest) -> dict:
         raise HTTPException(status_code=422, detail="at least one question is required")
     engine = get_engine()
     questions = {qid: _question_from_spec(qid, spec) for qid, spec in request.questions.items()}
+    # validate before any compute: semantic errors are client errors (422),
+    # never engine ValueErrors leaking as 500s
+    for qid, question in questions.items():
+        try:
+            question.validate()
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=f"question {qid!r}: {exc}") from exc
     answers = engine.answer_batch(request.state, questions)
     return {"answers": {qid: _answer_payload(a) for qid, a in answers.items()}}
 
