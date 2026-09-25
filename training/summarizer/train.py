@@ -49,7 +49,7 @@ def build_dataset(split, max_examples: int | None) -> Dataset:
     one-shot exemplar (train and evaluate share the builder)."""
     rows = split.examples if max_examples is None else split.examples[:max_examples]
     return Dataset.from_dict({
-        "prompt": [build_user_message(r["input"]) for r in rows],  # plain user text; TRL applies the chat template once
+        "prompt": [build_raw_prompt(r["input"]) for r in rows],  # stable TARGET OUTPUT boundary (TRL mask alignment)
         "completion": [r["target"] for r in rows],
     })
 
