@@ -186,18 +186,17 @@ def main() -> None:
     else:
         edited_summary = st.text_area("summary target", parsed.get("summary", ""), height=360)
 
-    with right:
-        st.subheader("FLAGS")
-        st.write(entry.get("review_flags") or [])
-        st.write(f"validation: {entry.get('validation_status')} · needs_human_review: {entry.get('needs_human_review')}")
-        if entry.get("adjudication_suggestion"):
-            st.info(f"adjudicator ({entry.get('adjudication_provider')}) suggests: {entry['adjudication_suggestion']}")
-        if dispute:
-            st.warning(
-                f"DeepSeek ({dispute.get('verifier_model')}) disputed this: "
-                f"{dispute.get('original_label')} -> {dispute.get('verifier_label')}"
-                f"\n\nIts reason: {dispute.get('verifier_reason')}"
-            )
+    st.subheader("FLAGS")
+    st.write(entry.get("review_flags") or [])
+    st.write(f"validation: {entry.get('validation_status')} · needs_human_review: {entry.get('needs_human_review')}")
+    if entry.get("adjudication_suggestion"):
+        st.info(f"adjudicator ({entry.get('adjudication_provider')}) suggests: {entry['adjudication_suggestion']}")
+    if dispute:
+        st.warning(
+            f"DeepSeek ({dispute.get('verifier_model')}) disputed this: "
+            f"{dispute.get('original_label')} -> {dispute.get('verifier_label')}"
+            f"\n\nIts reason: {dispute.get('verifier_reason')}"
+        )
 
     st.subheader("ACTION")
     st.caption("Paste a decision JSON on the right and hit Fetch to fill the fields, "
