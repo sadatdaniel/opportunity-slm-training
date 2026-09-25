@@ -43,7 +43,7 @@ TAXONOMY_CONFIG = PROJECT_ROOT / "config" / "taxonomy_v1.yaml"
 ANNOTATION_DIR = PROJECT_ROOT / "data" / "annotations"
 PROMPTS_DIR = PROJECT_ROOT / "prompts"
 
-PROMPT_VERSION = {"summarize": "summarizer_v2", "classify": "classifier_v1"}
+PROMPT_VERSION = {"summarize": "summarizer_v3", "classify": "classifier_v1"}
 SCHEMA_VERSION = 1
 MAX_INPUT_WORDS = 600
 PILOT_DEFAULT = 200
