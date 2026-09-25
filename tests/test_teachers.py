@@ -28,9 +28,12 @@ def test_pool_loads_configured_providers(monkeypatch):
 
 def test_budget_left_respects_daily_cap():
     usage = teachers._Usage({"rpm": 10, "rpd": 100}, safety_margin=0.85)
-    usage.requests_today = 85  # 100 * 0.85
+    now = __import__("time").time()
+    usage.request_stamps = __import__("collections").deque(
+        [now - i * 100 for i in range(85)]
+    )  # 85 requests spread over the last 24h
     assert not usage.budget_left()
-    usage.requests_today = 10
+    usage.request_stamps = __import__("collections").deque([now - 60 for i in range(10)])
     assert usage.budget_left()
 
 
@@ -45,7 +48,30 @@ def test_usage_roundtrip(tmp_path):
     assert usage.try_reserve()
     usage.record_result(ok=True, tokens=42)
     revived = teachers._Usage.from_dict(usage.to_dict(), {"rpm": 10, "rpd": 100}, 0.85)
-    assert revived.requests_today == 1 and revived.tokens_today == 42
+    assert len(revived.request_stamps) == 1 and revived.tokens_24h == 42
+
+
+def test_rolling_24h_budget():
+    import time as time_mod
+    from collections import deque
+
+    usage = teachers._Usage({"rpm": 10, "rpd": 100}, 0.85)
+    now = time_mod.time()
+    # 15 requests aged out (25h old) + 70 inside the window
+    usage.request_stamps = deque([now - 25 * 3600] * 15 + [now - i * 900 for i in range(70)])
+    usage._prune_stamps()
+    assert len(usage.request_stamps) == 70, "stamps older than 24h must age out"
+    assert not usage.daily_dry()
+
+    # fill to the cap (85 = 100 * 0.85); stamps spread across past minutes
+    for i in range(15):
+        usage.request_stamps.append(now - i * 65)
+    assert usage.daily_dry()
+
+    # as the oldest in-window request ages past 24h, budget reopens
+    usage.request_stamps.popleft()
+    usage._prune_stamps()
+    assert not usage.daily_dry()
 
 
 def test_validate_classify():

@@ -55,7 +55,16 @@ def _today() -> str:
 
 
 class _Usage:
-    """Rolling usage counters for one provider slot (thread-safe)."""
+    """Usage ledger for one provider slot (thread-safe).
+
+    Daily budget is enforced over a ROLLING 24h window of successful-request
+    timestamps, not a per-UTC-day counter: Google's RPD reset time is not UTC
+    midnight, so calendar-day accounting can stack two "days" and exceed the
+    real limit (caught when counters reset at UTC midnight while Google's
+    window still held yesterday's volume).
+    """
+
+    DAY_SECONDS = 86400
 
     def __init__(self, limits: dict, safety_margin: float):
         import threading
@@ -65,21 +74,18 @@ class _Usage:
         self.rpd = limits.get("rpd")
         self.margin = safety_margin
         self.minute_window: deque[float] = deque()
-        self.requests_today = 0
-        self.tokens_today = 0
+        self.request_stamps: deque[float] = deque()  # wall-clock, last 24h
+        self.tokens_24h = 0
         self.successful = 0
         self.failed = 0
         self.last_429: str | None = None
         self.available_after: str | None = None
-        self.day = _today()
         self._lock = threading.Lock()
 
-    def _rollover(self) -> None:
-        if self.day != _today():
-            self.day = _today()
-            self.requests_today = 0
-            self.tokens_today = 0
-            self.available_after = None
+    def _prune_stamps(self) -> None:
+        cutoff = time.time() - self.DAY_SECONDS
+        while self.request_stamps and self.request_stamps[0] < cutoff:
+            self.request_stamps.popleft()
 
     @property
     def max_rpd(self) -> float:
@@ -91,12 +97,12 @@ class _Usage:
 
     def budget_left(self) -> bool:
         with self._lock:
-            self._rollover()
+            self._prune_stamps()
             if self.available_after and _today() >= self.available_after:
                 self.available_after = None
             if self.available_after:
                 return False
-            if self.requests_today >= self.max_rpd:
+            if len(self.request_stamps) >= self.max_rpd:
                 return False
             current_minute = int(time.time() // 60)
             return sum(1 for t in self.minute_window if int(t // 60) == current_minute) < self.max_rpm
@@ -110,13 +116,13 @@ class _Usage:
         reservations survive process restarts (monotonic time does not).
         """
         with self._lock:
-            self._rollover()
+            self._prune_stamps()
             if self.available_after:
                 if _today() >= self.available_after:
                     self.available_after = None
                 else:
                     return False
-            if self.requests_today >= self.max_rpd:
+            if len(self.request_stamps) >= self.max_rpd:
                 return False
             now = time.time()
             current_minute = int(now // 60)
@@ -128,18 +134,17 @@ class _Usage:
             return True
 
     def daily_dry(self) -> bool:
-        """True when the daily budget is spent (vs a transient minute-window cooldown)."""
+        """True when the rolling 24h budget is spent (vs a minute-window cooldown)."""
         with self._lock:
-            self._rollover()
-            return self.requests_today >= self.max_rpd or bool(self.available_after)
+            self._prune_stamps()
+            return len(self.request_stamps) >= self.max_rpd or bool(self.available_after)
 
     def record_result(self, *, ok: bool, tokens: int = 0, retry_after: str | None = None) -> None:
         with self._lock:
-            self._rollover()
             if ok:
                 self.successful += 1
-                self.requests_today += 1
-                self.tokens_today += tokens
+                self.request_stamps.append(time.time())
+                self.tokens_24h += tokens
             else:
                 self.failed += 1
                 if retry_after:
@@ -148,10 +153,9 @@ class _Usage:
 
     def to_dict(self) -> dict:
         return {
-            "day": self.day,
+            "request_stamps": list(self.request_stamps),
             "minute_window": list(self.minute_window),
-            "requests_today": self.requests_today,
-            "tokens_today": self.tokens_today,
+            "tokens_24h": self.tokens_24h,
             "successful": self.successful,
             "failed": self.failed,
             "last_429": self.last_429,
@@ -161,10 +165,18 @@ class _Usage:
     @classmethod
     def from_dict(cls, data: dict, limits: dict, margin: float) -> _Usage:
         usage = cls(limits, margin)
-        usage.day = data.get("day", _today())
+        stamps = data.get("request_stamps")
+        if stamps is None:
+            # legacy per-UTC-day format: the old counter cannot say WHEN the
+            # requests happened — seed them conservatively, spread across the
+            # last 12h so capacity returns gradually instead of all at once
+            n = int(data.get("requests_today", 0))
+            now = time.time()
+            step = 12 * 3600 / max(n, 1)
+            stamps = [now - i * step for i in range(n)]
+        usage.request_stamps = deque(stamps)
         usage.minute_window = deque(data.get("minute_window", []))
-        usage.requests_today = data.get("requests_today", 0)
-        usage.tokens_today = data.get("tokens_today", 0)
+        usage.tokens_24h = data.get("tokens_24h", data.get("tokens_today", 0))
         usage.successful = data.get("successful", 0)
         usage.failed = data.get("failed", 0)
         usage.last_429 = data.get("last_429")
