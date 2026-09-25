@@ -4,6 +4,16 @@
 # proper training data comes from the reviewed extraction pass later.
 
 families:
+  is_opportunity:
+    type: noul
+    instructions: "Is this text an opportunity posting that a person could apply to (scholarship, fellowship, internship, grant, contest, event, program), rather than a news article, research announcement, or press release?"
+    criteria:
+      true: "The text invites applications or participation in a program, funding, position, or event - there is something to apply to."
+      false: "The text is news, research coverage, an announcement of results, or otherwise contains nothing a person can apply to."
+    derives_from: gate
+    # pre-inference rejection gate (laya lesson): run this FIRST on any state;
+    # noul < threshold (empirical, from calibration) -> abstain, never classify
+
   category_scholarships:
     type: noul
     instructions: "Is this posting a scholarship (financial support primarily for education costs)?"

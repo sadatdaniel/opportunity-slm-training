@@ -31,7 +31,9 @@ tar -czf "$OUT" -C "$REPO_DIR" \
     --exclude='opportunity_intelligence_weekend_build*.md' \
     .
 
-echo "backup: $OUT ($(du -h "$OUT" | cut -f1))"
+# corpus jsonl compresses ~10x; this archive now contains the full
+# collected corpus with sources - the learnable asset
+ echo "backup: $OUT ($(du -h "$OUT" | cut -f1))"
 
 # retention: keep newest KEEP archives
 ls -1t "$BACKUP_DIR"/oi_repo_*.tar.gz | tail -n +$((KEEP + 1)) | xargs -r rm --
