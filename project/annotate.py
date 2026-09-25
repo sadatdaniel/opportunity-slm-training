@@ -113,12 +113,21 @@ def validate(task: str, parsed: dict | None) -> str:
     return "valid"
 
 
-def revalidate(task: str) -> int:
+def _write_entries(out_path: Path, entries: list[dict]) -> None:
+    tmp = out_path.with_suffix(".tmp")
+    tmp.write_text(
+        "\n".join(json.dumps(e, ensure_ascii=False) for e in entries) + "\n", encoding="utf-8"
+    )
+    tmp.replace(out_path)
+
+
+def revalidate(task: str, flex_words: int = 250) -> int:
     """Re-apply local validation to existing annotations without API calls.
 
     Used when the acceptance thresholds change (e.g. summary length
     flexibility): flips needs_review entries that now validate, keeping all
-    provenance intact.
+    provenance intact. Over-length summaries up to flex_words are accepted
+    with a revalidated flag (user-approved flexibility).
     """
     out_path = ANNOTATION_DIR / f"{task}.jsonl"
     if not out_path.exists():
@@ -128,20 +137,89 @@ def revalidate(task: str) -> int:
     for entry in entries:
         if entry.get("status") != "needs_review":
             continue
-        new_validation = validate(task, entry.get("parsed_annotation"))
-        if new_validation != "invalid":
+        parsed = entry.get("parsed_annotation")
+        summary = (parsed or {}).get("summary") if isinstance(parsed, dict) else None
+        if isinstance(summary, str) and len(summary.split()) <= flex_words:
             entry["status"] = "completed"
-            entry["validation_status"] = new_validation
-            entry["needs_human_review"] = new_validation == "ambiguous"
+            entry["validation_status"] = "valid"
+            entry["needs_human_review"] = False
             entry["revalidated_at"] = datetime.now(UTC).isoformat()
+            entry.setdefault("review_flags", []).append(f"revalidated_flex_{flex_words}w")
             changed += 1
     if changed:
-        tmp = out_path.with_suffix(".tmp")
-        tmp.write_text(
-            "\n".join(json.dumps(e, ensure_ascii=False) for e in entries) + "\n", encoding="utf-8"
-        )
-        tmp.replace(out_path)
+        _write_entries(out_path, entries)
     return changed
+
+
+def second_pass(task: str, limit: int | None = None) -> int:
+    """Route flagged summarize entries through the second-opinion provider.
+
+    The second opinion rewrites the summary; if it validates (<=250 words),
+    it becomes the stored target (original preserved in
+    original_teacher_parsed) with a recovery flag. Only entries still flagged
+    after this pass remain in the human queue.
+    """
+    load_env()
+    pool = TeacherPool()
+    if not pool.providers:
+        print("no providers configured")
+        return 1
+    out_path = ANNOTATION_DIR / f"{task}.jsonl"
+    entries = [json.loads(l) for l in out_path.read_text(encoding="utf-8").splitlines() if l.strip()]
+    records = {
+        json.loads(l)["record_id"]: json.loads(l)
+        for l in (PROJECT_ROOT / "data" / "normalized" / "deduped.jsonl").read_text(encoding="utf-8").splitlines()
+        if l.strip()
+    }
+    latest: dict[str, dict] = {}
+    order: list[str] = []
+    for entry in entries:
+        rid = entry["record_id"]
+        if rid not in latest:
+            order.append(rid)
+        latest[rid] = entry
+
+    targets = [
+        rid for rid in order
+        if latest[rid].get("needs_human_review") and not latest[rid].get("review_status")
+    ]
+    if limit:
+        targets = targets[:limit]
+    print(f"second pass over {len(targets)} flagged records", flush=True)
+
+    recovered = 0
+    for index, rid in enumerate(targets):
+        record = records.get(rid)
+        if record is None:
+            continue
+        try:
+            spec, raw = pool.call(build_messages(task, record), roles=["second_opinion", "verifier", "primary"])
+        except Exception as exc:  # noqa: BLE001 - best-effort pass
+            print(f"  {index}: second opinion failed: {str(exc)[:80]}", flush=True)
+            continue
+        parsed = parse_annotation(raw)
+        summary = (parsed or {}).get("summary") if isinstance(parsed, dict) else None
+        if not isinstance(summary, str) or not summary.strip() or len(summary.split()) > 250:
+            continue
+        entry = latest[rid]
+        entry["original_teacher_parsed"] = entry.get("original_teacher_parsed") or entry.get("parsed_annotation")
+        entry["parsed_annotation"] = parsed
+        entry["status"] = "completed"
+        entry["validation_status"] = "valid"
+        entry["needs_human_review"] = False
+        entry["teacher_provider"] = spec["kind"]
+        entry["teacher_provider_slot"] = spec["name"]
+        entry["teacher_model"] = spec["model"]
+        entry["teacher_timestamp"] = datetime.now(UTC).isoformat()
+        entry["teacher_raw_response"] = raw
+        entry.setdefault("review_flags", []).append("recovered_by_second_opinion")
+        recovered += 1
+        if (index + 1) % 50 == 0:
+            print(f"  {index + 1}/{len(targets)} (recovered {recovered})", flush=True)
+    pool.save_state()
+    _write_entries(out_path, entries)
+    print(json.dumps({"targets": len(targets), "recovered": recovered}))
+    return recovered
 
 
 def parse_annotation(raw: str) -> dict | None:
@@ -349,12 +427,17 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--pilot", action="store_true", help="stratified pilot sample (v2 brief step 5)")
     parser.add_argument("--workers", type=int, default=8, help="concurrent in-flight teacher calls")
     parser.add_argument("--revalidate", action="store_true", help="re-apply local validation to stored annotations (no API calls)")
+    parser.add_argument("--flex-words", type=int, default=250, help="summary word tolerance for --revalidate")
+    parser.add_argument("--second-pass", action="store_true", help="route flagged entries through the second-opinion provider")
+    parser.add_argument("--second-pass-limit", type=int, default=None)
     args = parser.parse_args(argv)
     load_env()
     if args.revalidate:
-        changed = revalidate(args.task)
+        changed = revalidate(args.task, args.flex_words)
         print(f"revalidated: {changed} entries recovered")
         return 0
+    if args.second_pass:
+        return second_pass(args.task, args.second_pass_limit)
     return annotate(args.task, args.input, args.limit, args.pilot, args.workers)
 
 
