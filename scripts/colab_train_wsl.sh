@@ -43,6 +43,9 @@ for c in cmds:
     subprocess.run(c, shell=True, check=True)
 PY
 
+echo "== 4b. mount Drive for durable checkpoints (non-fatal) =="
+timeout 120 colab drivemount -s "$SESSION" /content/drive 2>&1 | tail -1 || echo "(drive mount failed - continuing without durable sync)"
+
 echo "== 5. train (resume from Drive checkpoint if present) =="
 # NOTE: a lost WebSocket mid-training is retryable — the kernel may have
 # kept running. Before relaunching a fresh session, reconnect and probe
