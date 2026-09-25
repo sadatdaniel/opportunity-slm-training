@@ -67,3 +67,35 @@ families:
       true: "The opportunity requires German proficiency as a mandatory condition."
       false: "German proficiency is not a mandatory condition (absent, optional, or only preferred)."
     derives_from: teacher_extraction
+
+  interdisciplinary:
+    type: noul
+    instructions: "Is this opportunity explicitly interdisciplinary, spanning two or more distinct fields or themes?"
+    criteria:
+      true: "The posting explicitly combines or integrates two or more distinct disciplines, themes, or fields."
+      false: "The posting is confined to a single discipline or theme, or interdisciplinarity is not stated."
+    derives_from: teacher_extraction
+
+  open_to_europeans:
+    type: noul
+    instructions: "Are applicants from European countries eligible for this opportunity?"
+    criteria:
+      true: "European nationals or residents are explicitly eligible (including worldwide-open opportunities)."
+      false: "European applicants are explicitly excluded, or eligibility is restricted to named non-European regions."
+    derives_from: teacher_extraction
+
+  open_to_foreigners_in_europe:
+    type: noul
+    instructions: "Can a foreigner currently living in Europe apply?"
+    criteria:
+      true: "Applicants residing in Europe regardless of citizenship are eligible (including worldwide-open opportunities)."
+      false: "Residency in a specific non-European country is required, or Europe-based applicants are excluded."
+    derives_from: teacher_extraction
+
+  funded:
+    type: noul
+    instructions: "Does this opportunity provide direct financial funding, stipend, salary, prize money, or tuition support?"
+    criteria:
+      true: "The opportunity explicitly provides direct financial support."
+      false: "No direct financial support is stated."
+    derives_from: teacher_extraction

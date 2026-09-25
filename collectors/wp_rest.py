@@ -21,6 +21,27 @@ class WpRestCollector:
     def __init__(self, fetcher: PoliteFetcher):
         self.fetcher = fetcher
 
+    def _paginate(self, api: str, params_base: dict, per_page: int, max_records: int) -> Iterator[dict]:
+        """Yield posts page by page until empty, capped, or beyond last page."""
+        page, seen = 1, 0
+        while seen < max_records:
+            params = {"per_page": str(per_page), "page": str(page), **params_base}
+            try:
+                result = self.fetcher.get(api, params=params)
+                posts = json.loads(result.text)
+            except FetchFailed as exc:
+                if exc.status == 400:  # WP signals "beyond last page" with 400
+                    break
+                raise
+            if not isinstance(posts, list) or not posts:
+                break
+            for post in posts:
+                yield post
+                seen += 1
+                if seen >= max_records:
+                    return
+            page += 1
+
     def collect(self, recipe: dict) -> Iterator[dict]:
         api = recipe["api_endpoint"]
         per_page = int(recipe.get("per_page", 50))  # WP hard maximum is 100
@@ -29,9 +50,20 @@ class WpRestCollector:
         if recipe.get("embed_terms", True):
             extra_params.setdefault("_embed", "wp:term")
 
-        page, seen, total_pages = 1, 0, None
+        targeted = recipe.get("target_categories") or []
+        if targeted:
+            # model-driven collection into weak classes (brief step 8): query
+            # WP category slugs directly instead of newest-first. Slug sets
+            # differ per site; wrong slugs simply return nothing.
+            per_slug = max(1, int(recipe.get("per_slug", 60)))
+            for slug in targeted:
+                for post in self._paginate(api, {**extra_params, "category_name": slug}, per_page, per_slug):
+                    yield self.to_record(post, recipe)
+            return
+
         yielded_ids: set[str] = set()
-        while seen < max_records:
+        page, total_pages = 1, None
+        while True:
             params = {"per_page": str(per_page), "page": str(page), **extra_params}
             try:
                 result = self.fetcher.get(api, params=params)
@@ -53,8 +85,7 @@ class WpRestCollector:
             for record in fresh:
                 yielded_ids.add(record["record_id"])
                 yield record
-                seen += 1
-                if seen >= max_records:
+                if len(yielded_ids) >= max_records:
                     return
 
             if total_pages is not None and page >= total_pages:

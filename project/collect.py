@@ -121,7 +121,8 @@ def append_log(entry: dict) -> None:
     LOG_PATH.write_text(yaml.safe_dump(log, sort_keys=False, allow_unicode=True), encoding="utf-8")
 
 
-def collect_source(source: dict, inventory: dict, limit: int | None, force_method: str | None) -> dict:
+def collect_source(source: dict, inventory: dict, limit: int | None, force_method: str | None,
+                   targeted: str | None = None) -> dict:
     started = datetime.now(UTC)
     recipe, provisioned = load_or_provision_recipe(source, inventory, force_method)
     if recipe is None:
@@ -129,6 +130,11 @@ def collect_source(source: dict, inventory: dict, limit: int | None, force_metho
 
     if limit:
         recipe["max_records"] = limit
+    if targeted:
+        # model-driven collection into weak classes (brief step 8): WP
+        # category slugs injected at runtime; recipes stay untouched
+        recipe["target_categories"] = [s.strip() for s in targeted.split(",") if s.strip()]
+        recipe["per_slug"] = recipe.get("max_records", 250)
 
     fetcher = PoliteFetcher(PROJECT_ROOT / "data" / "cache")
     collector = get_collector(recipe["method"], fetcher)
@@ -182,6 +188,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--all", action="store_true", help="collect from every source with a viable method")
     parser.add_argument("--methods", help="comma list to restrict --all (e.g. wp_rest,rss)")
     parser.add_argument("--limit", type=int, help="override per-source max_records")
+    parser.add_argument("--targeted", help="comma-separated WP category slugs to collect into weak classes")
     args = parser.parse_args(argv)
 
     registry = load_registry(DEFAULT_REGISTRY)
@@ -204,7 +211,7 @@ def main(argv: list[str] | None = None) -> int:
         if methods and method is None:
             print(f"skip {source['source_id']} (method not in {sorted(methods)})")
             continue
-        result = collect_source(source, inventory, args.limit, method)
+        result = collect_source(source, inventory, args.limit, method, args.targeted)
         print(json.dumps(result, ensure_ascii=False), flush=True)
     return 0
 

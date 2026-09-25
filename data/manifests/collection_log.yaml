@@ -1747,3 +1747,43 @@ runs:
   started_at: '2026-09-24T17:07:54.942188+00:00'
   finished_at: '2026-09-24T17:08:38.661359+00:00'
   elapsed_seconds: 43.6
+- source_id: youth_opportunities
+  method: wp_rest
+  recipe_path: recipes\youth_opportunities.yaml
+  batch_file: data\raw\youth_opportunities\batch_20260925T062023Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: false
+  errors:
+  - 'AttributeError: ''str'' object has no attribute ''get'''
+  started_at: '2026-09-25T06:20:23.894551+00:00'
+  finished_at: '2026-09-25T06:20:28.880123+00:00'
+  elapsed_seconds: 5.0
+- source_id: opportunities_for_youth
+  method: wp_rest
+  recipe_path: recipes\opportunities_for_youth.yaml
+  batch_file: data\raw\opportunities_for_youth\batch_20260925T062029Z.jsonl
+  batch_sha256: null
+  records_seen: 540
+  records_new: 0
+  records_skipped_duplicate: 540
+  recipe_provisioned: false
+  errors: []
+  started_at: '2026-09-25T06:20:29.254954+00:00'
+  finished_at: '2026-09-25T06:22:37.002544+00:00'
+  elapsed_seconds: 127.7
+- source_id: opportunity_desk
+  method: wp_rest
+  recipe_path: recipes\opportunity_desk.yaml
+  batch_file: data\raw\opportunity_desk\batch_20260925T062237Z.jsonl
+  batch_sha256: efcdca7401cb7dfa1987d0e5623d7d494923c35c9a4ccf2698b0bd249c0d0a44
+  records_seen: 540
+  records_new: 4
+  records_skipped_duplicate: 536
+  recipe_provisioned: false
+  errors: []
+  started_at: '2026-09-25T06:22:37.420511+00:00'
+  finished_at: '2026-09-25T06:24:51.135448+00:00'
+  elapsed_seconds: 133.7
