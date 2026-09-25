@@ -107,9 +107,17 @@ def main(argv: list[str] | None = None) -> int:
     print(f"verifying {len(targets)} records with {args.provider}/{args.model}, workers={args.workers}", flush=True)
 
     pool = TeacherPool()
-    pool.providers = [p for p in pool.providers if args.provider in p["name"]]
-    for spec in pool.providers:
-        spec["model"] = args.model  # override to the requested model
+    # primary = the requested provider; fallbacks (e.g. deepseek-flash) take
+    # over automatically when the primary hits quota or dies mid-run —
+    # every record records which slot + model actually produced it
+    primary = [p for p in pool.providers if args.provider in p["name"]]
+    fallbacks = [
+        p for p in pool.providers
+        if args.provider not in p["name"] and p["name"] in ("deepseek", "openrouter", "experiential_labs")
+    ]
+    for spec in primary:
+        spec["model"] = args.model  # model override applies to the primary only
+    pool.providers = primary + fallbacks
     if not pool.providers:
         print("no matching provider")
         return 1
