@@ -92,10 +92,13 @@ def main() -> None:
 
     filter_status = st.sidebar.selectbox(
         "Filter",
-        ["pending", "deepseek-disputed", "ambiguous", "approved", "corrected", "rejected", "all"],
+        ["needs-review", "deepseek-disputed", "pending", "ambiguous", "approved", "corrected", "rejected", "all"],
     )
     disputed = load_verification()
-    if filter_status == "deepseek-disputed":
+    if filter_status == "needs-review":
+        # the true human gate: teacher-flagged records not yet decided
+        pool = [e for e in entries if e.get("needs_human_review") and not e.get("review_status")]
+    elif filter_status == "deepseek-disputed":
         # decided records leave the disputed queue (find them under approved/corrected/rejected)
         pool = [e for e in entries if e["record_id"] in disputed and not e.get("review_status")]
     else:
