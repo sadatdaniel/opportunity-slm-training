@@ -1,0 +1,32 @@
+task: classify
+dataset: classify_dataset_v3
+version: v3
+created_at: '2026-09-25T16:52:52.513079+00:00'
+seed: 42
+taxonomy: taxonomy_v1
+held_out_sources:
+- barcelona_institute_of_science_and_technology_bist
+- paset_rsif
+- scholars4dev
+splits:
+  train:
+    file: datasets\classifier\v3\train.jsonl
+    examples: 1912
+    sha256: e65a070f7bb059494d0c19cf0c0cc85088ced37c7c431683bf46a05eeb4707b8
+  validation:
+    file: datasets\classifier\v3\validation.jsonl
+    examples: 239
+    sha256: 38636509cde0df56f5d1e25b814288e41b792f9d5f5af05cc56872e8d647e877
+  test:
+    file: datasets\classifier\v3\test.jsonl
+    examples: 239
+    sha256: 65bfc84c07e0330e952e282d08cdfff4d90ef7c9fd96b7db97019f8c5949056f
+  unseen_sources_test:
+    file: datasets\classifier\v3\unseen_sources_test.jsonl
+    examples: 886
+    sha256: 7800542f38e5f7ddfb9bc988dbed7ad28a06fc65b6c5634972bf0f92436dfa9f
+tiers_used:
+  gold: 61
+  silver: 3215
+  quarantine_excluded: 20
+  skipped_invalid_target: 0

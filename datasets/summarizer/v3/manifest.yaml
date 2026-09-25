@@ -1,0 +1,31 @@
+task: summarize
+dataset: summarize_dataset_v3
+version: v3
+created_at: '2026-09-25T16:53:07.275632+00:00'
+seed: 42
+taxonomy: null
+held_out_sources:
+- opportunity_desk
+- woods_hole_oceanographic_institution_whoi
+splits:
+  train:
+    file: datasets\summarizer\v3\train.jsonl
+    examples: 2074
+    sha256: 93c22fd79217fdc384a12800e9ae7d33024db116554924dee5870211f4ff12c6
+  validation:
+    file: datasets\summarizer\v3\validation.jsonl
+    examples: 259
+    sha256: d12ba9ad9acc9c02c98fd319b24c8b40363f97f7ec5f046c3058efe67ec92bcf
+  test:
+    file: datasets\summarizer\v3\test.jsonl
+    examples: 260
+    sha256: a5d915be2bf0879016c0b8bf4ae750fb4b5d2eadb657f78edd0bbf033cb0eca3
+  unseen_sources_test:
+    file: datasets\summarizer\v3\unseen_sources_test.jsonl
+    examples: 633
+    sha256: b657c457a324f24a0fe439d3e15b0fd9d4f2e0fa3aa3cc39659d8739ec88f46c
+tiers_used:
+  gold: 6
+  silver: 3220
+  quarantine_excluded: 70
+  skipped_invalid_target: 0
