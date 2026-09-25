@@ -141,6 +141,17 @@ def main() -> None:
 
     # ---- PANE 2: everything in one copyable box + copy-all underneath ----
     words = (record.get("clean_text") or "").split()
+    if task == "classify":
+        teacher_target = (
+            f'TEACHER TARGET: primary={parsed.get("primary_category")} · '
+            f'secondary={parsed.get("secondary_plausible_categories")} · '
+            f'ambiguity={parsed.get("classification_ambiguity")}\n'
+            f'REASON: {parsed.get("reason_for_label")}'
+        )
+        paste_hint = '{"primary_category": "...", "secondary_plausible_categories": [], "classification_ambiguity": 0.1, "reason_for_label": "...", "review_note": "...", "action": "corrected"}'
+    else:
+        teacher_target = "TEACHER TARGET (expected answer — a sectioned plain-text summary):\n" + (parsed.get("summary") or "(none)")[:800]
+        paste_hint = '{"summary": "DEADLINE\\n- ...\\n\\nMANDATORY\\n- ...\\n\\nSUMMARY\\n- ...", "review_note": "...", "action": "corrected"}'
     left_text = "\n".join([
         f'TITLE: {record.get("title", entry["record_id"])}',
         f'SOURCE: {record.get("source_id", "?")} · {record.get("canonical_url", "")}',
@@ -148,10 +159,7 @@ def main() -> None:
         "SOURCE OPPORTUNITY:",
         " ".join(words[:900]) + (" …" if len(words) > 900 else ""),
         "",
-        f'TEACHER TARGET: primary={parsed.get("primary_category")} · '
-        f'secondary={parsed.get("secondary_plausible_categories")} · '
-        f'ambiguity={parsed.get("classification_ambiguity")}',
-        f'REASON: {parsed.get("reason_for_label")}',
+        teacher_target,
         f'FLAGS: {entry.get("review_flags") or []} · validation={entry.get("validation_status")}',
         f'PROVIDER: {entry.get("teacher_provider_slot")} · {entry.get("teacher_model")} · {entry.get("teacher_timestamp")}',
     ])
@@ -194,7 +202,17 @@ def main() -> None:
                 step=0.05,
             )
         else:
-            edited_summary = st.text_area("summary target", parsed.get("summary", ""), height=360)
+            st.caption(
+                "Expected answer: a sectioned plain-text summary (DEADLINE / MANDATORY / "
+                "RESTRICTIONS / TARGET GROUP / FUNDING / BENEFITS / APPLICATION / "
+                "OTHER IMPORTANT CONDITIONS / SUMMARY — omit empty sections, ≤150 words). "
+                "If the posting is not an opportunity at all (e.g. a news article), choose reject."
+            )
+            edited_summary = st.text_area(
+                "summary target",
+                (base.get("summary") or "") if isinstance(base.get("summary"), str) else "",
+                height=360,
+            )
 
     with fields_pane:
         if task == "classify":
@@ -213,9 +231,14 @@ def main() -> None:
             )
 
         st.caption("Paste a decision JSON below and hit Fetch — it fills the fields above.")
+        paste_placeholder = (
+            '{"summary": "DEADLINE\\n- ...\\n\\nMANDATORY\\n- ...\\n\\nSUMMARY\\n- ...", "review_note": "...", "action": "corrected"}'
+            if task == "summarize"
+            else '{"primary_category": "...", "action": "corrected", ...}'
+        )
         paste_box = st.text_area(
             "paste decision JSON", key="paste_box", height=130,
-            placeholder='{"primary_category": "...", "action": "corrected", ...}',
+            placeholder=paste_placeholder,
         )
         if st.button("Fetch pasted decision", on_click=do_fetch):
             pass
@@ -261,9 +284,15 @@ def main() -> None:
             entry["human_category"] = primary
             if changed:
                 entry["human_edited_fields"] = sorted(set(entry.get("human_edited_fields") or []) | set(changed))
-        elif task == "summarize" and action == "corrected":
-            entry["human_corrected_output"] = edited_summary
-            entry["parsed_annotation"] = {**parsed, "summary": edited_summary}
+        elif task == "summarize":
+            # any decision on a summarize record persists the reviewed summary;
+            # edits vs the teacher output upgrade the action to corrected
+            if edited_summary != (parsed.get("summary") or ""):
+                entry["human_corrected_output"] = edited_summary
+                entry["parsed_annotation"] = {**parsed, "summary": edited_summary}
+                changed.append("summary")
+            if action == "approved" and changed:
+                action = "corrected"
 
         # a human decision resolves the review flag; only explicit ambiguity/reject keep it
         entry["review_status"] = "corrected" if (action == "approved" and changed) else action
