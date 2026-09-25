@@ -27,7 +27,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from training.common.datasets import load_split
 from training.common.experiment import Experiment, PROJECT_ROOT
 from training.common.model_registry import register
-from training.summarizer.prompt import render_prompt
+from training.summarizer.prompt import build_user_message
 
 CONFIG_PATH = PROJECT_ROOT / "training" / "summarizer" / "config.yaml"
 
@@ -40,7 +40,7 @@ CHAT_TEMPLATE = (
 )
 
 
-def build_dataset(split, tokenizer, max_examples: int | None) -> Dataset:
+def build_dataset(split, max_examples: int | None) -> Dataset:
     """Raw prompt/completion TEXT dataset: TRL performs its own tokenization,
     EOS handling, and completion-only masking — pre-tokenizing concatenated
     text destroyed the mask and produced a full-sequence LM (root cause of
@@ -49,7 +49,7 @@ def build_dataset(split, tokenizer, max_examples: int | None) -> Dataset:
     one-shot exemplar (train and evaluate share the builder)."""
     rows = split.examples if max_examples is None else split.examples[:max_examples]
     return Dataset.from_dict({
-        "prompt": [render_prompt(tokenizer, r["input"]) for r in rows],
+        "prompt": [build_user_message(r["input"]) for r in rows],  # plain user text; TRL applies the chat template once
         "completion": [r["target"] for r in rows],
     })
 
@@ -89,8 +89,8 @@ def main(argv: list[str] | None = None) -> int:
     train_split = load_split("summarizer", config["dataset_version"], "train")
     val_split = load_split("summarizer", config["dataset_version"], "validation")
     max_examples = smoke["max_examples"] if smoke else None
-    train_ds = build_dataset(train_split, tokenizer, max_examples)
-    val_ds = build_dataset(val_split, tokenizer, max_examples)
+    train_ds = build_dataset(train_split, max_examples)
+    val_ds = build_dataset(val_split, max_examples)
     exp.log(f"train={len(train_ds)} validation={len(val_ds)}")
 
     model = AutoModelForCausalLM.from_pretrained(

@@ -1,10 +1,10 @@
 # Normalization Report
 
-- raw records seen: 6472
+- raw records seen: 6525
 - kept (English, >= 40 words): 4267
 - dropped empty/short: 1817
 - dropped non-English: 222
-- unparseable lines: 166
+- unparseable lines: 219
 
 ## Kept per source
 

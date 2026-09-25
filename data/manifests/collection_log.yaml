@@ -4448,3 +4448,126 @@ runs:
   started_at: '2026-09-25T20:27:38.476516+00:00'
   finished_at: '2026-09-25T20:27:39.685846+00:00'
   elapsed_seconds: 1.2
+- source_id: national_research_foundation_nrf_south_africa
+  method: wp_rest
+  recipe_path: recipes\national_research_foundation_nrf_south_africa.yaml
+  batch_file: data\raw\national_research_foundation_nrf_south_africa\batch_20260925T202741Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: false
+  errors:
+  - 'FetchFailed: gave up after 3 attempts: network error: [WinError 10060] A connection
+    attempt failed because the connected party did not properly respond after a period
+    of time, or established connection failed because connected host has failed to
+    respond (url=https://www.nrf.ac.za/wp-json/wp/v2/posts'
+  started_at: '2026-09-25T20:27:41.621969+00:00'
+  finished_at: '2026-09-25T20:28:41.378140+00:00'
+  elapsed_seconds: 59.8
+- source_id: irish_research_council_irc
+  method: wp_rest
+  recipe_path: recipes\irish_research_council_irc.yaml
+  batch_file: data\raw\irish_research_council_irc\batch_20260925T202842Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: false
+  errors:
+  - 'FetchFailed: gave up after 3 attempts: network error: [WinError 10060] A connection
+    attempt failed because the connected party did not properly respond after a period
+    of time, or established connection failed because connected host has failed to
+    respond (url=https://research.ie/wp-json/wp/v2/posts, '
+  started_at: '2026-09-25T20:28:42.481005+00:00'
+  finished_at: '2026-09-25T20:30:42.320253+00:00'
+  elapsed_seconds: 119.8
+- source_id: flatiron_institute_simons_foundation
+  method: wp_rest
+  recipe_path: recipes\flatiron_institute_simons_foundation.yaml
+  batch_file: data\raw\flatiron_institute_simons_foundation\batch_20260925T203043Z.jsonl
+  batch_sha256: null
+  records_seen: 300
+  records_new: 0
+  records_skipped_duplicate: 300
+  recipe_provisioned: false
+  errors: []
+  started_at: '2026-09-25T20:30:43.374805+00:00'
+  finished_at: '2026-09-25T20:30:43.484738+00:00'
+  elapsed_seconds: 0.1
+- source_id: perimeter_institute_for_theoretical_physics
+  method: wp_rest
+  recipe_path: recipes\perimeter_institute_for_theoretical_physics.yaml
+  batch_file: data\raw\perimeter_institute_for_theoretical_physics\batch_20260925T203044Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: false
+  errors:
+  - 'FetchFailed: client error (url=https://perimeterinstitute.ca/wp-json/wp/v2/pages,
+    status=404)'
+  started_at: '2026-09-25T20:30:44.547695+00:00'
+  finished_at: '2026-09-25T20:30:48.444358+00:00'
+  elapsed_seconds: 3.9
+- source_id: barcelona_institute_of_science_and_technology_bist
+  method: wp_rest
+  recipe_path: recipes\barcelona_institute_of_science_and_technology_bist.yaml
+  batch_file: data\raw\barcelona_institute_of_science_and_technology_bist\batch_20260925T203050Z.jsonl
+  batch_sha256: fee21d5edf44492f8938d1d75f79b010ab76c9d22d0ec74f0ca887a0d39a996e
+  records_seen: 300
+  records_new: 6
+  records_skipped_duplicate: 294
+  recipe_provisioned: false
+  errors: []
+  started_at: '2026-09-25T20:30:50.039606+00:00'
+  finished_at: '2026-09-25T20:30:52.485920+00:00'
+  elapsed_seconds: 2.4
+- source_id: scholarships_corner
+  method: wp_rest
+  recipe_path: recipes\scholarships_corner.yaml
+  batch_file: data\raw\scholarships_corner\batch_20260925T203053Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchFailed: gave up after 3 attempts: network error: [WinError 10060] A connection
+    attempt failed because the connected party did not properly respond after a period
+    of time, or established connection failed because connected host has failed to
+    respond (url=https://scholarshipscorner.website/wp-jso'
+  started_at: '2026-09-25T20:30:53.647253+00:00'
+  finished_at: '2026-09-25T20:32:53.028294+00:00'
+  elapsed_seconds: 119.4
+- source_id: opportunities_corners
+  method: wp_rest
+  recipe_path: recipes\opportunities_corners.yaml
+  batch_file: data\raw\opportunities_corners\batch_20260925T203254Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'FetchFailed: gave up after 3 attempts: network error: [WinError 10060] A connection
+    attempt failed because the connected party did not properly respond after a period
+    of time, or established connection failed because connected host has failed to
+    respond (url=https://opportunitiescorners.com/wp-json/'
+  started_at: '2026-09-25T20:32:54.570971+00:00'
+  finished_at: '2026-09-25T20:34:53.903662+00:00'
+  elapsed_seconds: 119.3
+- source_id: scholarships365
+  method: wp_rest
+  recipe_path: recipes\scholarships365.yaml
+  batch_file: data\raw\scholarships365\batch_20260925T203456Z.jsonl
+  batch_sha256: null
+  records_seen: 0
+  records_new: 0
+  records_skipped_duplicate: 0
+  recipe_provisioned: true
+  errors:
+  - 'JSONDecodeError: Expecting value: line 3 column 1 (char 2)'
+  started_at: '2026-09-25T20:34:56.326477+00:00'
+  finished_at: '2026-09-25T20:35:00.128336+00:00'
+  elapsed_seconds: 3.8
