@@ -44,6 +44,9 @@ for c in cmds:
 PY
 
 echo "== 5. train (resume from Drive checkpoint if present) =="
+# NOTE: a lost WebSocket mid-training is retryable — the kernel may have
+# kept running. Before relaunching a fresh session, reconnect and probe
+# /content for artifacts (scripts/colab_vm_probe.py).
 # capability-specific driver file: the VM does not inherit local env vars,
 # so CAPABILITY/TRAIN_MODULE are set INSIDE the driver (hardcoded per file)
 DRIVER="$REPO_DIR/scripts/colab_vm_train_${CAPABILITY}.py"
