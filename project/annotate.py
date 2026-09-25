@@ -223,7 +223,7 @@ def annotate(task: str, input_path: Path, limit: int | None, pilot: bool, args_w
                 if entry.get("status") == "completed":
                     done[entry["record_id"]] = entry
 
-    stats = {"completed": 0, "skipped": 0, "second_opinions": 0, "disagreements": 0, "errors": 0, "rate_limited": 0}
+    stats = {"completed": 0, "skipped": 0, "second_opinions": 0, "disagreements": 0, "errors": 0, "rate_limited": 0, "needs_review": 0}
     targets = [r for r in records if r["record_id"] not in done]
     stats["skipped"] = len(records) - len(targets)
     write_lock = threading.Lock()
@@ -324,7 +324,7 @@ def annotate(task: str, input_path: Path, limit: int | None, pilot: bool, args_w
                 out.flush()
             pool.save_state()
             key = {"completed": "completed", "error": "errors", "rate_limited": "rate_limited",
-                   "needs_review": "errors"}.get(entry.get("status"), "errors")
+                   "needs_review": "needs_review"}.get(entry.get("status"), "errors")
             stats[key] += 1
             if "disagree" in " ".join(entry.get("review_flags") or []):
                 stats["disagreements"] += 1
