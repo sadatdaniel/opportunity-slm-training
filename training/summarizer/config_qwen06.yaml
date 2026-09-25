@@ -1,0 +1,25 @@
+# A/B: Qwen3-0.6B full fine-tune on summarizer dataset v4
+model: Qwen/Qwen3-0.6B
+model_revision: main
+dataset_version: v4
+output_version: v0.3.0-qwen06
+taxonomy: null
+prompt_version: summarizer_v3
+
+variant: full
+max_seq_length: 1024
+epochs: 3
+learning_rate: 8.0e-6
+batch_size: 4
+gradient_accumulation: 8
+warmup_ratio: 0.03
+weight_decay: 0.0
+optimizer: adamw_torch
+scheduler: linear
+precision: fp16          # T4 has no bf16; fp16 + scaler
+
+smoke:
+  epochs: 1
+  max_examples: 8
+  batch_size: 2
+  output_version: smoke

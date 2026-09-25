@@ -1,0 +1,31 @@
+# A/B: MiniCPM5-2B LoRA on summarizer dataset v4 (quality-ceiling probe)
+model: openbmb/MiniCPM5-2B
+model_revision: main
+dataset_version: v4
+output_version: v0.3.0-minicpm-lora
+taxonomy: null
+prompt_version: summarizer_v3
+
+variant: lora            # 2.5B full-FT does not fit a 16GB T4
+max_seq_length: 1024
+epochs: 3
+learning_rate: 1.0e-4    # LoRA lr
+batch_size: 2
+gradient_accumulation: 16
+warmup_ratio: 0.03
+weight_decay: 0.0
+optimizer: adamw_torch
+scheduler: linear
+precision: fp16
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj]
+
+smoke:
+  epochs: 1
+  max_examples: 4
+  batch_size: 1
+  output_version: smoke
