@@ -29,7 +29,7 @@ colab upload -s "$SESSION" "$TARBALL" /content/repo.tar.gz
 colab upload -s "$SESSION" /tmp/oi_dataset.tar.gz /content/dataset.tar.gz
 
 echo "== 4. extract + install locked deps =="
-colab exec -s "$SESSION" <<'PY'
+colab exec -s "$SESSION" --timeout 1800 <<'PY'
 import subprocess
 cmds = [
     "cd /content && mkdir -p repo && tar xzf repo.tar.gz -C repo",
@@ -42,7 +42,7 @@ for c in cmds:
 PY
 
 echo "== 5. train (resume from Drive checkpoint if present) =="
-colab exec -s "$SESSION" <<'PY'
+colab exec -s "$SESSION" --timeout 3600 <<'PY'
 import glob, os, subprocess
 checkpoints = sorted(glob.glob(f"/content/drive/MyDrive/opportunity_slm_runs/{os.environ.get('CAPABILITY', 'classifier')}_*/checkpoints/checkpoint-*"))
 os.chdir("/content/repo")
