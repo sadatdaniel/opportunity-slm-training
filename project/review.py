@@ -158,6 +158,9 @@ def main() -> None:
 
     fetched = st.session_state.get("fetched") or {}
     fetch_error = st.session_state.get("fetch_error")
+    categories = load_taxonomy() if task == "classify" else []
+    # fetched verdict takes precedence; teacher parsed is the fallback
+    base = {**parsed, **{k: v for k, v in fetched.items() if k != "action" and v is not None}}
 
     info_pane, fields_pane = st.columns(2)
     with info_pane:
@@ -171,11 +174,7 @@ def main() -> None:
             except Exception as exc:  # noqa: BLE001 - clipboard can be unavailable
                 st.warning(f"clipboard unavailable ({exc}); use the copy icon on the box above")
 
-    with fields_pane:
         if task == "classify":
-            categories = load_taxonomy()
-            # fetched verdict takes precedence; teacher parsed is the fallback
-            base = {**parsed, **{k: v for k, v in fetched.items() if k != "action" and v is not None}}
             current = base.get("primary_category", categories[0])
             primary = st.selectbox(
                 "primary_category",
@@ -194,10 +193,12 @@ def main() -> None:
                 value=float(base.get("classification_ambiguity") or 0.0),
                 step=0.05,
             )
-            reason = st.text_area("reason_for_label", base.get("reason_for_label", ""))
         else:
             edited_summary = st.text_area("summary target", parsed.get("summary", ""), height=360)
 
+    with fields_pane:
+        if task == "classify":
+            reason = st.text_area("reason_for_label", base.get("reason_for_label", ""))
         st.caption(
             f'FLAGS: {entry.get("review_flags") or []} · validation={entry.get("validation_status")} · '
             f'provider={entry.get("teacher_provider_slot")}/{entry.get("teacher_model")}'
