@@ -37,6 +37,20 @@ providers:
     limits: {rpm: 15, tpm: 250000, rpd: 500}
     safety_margin: 0.70
 
+  # Primary overflow: benchmarked at 63.2% human / 100% json-valid (vs gemini
+  # 58% on the same set) — picked up annotation while gemini slots are
+  # daily-capped. Provenance records the gateway route honestly; the gateway
+  # log holds the underlying provider per call.
+  - name: omniroute_primary
+    kind: openai
+    base_url: http://127.0.0.1:20128/v1
+    api_key_env: OMNI_ROUTER_API_KEY
+    model: auto/best-reasoning
+    role: primary
+    limits: {rpm: 60, tpm: 1000000, rpd: 5000}
+    safety_margin: 1.0
+    json_mode: false
+
   # Self-hosted gateway (docker: opportunity_slm_omniroute, localhost:20128).
   # Aggregates free provider pools. auto/* routes abstract the underlying
   # provider — acceptable for second opinions/verification (not primary
