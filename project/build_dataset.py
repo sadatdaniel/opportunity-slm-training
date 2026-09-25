@@ -143,15 +143,26 @@ def training_example(task: str, record: dict, annotation: dict) -> dict | None:
     }
 
 
+def entry_rank(entry: dict) -> int:
+    """Quality rank for deduplicating repeated annotation entries per record."""
+    if entry.get("review_status"):
+        return 3  # human-reviewed beats everything
+    if entry.get("status") == "completed":
+        return 2
+    if entry.get("parsed_annotation") is not None:
+        return 1  # e.g. needs_review with a usable teacher label
+    return 0  # error / rate_limited stubs
+
+
 def build(task: str, version: str) -> Path:
     entries = load_jsonl(ANNOTATION_DIR / f"{task}.jsonl")
-    # dedupe by record_id, preferring human-reviewed entries over unreviewed
-    # duplicates (the pilot wrote overlapping batches)
+    # dedupe by record_id, keeping the highest-quality entry per record:
+    # reviewed > completed-with-label > label-but-needs-review > stubs
     annotations: dict[str, dict] = {}
     for entry in entries:
         rid = entry["record_id"]
         existing = annotations.get(rid)
-        if existing is None or (entry.get("review_status") and not existing.get("review_status")):
+        if existing is None or entry_rank(entry) > entry_rank(existing):
             annotations[rid] = entry
     records = {r["record_id"]: r for r in load_jsonl(NORMALIZED_PATH)}
     if not annotations:
@@ -177,6 +188,9 @@ def build(task: str, version: str) -> Path:
     by_id = {record["record_id"]: example for record, _, example in pairs}
 
     out_dir = DATASETS_DIR / CAPABILITY_DIR[task] / version
+    if (out_dir / "manifest.yaml").exists():
+        print(f"datasets/{CAPABILITY_DIR[task]}/{version} is already frozen — dataset versions are immutable; use a new version")
+        raise SystemExit(1)
     out_dir.mkdir(parents=True, exist_ok=True)
     manifest = {
         "task": task,

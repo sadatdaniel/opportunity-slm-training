@@ -20,7 +20,7 @@ TARBALL="/tmp/oi_repo_${STAMP}.tar.gz"
 git -C "$REPO_DIR" archive --format=tar.gz -o "$TARBALL" HEAD
 git -C "$REPO_DIR" archive --format=tar.gz -o /tmp/oi_dataset.tar.gz HEAD datasets/classifier config training project collectors sources 2>/dev/null || true
 # datasets are git-ignored: tar them separately from the working tree
-tar -czf /tmp/oi_dataset.tar.gz -C "$REPO_DIR" datasets/classifier/v1
+tar -czf /tmp/oi_dataset.tar.gz -C "$REPO_DIR" datasets/classifier
 
 echo "== 3. upload =="
 colab upload -s "$SESSION" "$TARBALL" /content/repo.tar.gz
