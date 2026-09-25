@@ -85,22 +85,30 @@ def build_eval_set(silver_n: int, seed: int = 42) -> list[dict]:
 
 def call_openrouter(key: str, model: str, messages: list[dict], timeout: float = 180.0) -> tuple[str | None, float]:
     start = time.perf_counter()
-    resp = httpx.post(
-        URL,
-        headers={
-            "Authorization": f"Bearer {key}",
-            "Content-Type": "application/json",
-            "HTTP-Referer": "https://localhost/opportunity-intelligence",
-            "X-Title": "Opportunity Intelligence Teacher Benchmark",
-        },
-        json={"model": model, "messages": messages, "temperature": 0.1, "max_tokens": 2048},
-        timeout=timeout,
-    )
+    try:
+        resp = httpx.post(
+            URL,
+            headers={
+                "Authorization": f"Bearer {key}",
+                "Content-Type": "application/json",
+                "HTTP-Referer": "https://localhost/opportunity-intelligence",
+                "X-Title": "Opportunity Intelligence Teacher Benchmark",
+            },
+            json={"model": model, "messages": messages, "temperature": 0.1, "max_tokens": 2048},
+            timeout=timeout,
+        )
+    except httpx.HTTPError as exc:  # network drops are transient; skip the record
+        print(f"    network error on {model}: {type(exc).__name__}", flush=True)
+        return None, time.perf_counter() - start
     elapsed = time.perf_counter() - start
     if resp.status_code != 200:
         return None, elapsed
-    content = resp.json()["choices"][0]["message"].get("content") or ""
-    return content, elapsed
+    # some providers return 200 with an error payload or empty choices
+    # (moderation/empty output) — treat as unusable rather than crashing
+    choices = resp.json().get("choices") or []
+    if not choices:
+        return None, elapsed
+    return choices[0].get("message", {}).get("content") or "", elapsed
 
 
 def classify_prompt(record: dict) -> list[dict]:

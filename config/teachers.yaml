@@ -41,7 +41,10 @@ providers:
     kind: openai
     base_url: https://openrouter.ai/api/v1
     api_key_env: OPENROUTER_API_KEY
-    model: nvidia/nemotron-3.5-lightning:free
+    # shootout winner (reports/openrouter_model_shootout.json): accuracy
+    # identical to the 550B model at half the latency; lightning-3.5 was
+    # disqualified (11.8% JSON validity — silently degraded on the free tier)
+    model: nvidia/nemotron-3-super-120b-a12b:free
     role: second_opinion
     # account documents 1000 requests/day for free models; 850 = safety margin
     limits: {rpm: 20, tpm: 100000, rpd: 850}
