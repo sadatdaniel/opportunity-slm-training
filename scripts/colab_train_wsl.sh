@@ -8,8 +8,10 @@ set -euo pipefail
 
 export PATH="$HOME/.local/bin:$PATH"
 SESSION="${SESSION:-oi-trainer}"
-CAPABILITY="${CAPABILITY:-classifier}"   # classifier | summarizer
-TRAIN_MODULE="${TRAIN_MODULE:-training.${CAPABILITY}.train}"
+# Capability is argument 1 (env vars do NOT propagate Windows->WSL without
+# WSLENV; arg-passing is robust). classifier | summarizer.
+CAPABILITY="${1:-classifier}"
+TRAIN_MODULE="training.${CAPABILITY}.train"
 GPU="${GPU:-T4}"
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
