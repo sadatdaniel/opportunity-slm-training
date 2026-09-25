@@ -152,13 +152,7 @@ def main() -> None:
         if not isinstance(pasted, dict) or not pasted:
             st.session_state["fetch_error"] = "paste a non-empty JSON object"
             return
-        pasted_title = (pasted.get("title") or "").strip().lower()
-        if pasted_title and pasted_title != (record.get("title") or "").strip().lower():
-            st.session_state["fetch_error"] = (
-                f'title mismatch: pasted "{pasted_title[:60]}" but this record is '
-                f'"{(record.get("title") or "")[:60]}" — not applying'
-            )
-            return
+        # pasted "title" is the reviewer's own tracking aid — ignored here
         st.session_state.pop("fetch_error", None)
         st.session_state["fetched"] = pasted
         st.session_state["fetched_rid"] = entry["record_id"]
