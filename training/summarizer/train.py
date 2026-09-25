@@ -39,18 +39,16 @@ CHAT_TEMPLATE = (
 )
 
 
-def build_dataset(split, tokenizer, max_length: int, max_examples: int | None) -> Dataset:
+def build_dataset(split, max_examples: int | None) -> Dataset:
+    """Raw prompt/completion TEXT dataset: TRL performs its own tokenization,
+    EOS handling, and completion-only masking — pre-tokenizing concatenated
+    text destroyed the mask and produced a full-sequence LM (root cause of
+    the v0.1.0 negative result, see experiments/summarizer_20260925_073307.md)."""
     rows = split.examples if max_examples is None else split.examples[:max_examples]
-    data = {
+    return Dataset.from_dict({
         "prompt": [CHAT_TEMPLATE.format(input=r["input"]) for r in rows],
         "completion": [r["target"] for r in rows],
-    }
-    dataset = Dataset.from_dict(data)
-
-    def tokenize(batch):
-        return tokenizer(batch["prompt"] + batch["completion"], truncation=True, max_length=max_length)
-
-    return dataset.map(tokenize, batched=True, remove_columns=["prompt", "completion"])
+    })
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -88,8 +86,8 @@ def main(argv: list[str] | None = None) -> int:
     train_split = load_split("summarizer", config["dataset_version"], "train")
     val_split = load_split("summarizer", config["dataset_version"], "validation")
     max_examples = smoke["max_examples"] if smoke else None
-    train_ds = build_dataset(train_split, tokenizer, config["max_seq_length"], max_examples)
-    val_ds = build_dataset(val_split, tokenizer, config["max_seq_length"], max_examples)
+    train_ds = build_dataset(train_split, max_examples)
+    val_ds = build_dataset(val_split, max_examples)
     exp.log(f"train={len(train_ds)} validation={len(val_ds)}")
 
     model = AutoModelForCausalLM.from_pretrained(

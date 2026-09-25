@@ -1,0 +1,26 @@
+{
+ "evaluated_at": "2026-09-25T07:46:56.151698+00:00",
+ "device": "cpu",
+ "model": "models/summarizer/v0.1.0",
+ "test_size": 21,
+ "trained": {
+  "n": 21,
+  "word_limit_150_compliance": 0.429,
+  "word_count_p50": 159,
+  "word_count_max": 195,
+  "empty_rate": 0.0,
+  "section_format_mean": 0.024,
+  "rouge_l_mean": 0.095,
+  "median_latency_ms": 13942.0
+ },
+ "base_untouched": {
+  "n": 20,
+  "word_limit_150_compliance": 0.45,
+  "word_count_p50": 161,
+  "word_count_max": 191,
+  "empty_rate": 0.0,
+  "section_format_mean": 0.058,
+  "rouge_l_mean": 0.107,
+  "median_latency_ms": 14315.9
+ }
+}

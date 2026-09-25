@@ -1,0 +1,84 @@
+run_id: summarizer_20260925_073307
+capability: summarizer
+git_commit: null
+model: SupraLabs/Supra2-100M-Instruct
+model_revision: main
+dataset_version: v1
+dataset_sha256:
+  test.jsonl: fcef47d9d33b373ddd27b4057ce3d4659a9496af90f0f96f8c9ce289f8fede42
+  train.jsonl: e050ab12f8ece29a955cd363fcf7384a18405850b355b4bcba690f7b3be84f50
+  unseen_sources_test.jsonl: 26a52a76270037da00fc5a22f058ca66d2f2c15c3de05b5ab97e5272eb7e734c
+  validation.jsonl: 4602d333e404a16615f6567962cd44a39e282cf2df7945c2629bc55e62dde21c
+taxonomy: null
+prompt_version: summarizer_v3
+seed: 42
+hyperparameters:
+  max_seq_length: 1536
+  epochs: 3
+  learning_rate: 1.0e-05
+  batch_size: 4
+  gradient_accumulation: 8
+  warmup_ratio: 0.03
+  weight_decay: 0.0
+  optimizer: adamw_torch
+  scheduler: linear
+  precision: bf16
+  lora: &id001
+    r: 16
+    alpha: 32
+    dropout: 0.05
+    target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+hardware:
+  device: cuda
+  platform: Linux-6.6.122+-x86_64-with-glibc2.39
+  python: 3.13.15
+  torch: 2.14.0+cu130
+  transformers: 5.17.0
+  trl: 1.13.0
+  peft: 0.21.0
+  gpu: Tesla T4
+  vram_gb: 15.6
+  cuda: '13.0'
+elapsed_seconds: 466.3
+checkpoint_path: /content/repo/runs/summarizer_20260925_073307/checkpoints
+config_snapshot:
+  model: SupraLabs/Supra2-100M-Instruct
+  model_revision: main
+  dataset_version: v1
+  output_version: v0.1.0
+  taxonomy: null
+  prompt_version: summarizer_v3
+  variant: full
+  max_seq_length: 1536
+  epochs: 3
+  learning_rate: 1.0e-05
+  lora_learning_rate: 0.0001
+  batch_size: 4
+  gradient_accumulation: 8
+  warmup_ratio: 0.03
+  weight_decay: 0.0
+  optimizer: adamw_torch
+  scheduler: linear
+  precision: bf16
+  lora: *id001
+  smoke:
+    epochs: 1
+    max_examples: 8
+    batch_size: 2
+    output_version: smoke
+metrics:
+  validation:
+    eval_loss: 2.311800479888916
+    eval_runtime: 2.9514
+    eval_samples_per_second: 13.553
+    eval_steps_per_second: 3.388
+    eval_entropy: 2.2830905437469484
+    eval_num_tokens: 515607.0
+    eval_mean_token_accuracy: 0.552336061000824
+    epoch: 3.0
+  variant: full
+created_at: '2026-09-25T07:40:53.913101+00:00'
