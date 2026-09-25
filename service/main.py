@@ -31,6 +31,10 @@ from training.systemone.engine import ChoiceQuestion, NoulQuestion, SystemOneEng
 
 REGISTRY_PATH = PROJECT_ROOT / "config" / "task_registry.yaml"
 
+# pre-inference gate: below this P(opportunity), abstain. Provisional 0.5
+# until calibration data exists (briefs: thresholds from held-out data).
+GATE_THRESHOLD = 0.5
+
 app = FastAPI(title="Opportunity Intelligence", version="0.1.0")
 _engine: SystemOneEngine | None = None
 
@@ -141,6 +145,16 @@ def systemone(request: SystemOneRequest) -> dict:
     if not request.questions:
         raise HTTPException(status_code=422, detail="at least one question is required")
     engine = get_engine()
+    # pre-inference rejection (laya pattern): refuse out-of-competence inputs
+    # before answering - a news article would otherwise classify as confident
+    # garbage. Abstention is a typed, predictable answer.
+    gate = engine.gate_opportunity(request.state)
+    if gate < GATE_THRESHOLD:
+        raise HTTPException(
+            status_code=422,
+            detail={"error": "not_an_opportunity", "gate": round(gate, 3),
+                    "message": "The submitted text does not appear to be an opportunity posting."},
+        )
     questions = {qid: _question_from_spec(qid, spec) for qid, spec in request.questions.items()}
     # validate before any compute: semantic errors are client errors (422),
     # never engine ValueErrors leaking as 500s
@@ -176,7 +190,15 @@ def categorize(request: CategorizeRequest) -> dict:
         instructions="Which opportunity category best describes this posting?",
         criteria={k: v for k, v in criteria.items() if k in load_taxonomy_categories()},
     )
-    answer = get_engine().answer_choice(request.state, question)
+    engine = get_engine()
+    gate = engine.gate_opportunity(request.state)
+    if gate < GATE_THRESHOLD:
+        raise HTTPException(
+            status_code=422,
+            detail={"error": "not_an_opportunity", "gate": round(gate, 3),
+                    "message": "The submitted text does not appear to be an opportunity posting."},
+        )
+    answer = engine.answer_choice(request.state, question)
     return _answer_payload(answer)
 
 

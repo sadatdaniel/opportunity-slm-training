@@ -7,7 +7,7 @@ last_tested: '2026-09-24'
 notes: auto-provisioned from source inventory; hand-tune as needed
 api_endpoint: https://www.youthop.com/wp-json/wp/v2/posts
 per_page: 50
-max_records: 250
+max_records: 1000
 embed_terms: true
 deadline_fields:
 - deadline

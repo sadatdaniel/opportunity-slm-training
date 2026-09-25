@@ -187,3 +187,26 @@ class SystemOneEngine:
             qid: self.answer_noul(state, q) if isinstance(q, NoulQuestion) else self.answer_choice(state, q)
             for qid, q in questions.items()
         }
+
+    # -- pre-inference rejection (laya lesson: route/abstain BEFORE the model
+    # runs on out-of-competence inputs — confidence stays dangerously high
+    # when the model is wrong about input type, so gating must come first) --
+
+    GATE_QUESTION = NoulQuestion(
+        instructions=(
+            "Is this text an opportunity posting that a person could apply to "
+            "(scholarship, fellowship, internship, grant, contest, event, or "
+            "program), rather than a news article, research announcement, or "
+            "press release?"
+        ),
+        criteria={
+            "true": "The text invites applications or participation in a program, funding, position, or event - there is something to apply to.",
+            "false": "The text is news, research coverage, an announcement of results, or otherwise contains nothing a person can apply to.",
+        },
+    )
+
+    @torch.no_grad()
+    def gate_opportunity(self, state: str) -> float:
+        """P(text is an opportunity posting). Run BEFORE any task inference;
+        below the calibration threshold, abstain instead of deciding."""
+        return self.answer_noul(state, self.GATE_QUESTION).noul
