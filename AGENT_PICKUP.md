@@ -45,9 +45,13 @@ bottom, then follow the pointers.**
   `auto/best-reasoning` second opinion + `auto/pro-reasoning` verifier),
   OpenRouter (Nemotron Super 120B), DeepSeek (verifier, credit low),
   Z.ai GLM-5.3-Flash (adjudicator, Coding-Plan endpoint).
-- **Summarizer**: prompt v2 ready; 300-record pilot may be running or done —
-  check `data/annotations/summarize.jsonl`; next = SFT training on Colab
-  (`training/summarizer/train.py`) + field-level benchmark (§22A).
+- **Summarizer**: v0.1.0 pilot run = documented NEGATIVE result (masking bug,
+  fixed) then partial result after fix — format compliance 3× base but weak;
+  224 examples is too few to teach format. FIXES IN FLIGHT: chat-template +
+  one-shot exemplar prompts (`training/summarizer/prompt.py`, shared by
+  train+evaluate) and full-corpus summarize annotation (~3k records,
+  quota-paced ~2 days — check `data/annotations/summarize.jsonl`). When done:
+  build `--task summarize --version v2`, retrain, re-evaluate.
 - **Noul**: prototype evaluator + families (incl. interdisciplinary and
   residency questions) in `config/noul_families.yaml`; trained model awaits
   extraction-facts training data.
