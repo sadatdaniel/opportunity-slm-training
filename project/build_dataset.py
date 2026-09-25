@@ -128,8 +128,11 @@ def training_example(task: str, record: dict, annotation: dict) -> dict | None:
         target = parsed.get("summary")
         if not target or not isinstance(target, str):
             return None
+        # the summarizer input contract: up to ~600 words (brief section 3);
+        # token stats: 98% of prompt+target fit 1024 tokens at this budget
+        words = " ".join(record["clean_text"].split()[:600])
         return {
-            "input": f'TITLE: {record["title"]}\n\nOPPORTUNITY TEXT:\n{record["clean_text"]}',
+            "input": f'TITLE: {record["title"]}\n\nOPPORTUNITY TEXT:\n{words}',
             "target": target,
         }
     target = parsed.get("primary_category")

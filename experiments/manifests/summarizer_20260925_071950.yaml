@@ -1,0 +1,81 @@
+run_id: summarizer_20260925_071950
+capability: summarizer
+git_commit: 32c38fb7071fb55f5025890ba74d1e719fc97d0e
+model: SupraLabs/Supra2-100M-Instruct
+model_revision: main
+dataset_version: v1
+dataset_sha256:
+  test.jsonl: 50c2ed150e938b234f2f49db480b5df7780e0339bc5e7f62b9f62689da1c029e
+  train.jsonl: a8cd1933a1c727d4eb0dff10743fb3dc7b0ef111b21626c5f2c9df776ee77a3d
+  unseen_sources_test.jsonl: 6220a153e4ce6d004abd86b0151c9677a4f3652521721e855cba90c7a6b68ab8
+  validation.jsonl: db910dbdcc9f367123a890baf67b57c3845e256ced6e756382e6458772e76f6f
+taxonomy: null
+prompt_version: summarizer_v3
+seed: 42
+hyperparameters:
+  max_seq_length: 1536
+  epochs: 1
+  learning_rate: 1.0e-05
+  batch_size: 2
+  gradient_accumulation: 8
+  warmup_ratio: 0.03
+  weight_decay: 0.0
+  optimizer: adamw_torch
+  scheduler: linear
+  precision: bf16
+  lora: &id001
+    r: 16
+    alpha: 32
+    dropout: 0.05
+    target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+hardware:
+  device: cpu
+  platform: Windows-11-10.0.26200-SP0
+  python: 3.14.7
+  torch: 2.14.0+cpu
+  transformers: 5.17.0
+  trl: 1.13.0
+  peft: 0.21.0
+elapsed_seconds: 221.7
+checkpoint_path: C:\Users\sadat\PycharmProjects\llm_training_project\runs\summarizer_20260925_071950\checkpoints
+config_snapshot:
+  model: SupraLabs/Supra2-100M-Instruct
+  model_revision: main
+  dataset_version: v1
+  output_version: v0.1.0
+  taxonomy: null
+  prompt_version: summarizer_v3
+  variant: full
+  max_seq_length: 1536
+  epochs: 1
+  learning_rate: 1.0e-05
+  lora_learning_rate: 0.0001
+  batch_size: 2
+  gradient_accumulation: 8
+  warmup_ratio: 0.03
+  weight_decay: 0.0
+  optimizer: adamw_torch
+  scheduler: linear
+  precision: bf16
+  lora: *id001
+  smoke:
+    epochs: 1
+    max_examples: 8
+    batch_size: 2
+    output_version: smoke
+metrics:
+  validation:
+    eval_loss: 2.8792879581451416
+    eval_runtime: 32.0696
+    eval_samples_per_second: 0.499
+    eval_steps_per_second: 0.249
+    eval_entropy: 2.617181807756424
+    eval_num_tokens: 8114.0
+    eval_mean_token_accuracy: 0.45388761907815933
+    epoch: 1.0
+  variant: full
+created_at: '2026-09-25T07:23:32.302153+00:00'

@@ -105,11 +105,43 @@ def validate(task: str, parsed: dict | None) -> str:
             return "ambiguous"
         return "valid"
     summary = parsed.get("summary")
-    if not isinstance(summary, str) or len(summary.split()) > 180:
+    if not isinstance(summary, str) or len(summary.split()) > 250:
+        # 250 = 150-word target with flex headroom; longer goes to review
         return "invalid"
     if parsed.get("ambiguity_score", 0) >= 0.6:
         return "ambiguous"
     return "valid"
+
+
+def revalidate(task: str) -> int:
+    """Re-apply local validation to existing annotations without API calls.
+
+    Used when the acceptance thresholds change (e.g. summary length
+    flexibility): flips needs_review entries that now validate, keeping all
+    provenance intact.
+    """
+    out_path = ANNOTATION_DIR / f"{task}.jsonl"
+    if not out_path.exists():
+        return 0
+    entries = [json.loads(l) for l in out_path.read_text(encoding="utf-8").splitlines() if l.strip()]
+    changed = 0
+    for entry in entries:
+        if entry.get("status") != "needs_review":
+            continue
+        new_validation = validate(task, entry.get("parsed_annotation"))
+        if new_validation != "invalid":
+            entry["status"] = "completed"
+            entry["validation_status"] = new_validation
+            entry["needs_human_review"] = new_validation == "ambiguous"
+            entry["revalidated_at"] = datetime.now(UTC).isoformat()
+            changed += 1
+    if changed:
+        tmp = out_path.with_suffix(".tmp")
+        tmp.write_text(
+            "\n".join(json.dumps(e, ensure_ascii=False) for e in entries) + "\n", encoding="utf-8"
+        )
+        tmp.replace(out_path)
+    return changed
 
 
 def parse_annotation(raw: str) -> dict | None:
@@ -316,8 +348,13 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--pilot", action="store_true", help="stratified pilot sample (v2 brief step 5)")
     parser.add_argument("--workers", type=int, default=8, help="concurrent in-flight teacher calls")
+    parser.add_argument("--revalidate", action="store_true", help="re-apply local validation to stored annotations (no API calls)")
     args = parser.parse_args(argv)
     load_env()
+    if args.revalidate:
+        changed = revalidate(args.task)
+        print(f"revalidated: {changed} entries recovered")
+        return 0
     return annotate(args.task, args.input, args.limit, args.pilot, args.workers)
 
 

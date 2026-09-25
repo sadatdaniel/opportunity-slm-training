@@ -1,0 +1,32 @@
+# Supra-Summarizer: supervised fine-tuning for high-signal summaries
+model: SupraLabs/Supra2-100M-Instruct
+model_revision: main
+dataset_version: v1
+output_version: v0.1.0
+taxonomy: null
+prompt_version: summarizer_v3
+
+variant: full          # full | lora (both first-class, brief section 3)
+max_seq_length: 1536   # token stats: 98% of prompt+target fit 1024, 100% fit 1536
+epochs: 3
+learning_rate: 1.0e-5  # full FT; LoRA variant uses lora_learning_rate
+lora_learning_rate: 1.0e-4
+batch_size: 4
+gradient_accumulation: 8   # effective batch 32
+warmup_ratio: 0.03
+weight_decay: 0.0
+optimizer: adamw_torch
+scheduler: linear
+precision: bf16        # fp32 fallback on CPU
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj]
+
+smoke:
+  epochs: 1
+  max_examples: 8
+  batch_size: 2
+  output_version: smoke

@@ -8,6 +8,8 @@ set -euo pipefail
 
 export PATH="$HOME/.local/bin:$PATH"
 SESSION="${SESSION:-oi-trainer}"
+CAPABILITY="${CAPABILITY:-classifier}"   # classifier | summarizer
+TRAIN_MODULE="${TRAIN_MODULE:-training.${CAPABILITY}.train}"
 GPU="${GPU:-T4}"
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
@@ -42,22 +44,23 @@ PY
 echo "== 5. train (resume from Drive checkpoint if present) =="
 colab exec -s "$SESSION" <<'PY'
 import glob, os, subprocess
-checkpoints = sorted(glob.glob("/content/drive/MyDrive/opportunity_slm_runs/classifier_*/checkpoints/checkpoint-*"))
+checkpoints = sorted(glob.glob(f"/content/drive/MyDrive/opportunity_slm_runs/{os.environ.get('CAPABILITY', 'classifier')}_*/checkpoints/checkpoint-*"))
 os.chdir("/content/repo")
 if checkpoints:
     print("resuming from", checkpoints[-1])
-    subprocess.run(["uv", "run", "python", "-m", "training.classifier.train",
+    subprocess.run(["uv", "run", "python", "-m", os.environ.get("TRAIN_MODULE", "training.classifier.train"),
                     "--resume-from-checkpoint", checkpoints[-1]], check=True)
 else:
-    subprocess.run(["uv", "run", "python", "-m", "training.classifier.train"], check=True)
+    subprocess.run(["uv", "run", "python", "-m", os.environ.get("TRAIN_MODULE", "training.classifier.train")], check=True)
 PY
 
 echo "== 6. download artifacts + manifests =="
 colab exec -s "$SESSION" <<'PY'
 import glob, subprocess, shutil
-latest = sorted(glob.glob("/content/repo/runs/classifier_*/checkpoints/checkpoint-*"))
+latest = sorted(glob.glob(f"/content/repo/runs/{os.environ.get('CAPABILITY', 'classifier')}_*/checkpoints/checkpoint-*"))
 manifests = glob.glob("/content/repo/experiments/manifests/*.yaml")
-shutil.make_archive("/content/oi_artifacts", "tar", root_dir="/content/repo", base_dir="models/classifier")
+shutil.make_archive("/content/oi_artifacts", "tar", root_dir="/content/repo", base_dir=f"models/{os.environ.get('CAPABILITY', 'classifier')}")
+shutil.make_archive("/content/oi_manifests", "tar", root_dir="/content/repo", base_dir="experiments/manifests")
 if latest:
     print("latest checkpoint:", latest[-1])
 PY
