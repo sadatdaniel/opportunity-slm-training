@@ -1,23 +1,23 @@
 {
- "nvidia/nemotron-3-ultra-550b-a55b:free": {
-  "human_accuracy": 0.526,
+ "auto/best-reasoning": {
+  "human_accuracy": 0.632,
   "silver_accuracy": 0.867,
-  "json_valid_rate": 0.971,
-  "median_latency_s": 6.2,
+  "json_valid_rate": 1.0,
+  "median_latency_s": 1.2,
   "total": 34
  },
- "nvidia/nemotron-3-super-120b-a12b:free": {
+ "auto/best-chat": {
   "human_accuracy": 0.526,
   "silver_accuracy": 0.867,
-  "json_valid_rate": 0.971,
-  "median_latency_s": 3.9,
+  "json_valid_rate": 1.0,
+  "median_latency_s": 1.2,
   "total": 34
  },
- "nvidia/nemotron-3.5-lightning:free": {
-  "human_accuracy": 0.105,
-  "silver_accuracy": 0.0,
-  "json_valid_rate": 0.118,
-  "median_latency_s": 0.2,
+ "auto/pro-reasoning": {
+  "human_accuracy": 0.579,
+  "silver_accuracy": 0.867,
+  "json_valid_rate": 1.0,
+  "median_latency_s": 1.2,
   "total": 34
  }
 }

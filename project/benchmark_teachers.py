@@ -125,9 +125,15 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="OpenRouter model shootout")
     parser.add_argument("--silver", type=int, default=15)
     parser.add_argument("--models", nargs="*", default=CANDIDATES)
+    parser.add_argument("--gateway", action="store_true",
+                        help="score models on the local OmniRoute gateway instead of OpenRouter")
     args = parser.parse_args(argv)
     load_env()
     key = __import__("os").environ.get("OPENROUTER_API_KEY", "")
+    if args.gateway:
+        key = __import__("os").environ.get("OMNI_ROUTER_API_KEY", "")
+        global URL
+        URL = "http://127.0.0.1:20128/v1/chat/completions"
 
     eval_set = build_eval_set(args.silver)
     human_set = [e for e in eval_set if e["subset"] == "human"]

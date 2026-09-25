@@ -37,6 +37,31 @@ providers:
     limits: {rpm: 15, tpm: 250000, rpd: 500}
     safety_margin: 0.70
 
+  # Self-hosted gateway (docker: opportunity_slm_omniroute, localhost:20128).
+  # Aggregates free provider pools. auto/* routes abstract the underlying
+  # provider — acceptable for second opinions/verification (not primary
+  # annotation labels, whose provenance must be exact).
+  - name: omniroute_reasoning
+    kind: openai
+    base_url: http://127.0.0.1:20128/v1
+    api_key_env: OMNI_ROUTER_API_KEY
+    model: auto/best-reasoning
+    role: second_opinion
+    # gateway aggregates many pools; per-pool limits handled by 429 backoff
+    limits: {rpm: 60, tpm: 1000000, rpd: 5000}
+    safety_margin: 1.0
+    json_mode: false
+
+  - name: omniroute_verifier
+    kind: openai
+    base_url: http://127.0.0.1:20128/v1
+    api_key_env: OMNI_ROUTER_API_KEY
+    model: auto/pro-reasoning
+    role: verifier
+    limits: {rpm: 60, tpm: 1000000, rpd: 5000}
+    safety_margin: 1.0
+    json_mode: false
+
   - name: openrouter
     kind: openai
     base_url: https://openrouter.ai/api/v1
