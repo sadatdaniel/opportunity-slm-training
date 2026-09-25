@@ -1039,3 +1039,35 @@
   postings_page: https://www.sanger.ac.uk/about/study-and-train/
   api_endpoint: https://www.sanger.ac.uk/wp-json/wp/v2/posts
   origin_file: 100_academic_sources.md
+- source_id: scholarships_corner
+  name: Scholarships Corner
+  domain: scholarshipscorner.website
+  scope:
+  - scholarships
+  - fellowships
+  - internships
+  - conferences
+  postings_page: https://scholarshipscorner.website
+  api_endpoint: https://scholarshipscorner.website/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: opportunities_corners
+  name: Opportunities Corners
+  domain: opportunitiescorners.com
+  scope:
+  - scholarships
+  - internships
+  - exchange_programs
+  - fellowships
+  postings_page: https://opportunitiescorners.com
+  api_endpoint: https://opportunitiescorners.com/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md
+- source_id: scholarships365
+  name: Scholarships365
+  domain: scholarships365.info
+  scope:
+  - scholarships
+  - grants
+  - summer_schools
+  postings_page: https://scholarships365.info
+  api_endpoint: https://scholarships365.info/wp-json/wp/v2/posts
+  origin_file: 100_academic_sources.md

@@ -634,5 +634,23 @@
     "scope": ["phd", "postdoc", "visiting_scholar"],
     "postings_page": "https://www.sanger.ac.uk/about/study-and-train/",
     "api_endpoint": "https://www.sanger.ac.uk/wp-json/wp/v2/posts"
+  },
+  {
+    "name": "Scholarships Corner",
+    "scope": ["scholarships", "fellowships", "internships", "conferences"],
+    "postings_page": "https://scholarshipscorner.website",
+    "api_endpoint": "https://scholarshipscorner.website/wp-json/wp/v2/posts"
+  },
+  {
+    "name": "Opportunities Corners",
+    "scope": ["scholarships", "internships", "exchange_programs", "fellowships"],
+    "postings_page": "https://opportunitiescorners.com",
+    "api_endpoint": "https://opportunitiescorners.com/wp-json/wp/v2/posts"
+  },
+  {
+    "name": "Scholarships365",
+    "scope": ["scholarships", "grants", "summer_schools"],
+    "postings_page": "https://scholarships365.info",
+    "api_endpoint": "https://scholarships365.info/wp-json/wp/v2/posts"
   }
 ]

@@ -31,6 +31,8 @@ tar -czf "$OUT" -C "$REPO_DIR" \
     --exclude='opportunity_intelligence_weekend_build*.md' \
     .
 
+# POLICY 2026-09-25 (user): robots.txt checks disabled for public-page feed
+# discovery and collection; politeness (delays, cache, honest UA) retained.
 # corpus jsonl compresses ~10x; this archive now contains the full
 # collected corpus with sources - the learnable asset
  echo "backup: $OUT ($(du -h "$OUT" | cut -f1))"
