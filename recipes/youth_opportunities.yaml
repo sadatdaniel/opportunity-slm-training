@@ -13,3 +13,14 @@ deadline_fields:
 - deadline
 - application_deadline
 - deadline_date
+target_category_ids:
+  exchange:
+  - 6
+  summer school:
+  - 12
+  grant:
+  - 4
+  award:
+  - 3
+  fellowship:
+  - 9

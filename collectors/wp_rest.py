@@ -52,12 +52,21 @@ class WpRestCollector:
 
         targeted = recipe.get("target_categories") or []
         if targeted:
-            # model-driven collection into weak classes (brief step 8): query
-            # WP category slugs directly instead of newest-first. Slug sets
-            # differ per site; wrong slugs simply return nothing.
+            # slug-based targeted collection: quick but site slugs vary
             per_slug = max(1, int(recipe.get("per_slug", 60)))
             for slug in targeted:
                 for post in self._paginate(api, {**extra_params, "category_name": slug}, per_page, per_slug):
+                    yield self.to_record(post, recipe)
+            return
+
+        category_ids = recipe.get("target_category_ids") or {}
+        if category_ids:
+            # durable targeted collection: category IDs discovered once via
+            # project.discover_categories and persisted in the recipe
+            per_keyword = max(1, int(recipe.get("per_slug", 60)))
+            for keyword, ids in category_ids.items():
+                params = {**extra_params, "categories": ",".join(str(i) for i in ids)}
+                for post in self._paginate(api, params, per_page, per_keyword):
                     yield self.to_record(post, recipe)
             return
 

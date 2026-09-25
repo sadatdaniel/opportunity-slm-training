@@ -13,3 +13,10 @@ deadline_fields:
 - deadline
 - application_deadline
 - deadline_date
+target_category_ids:
+  grant:
+  - 5
+  award:
+  - 599
+  fellowship:
+  - 11

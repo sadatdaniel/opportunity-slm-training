@@ -13,3 +13,13 @@ deadline_fields:
 - deadline
 - application_deadline
 - deadline_date
+target_category_ids:
+  postdoc:
+  - 22
+  postdoctoral:
+  - 22
+  award:
+  - 592
+  fellowship:
+  - 113
+  - 22
