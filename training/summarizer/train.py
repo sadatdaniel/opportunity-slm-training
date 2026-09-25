@@ -27,7 +27,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from training.common.datasets import load_split
 from training.common.experiment import Experiment, PROJECT_ROOT
 from training.common.model_registry import register
-from training.summarizer.prompt import build_user_message
+from training.summarizer.prompt import build_raw_prompt
 
 CONFIG_PATH = PROJECT_ROOT / "training" / "summarizer" / "config.yaml"
 

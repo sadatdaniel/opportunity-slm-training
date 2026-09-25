@@ -25,7 +25,7 @@ import torch
 
 from training.common.datasets import load_split
 from training.common.experiment import PROJECT_ROOT
-from training.summarizer.prompt import render_prompt
+from training.summarizer.prompt import build_raw_prompt
 
 REPORT_DIR = PROJECT_ROOT / "reports"
 BASE_MODEL = "SupraLabs/Supra2-100M-Instruct"
@@ -94,7 +94,7 @@ def main(argv: list[str] | None = None) -> int:
 
     device = args.device or ("cuda" if torch.cuda.is_available() else "cpu")
     test = load_split("summarizer", args.dataset_version, "test")
-    prompts = [render_prompt(tokenizer, r["input"]) for r in test.examples]
+    prompts = [build_raw_prompt(r["input"]) for r in test.examples]
     refs = [r["target"] for r in test.examples]
     results: dict = {
         "evaluated_at": datetime.now(timezone.utc).isoformat(),

@@ -58,3 +58,24 @@ def render_prompt(tokenizer, input_text: str) -> str:
         tokenize=False,
         add_generation_prompt=True,
     )
+
+
+def build_raw_prompt(input_text: str) -> str:
+    """Flat (non-chat) prompt ending in a stable boundary marker.
+
+    The trailing newline after the TARGET OUTPUT marker makes the
+    prompt/completion token boundary deterministic (TRL mask-drift root
+    cause); use with the matching evaluator/serving path so train and
+    inference are identical.
+    """
+    nl = chr(10)
+    return (
+        INSTRUCTIONS + nl + nl
+        + "=== EXAMPLE ===" + nl
+        + EXEMPLAR_INPUT + nl + nl
+        + "CORRECT SUMMARY:" + nl + EXEMPLAR_SUMMARY + nl
+        + "=== END EXAMPLE ===" + nl + nl
+        + "Now summarize this opportunity the same way:" + nl + nl
+        + "OPPORTUNITY:" + nl + input_text + nl + nl
+        + "TARGET OUTPUT:" + nl
+    )
