@@ -33,20 +33,26 @@ bottom, then follow the pointers.**
 
 ## 2. Where the project stands (snapshot — verify against PROJECT_STATUS.md)
 
-- **Corpus**: 3,296 canonical records fully annotated (classification), 0
-  errors; targeted collection into weak classes may have added more since.
+- **Corpus**: 3,296 canonical records fully annotated (classification) + a
+  running targeted-collection wave into weak classes (postdoc/grant/award/
+  fellowship category feeds — discovered category IDs persisted in recipes).
 - **Classifier v0.2.0**: 84.3% accuracy / macro F1 0.733 / ECE 0.054 on the
   frozen v2 test split (v0.1.0 was 17.6% at 14.6× less data). Artifact:
-  `models/classifier/v0.2.0`.
+  `models/classifier/v0.2.0`. Next data milestone: dataset v3 after human
+  review of ~33 newly flagged records (queue live) + weak-class wave.
 - **Teacher pool**: 4× Gemini (primary, rolling-24h budgets), OmniRoute
   gateway (self-hosted docker `opportunity_slm_omniroute`, port 20128,
   `auto/best-reasoning` second opinion + `auto/pro-reasoning` verifier),
   OpenRouter (Nemotron Super 120B), DeepSeek (verifier, credit low),
   Z.ai GLM-5.3-Flash (adjudicator, Coding-Plan endpoint).
+- **Summarizer**: prompt v2 ready; 300-record pilot may be running or done —
+  check `data/annotations/summarize.jsonl`; next = SFT training on Colab
+  (`training/summarizer/train.py`) + field-level benchmark (§22A).
+- **Noul**: prototype evaluator + families (incl. interdisciplinary and
+  residency questions) in `config/noul_families.yaml`; trained model awaits
+  extraction-facts training data.
 - **Review queue**: Streamlit `project/review.py` — human decisions land in
-  `data/annotations/classify.jsonl` and flow into the next dataset build.
-- **Summarizer**: prompt v2 ready, SFT scaffold ready, pilot = first task
-  if not yet done (see PROJECT_STATUS).
+  `data/annotations/classify.jsonl`; paste-JSON workflow supported.
 
 ## 3. Immediate work queue (pick top-down; verify in PROJECT_STATUS.md)
 
