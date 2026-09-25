@@ -57,13 +57,21 @@ def load_jsonl(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
-def quality_tier(annotation: dict) -> str:
+def quality_tier(annotation: dict, verifier_verdicts: dict | None = None) -> str:
     parsed = annotation.get("parsed_annotation")
     if parsed is None:
         return "quarantine"
     # review UI saves "approve"; normalize here for robustness
     if annotation.get("review_status") in ("approved", "approve", "corrected"):
         return "gold"
+    # bulk independent verification (may be PARTIAL — credit cutoffs are
+    # expected): verified-disagreed records quarantine for review; agreements
+    # and unverified records keep their tier. Verification improves the
+    # dataset incrementally as it accumulates.
+    if verifier_verdicts is not None:
+        verdict = verifier_verdicts.get(annotation["record_id"])
+        if verdict is not None and verdict.get("agreement") is False:
+            return "quarantine"
     # any warning flag from the teacher keeps it out of silver
     if annotation.get("needs_human_review"):
         return "quarantine"
@@ -157,7 +165,17 @@ def entry_rank(entry: dict) -> int:
     return 0  # error / rate_limited stubs
 
 
-def build(task: str, version: str) -> Path:
+def build(task: str, version: str, verification: Path | None = None) -> Path:
+    # partial bulk verification folds in incrementally: agreed/unverified keep
+    # their tier, verified-disagreed quarantine (credit cutoffs are expected)
+    verifier_verdicts: dict | None = None
+    if verification is not None and verification.exists():
+        verifier_verdicts = {}
+        for line in verification.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                row = json.loads(line)
+                if "error" not in row:
+                    verifier_verdicts[row["record_id"]] = row
     entries = load_jsonl(ANNOTATION_DIR / f"{task}.jsonl")
     # dedupe by record_id, keeping the highest-quality entry per record:
     # reviewed > completed-with-label > label-but-needs-review > stubs
@@ -177,7 +195,7 @@ def build(task: str, version: str) -> Path:
         record = records.get(rid)
         if record is None:
             continue
-        tiered[quality_tier(ann)].append((record, ann))
+        tiered[quality_tier(ann, verifier_verdicts)].append((record, ann))
 
     trainable = [x for tier in ("gold", "silver") for x in tiered[tier]]
     pairs, skipped = [], []
@@ -233,8 +251,10 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Build versioned datasets")
     parser.add_argument("--task", choices=["summarize", "classify"], required=True)
     parser.add_argument("--version", default="v1")
+    parser.add_argument("--verification", type=Path, default=None,
+                        help="bulk-verify JSONL (may be partial): disagreed records quarantine")
     args = parser.parse_args(argv)
-    build(args.task, args.version)
+    build(args.task, args.version, args.verification)
     return 0
 
 
