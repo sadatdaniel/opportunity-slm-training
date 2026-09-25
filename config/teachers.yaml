@@ -89,6 +89,20 @@ providers:
     limits: {rpm: 20, tpm: 100000, rpd: 850}
     safety_margin: 1.0
 
+  - name: experiential_labs
+    kind: openai
+    base_url: https://api.experientiallabs.ai/v1
+    api_key_env: EXPERIMENTALLABS_API_KEY
+    # verified on flagged-summary recovery: 91/93 second opinions produced
+    # valid 250-word-capped structured summaries at ~12s/call
+    model: gpt-6-luna
+    role: second_opinion
+    # $0.025/M in, $0.13/M out (75% off) - effectively free at our scale;
+    # no documented RPM caps, keep a light governor anyway
+    limits: {rpm: 60, tpm: 1000000, rpd: 5000}
+    safety_margin: 1.0
+    json_mode: false
+
   - name: deepseek
     kind: openai
     base_url: https://api.deepseek.com

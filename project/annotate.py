@@ -151,7 +151,7 @@ def revalidate(task: str, flex_words: int = 250) -> int:
     return changed
 
 
-def second_pass(task: str, limit: int | None = None) -> int:
+def second_pass(task: str, limit: int | None = None, provider_filter: str | None = None) -> int:
     """Route flagged summarize entries through the second-opinion provider.
 
     The second opinion rewrites the summary; if it validates (<=250 words),
@@ -161,6 +161,8 @@ def second_pass(task: str, limit: int | None = None) -> int:
     """
     load_env()
     pool = TeacherPool()
+    if provider_filter:
+        pool.providers = [p for p in pool.providers if provider_filter in p["name"]]
     if not pool.providers:
         print("no providers configured")
         return 1
@@ -430,6 +432,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--flex-words", type=int, default=250, help="summary word tolerance for --revalidate")
     parser.add_argument("--second-pass", action="store_true", help="route flagged entries through the second-opinion provider")
     parser.add_argument("--second-pass-limit", type=int, default=None)
+    parser.add_argument("--second-pass-provider", default=None, help="only use providers whose name contains this")
     args = parser.parse_args(argv)
     load_env()
     if args.revalidate:
@@ -437,7 +440,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"revalidated: {changed} entries recovered")
         return 0
     if args.second_pass:
-        return second_pass(args.task, args.second_pass_limit)
+        return second_pass(args.task, args.second_pass_limit, args.second_pass_provider)
     return annotate(args.task, args.input, args.limit, args.pilot, args.workers)
 
 
