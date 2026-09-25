@@ -42,17 +42,11 @@ for c in cmds:
 PY
 
 echo "== 5. train (resume from Drive checkpoint if present) =="
-colab exec -s "$SESSION" --timeout 3600 <<'PY'
-import glob, os, subprocess
-checkpoints = sorted(glob.glob(f"/content/drive/MyDrive/opportunity_slm_runs/{os.environ.get('CAPABILITY', 'classifier')}_*/checkpoints/checkpoint-*"))
-os.chdir("/content/repo")
-if checkpoints:
-    print("resuming from", checkpoints[-1])
-    subprocess.run(["uv", "run", "python", "-m", os.environ.get("TRAIN_MODULE", "training.classifier.train"),
-                    "--resume-from-checkpoint", checkpoints[-1]], check=True)
-else:
-    subprocess.run(["uv", "run", "python", "-m", os.environ.get("TRAIN_MODULE", "training.classifier.train")], check=True)
-PY
+# capability-specific driver file: the VM does not inherit local env vars,
+# so CAPABILITY/TRAIN_MODULE are set INSIDE the driver (hardcoded per file)
+DRIVER="$REPO_DIR/scripts/colab_vm_train_${CAPABILITY}.py"
+[ -f "$DRIVER" ] || DRIVER="$REPO_DIR/scripts/colab_vm_train.py"
+colab exec -s "$SESSION" --timeout 3600 -f "$DRIVER" 2>&1 | tail -6
 
 echo "== 6. download artifacts + manifests =="
 colab exec -s "$SESSION" <<'PY'
