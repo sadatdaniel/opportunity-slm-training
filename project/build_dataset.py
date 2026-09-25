@@ -165,7 +165,7 @@ def entry_rank(entry: dict) -> int:
     return 0  # error / rate_limited stubs
 
 
-def build(task: str, version: str, verification: Path | None = None) -> Path:
+def build(task: str, version: str, verification: Path | None = None, consensus: Path | None = None) -> Path:
     # partial bulk verification folds in incrementally: agreed/unverified keep
     # their tier, verified-disagreed quarantine (credit cutoffs are expected)
     verifier_verdicts: dict | None = None
@@ -177,6 +177,28 @@ def build(task: str, version: str, verification: Path | None = None) -> Path:
                 if "error" not in row:
                     verifier_verdicts[row["record_id"]] = row
     entries = load_jsonl(ANNOTATION_DIR / f"{task}.jsonl")
+    # consensus overlay (from project.consensus): final_label replaces the
+    # teacher label; needs_human_review entries quarantine via the flag below
+    if consensus is not None and consensus.exists():
+        by_id = {e["record_id"]: e for e in entries}
+        for line in consensus.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            overlay = json.loads(line)
+            base_entry = by_id.get(overlay["record_id"])
+            if base_entry is None:
+                continue
+            if overlay.get("final_label") is not None:
+                base_entry["parsed_annotation"] = {
+                    **(base_entry.get("parsed_annotation") or {}),
+                    "primary_category": overlay["final_label"],
+                }
+            if overlay.get("basis") == "human_corrected":
+                base_entry["review_status"] = "corrected"
+            elif overlay.get("basis") in ("human_approve", "human_reject"):
+                base_entry["review_status"] = "approved" if overlay["basis"] == "human_approve" else "reject"
+            if overlay.get("needs_human_review"):
+                base_entry["needs_human_review"] = True
     # dedupe by record_id, keeping the highest-quality entry per record:
     # reviewed > completed-with-label > label-but-needs-review > stubs
     annotations: dict[str, dict] = {}
@@ -251,10 +273,12 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Build versioned datasets")
     parser.add_argument("--task", choices=["summarize", "classify"], required=True)
     parser.add_argument("--version", default="v1")
+    parser.add_argument("--consensus", type=Path, default=None,
+                        help="consensus overlay JSONL: applies final labels + review flags")
     parser.add_argument("--verification", type=Path, default=None,
                         help="bulk-verify JSONL (may be partial): disagreed records quarantine")
     args = parser.parse_args(argv)
-    build(args.task, args.version, args.verification)
+    build(args.task, args.version, args.verification, args.consensus)
     return 0
 
 

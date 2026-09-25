@@ -62,6 +62,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--model", default="gpt-6-astra")
     parser.add_argument("--workers", type=int, default=16)
     parser.add_argument("--resume", action="store_true", help="skip records already verified")
+    parser.add_argument("--skip-consensus", action="store_true",
+                        help="skip records already human-decided or verifier-confirmed (spend credit only where it changes outcomes)")
     args = parser.parse_args(argv)
     load_env()
 
@@ -87,9 +89,20 @@ def main(argv: list[str] | None = None) -> int:
             if line.strip():
                 done.add(json.loads(line)["record_id"])
 
+    skip: set[str] = set()
+    if args.skip_consensus:
+        consensus_path = ANNOTATION_DIR / f"consensus_{args.task}.jsonl"
+        if consensus_path.exists():
+            for line in consensus_path.read_text(encoding="utf-8").splitlines():
+                if not line.strip():
+                    continue
+                row = json.loads(line)
+                basis = row.get("basis", "")
+                if basis.startswith("human_") or basis.startswith("confirmed"):
+                    skip.add(row["record_id"])
     targets = [
         (rid, entry) for rid, entry in latest.items()
-        if rid in records and rid not in done
+        if rid in records and rid not in done and rid not in skip
     ]
     print(f"verifying {len(targets)} records with {args.provider}/{args.model}, workers={args.workers}", flush=True)
 
