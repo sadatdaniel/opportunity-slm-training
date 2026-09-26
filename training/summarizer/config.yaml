@@ -7,7 +7,7 @@ taxonomy: null
 prompt_version: summarizer_v3
 
 variant: full          # full | lora (both first-class, brief section 3)
-max_seq_length: 1024   # fp32-on-T4 made 1536 exceed the exec window; 98% fit at 1024 (token_stats.md)
+max_seq_length: 1536   # exemplar+input must fit; the TARGET OUTPUT boundary marker sits at the prompt tail — truncation would hide it (run 221804 lesson). 1,536 covers 100% and trains in ~16 min
 epochs: 3
 learning_rate: 1.0e-5  # full FT; LoRA variant uses lora_learning_rate
 lora_learning_rate: 1.0e-4
