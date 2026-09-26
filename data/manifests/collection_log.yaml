@@ -5306,3 +5306,29 @@ runs:
   started_at: '2026-09-26T05:18:19.943317+00:00'
   finished_at: '2026-09-26T05:18:37.075885+00:00'
   elapsed_seconds: 17.1
+- source_id: euraxess
+  method: html
+  recipe_path: recipes\euraxess.yaml
+  batch_file: data\raw\euraxess\batch_20260926T051932Z.jsonl
+  batch_sha256: null
+  records_seen: 10
+  records_new: 0
+  records_skipped_duplicate: 10
+  recipe_provisioned: false
+  errors: []
+  started_at: '2026-09-26T05:19:32.701111+00:00'
+  finished_at: '2026-09-26T05:19:32.937533+00:00'
+  elapsed_seconds: 0.2
+- source_id: euraxess
+  method: html
+  recipe_path: recipes\euraxess.yaml
+  batch_file: data\raw\euraxess\batch_20260926T052225Z.jsonl
+  batch_sha256: 46de27b8ef41ba3e19a0ace6ece1301b7b890741e3b3cc27158619149bdf02cb
+  records_seen: 10
+  records_new: 8
+  records_skipped_duplicate: 2
+  recipe_provisioned: false
+  errors: []
+  started_at: '2026-09-26T05:22:25.988320+00:00'
+  finished_at: '2026-09-26T05:22:48.677009+00:00'
+  elapsed_seconds: 22.7

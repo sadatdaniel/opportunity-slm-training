@@ -10,8 +10,9 @@ Agent entry point: `AGENT_PICKUP.md`. Spec: `opportunity_intelligence_weekend_bu
 
 ## Snapshot (2026-09-26)
 
-- **Corpus**: 4,670 canonical records, 19 productive sources (target ~10k;
-  collection waves 1-5 done, wave 6+ = deeper quotas + weak-class targeting)
+- **Corpus**: 4,670 canonical baseline + EURAXESS collection in flight
+  (high-trust EU job board, recipe v2 verified, thousands of postdoc/
+  fellowship postings — our starved classes). Target ~10k.
 - **Annotation**: classify 4,256 usable / summarize 4,145+ usable — all
   collected waves labeled (multi-pass: Gemini primary → OmniRoute/OpenRouter
   second opinion → Experiential Labs + DeepSeek verification)

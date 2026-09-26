@@ -43,8 +43,10 @@ and fix this file.
 
 ## 2. State snapshot (2026-09-26)
 
-**Corpus**: 4,670 canonical records, 19 productive sources (target: ~10k;
-collection waves 5-6 of the plan done; anti-dup layers verified working).
+**Corpus**: 4,670 canonical records (pre-EURAXESS baseline) from 19
+sources; EURAXESS (high-trust EU job board, verified recipe v2) is being
+collected in the background toward the 10k target. Recipes MUST set
+`pagination.max_pages` explicitly — the HTML collector defaults to 1 page.
 Wave 5 raw records are normalized + deduped but NOT yet annotated — that is
 the first action below.
 
@@ -81,8 +83,9 @@ Coding-Plan endpoint).
    run the eval cell (build_raw_prompt + repetition_penalty=1.15, 10 test
    records, section-format/ROUGE-L vs teacher). If format ≥0.6 and ROUGE-L
    >0.22 → release summarizer-v0.3.0 on GitHub + scale data.
-2. **Annotate wave-5 additions**: `uv run python -m project.annotate --task
-   classify --workers 8` then `--task summarize --workers 8` (resumable).
+2. **Annotate new records** (wave-5 + EURAXESS): `uv run python -m
+   project.annotate --task classify --workers 8` then `--task summarize
+   --workers 8` (resumable; skips completed).
 3. **Verify the new records**: `uv run python -m project.verify_bulk --task
    classify --provider experiential --model gpt-6-astra --workers 64
    --resume --skip-consensus` (DeepSeek fallback chain is automatic).

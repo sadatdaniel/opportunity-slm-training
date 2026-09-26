@@ -4,13 +4,14 @@ postings_page: https://euraxess.ec.europa.eu/jobs/search
 method: html
 parser_version: 2
 last_tested: '2026-09-26'
-notes: high-trust EU research job board (verified live 2026-09-26). Drupal ECL listing - article.ecl-content-item items, facet pagination via path_template (?page=0=0,N). Robots-off per user policy 2026-09-25; polite delays apply.
+notes: high-trust EU research job board (verified live 2026-09-26). Drupal ECL listing - article.ecl-content-item items, plain ?page=N pagination (facet syntax does not advance pages). Robots-off per user policy 2026-09-25; polite delays apply.
 listing_url: https://euraxess.ec.europa.eu/jobs/search
 pagination:
-  path_template: '?page=0%3D0%2C{page}'
+  page_param: page
   start: 1
+  max_pages: 80
 item_selector: article.ecl-content-item
 title_selector: h3.ecl-content-block__title a
 detail:
   content_selector: article
-max_records: 100
+max_records: 800
