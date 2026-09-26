@@ -60,11 +60,17 @@ Data: `project.sources.registry` · `project.sources.inventory` ·
 
 Measurement: `project.token_stats` · `project.audit`
 
-Annotation (teacher pool: 4 Gemini slots primary, OpenRouter second opinion,
-Z.ai adjudicator via Coding-Plan endpoint, DeepSeek verifier, legacy TEACHER_*):
-`project.annotate --task classify [--pilot]` · `project.verify_annotations`
-(concurrent; DeepSeek limits are CONCURRENCY=2500, not RPM — set
-max_concurrency in config/teachers.yaml)
+Annotation (teacher pool: 4 Gemini slots primary, OmniRoute gateway,
+OpenRouter Nemotron Super 120B second opinion, Experiential Labs
+gpt-6-luna, DeepSeek flash verifier — CONCURRENCY=2500 not RPM — and Z.ai
+adjudicator on the Coding-Plan endpoint):
+`project.annotate --task classify [--pilot] [--second-pass --second-pass-provider X | --revalidate --flex-words N]`
+· `project.verify_bulk --task classify --provider experiential --model
+gpt-6-astra --workers 64 --resume --skip-consensus` ·
+`project.consensus --task classify --emit-verify-list` (merge verdicts:
+human > 2-of-3 > single > unverified) · `project.discover_categories`
+(WP category IDs for weak-class targeting) · `project.benchmark_teachers
+[--gateway]` (model shootouts)
 
 Datasets + training: `project.build_dataset --task classify` ·
 `training.classifier.train [--smoke|--resume-from-checkpoint DIR]` ·
