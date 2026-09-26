@@ -32,6 +32,7 @@ from datasets import Dataset
 from training.common.datasets import label_maps, load_split, load_taxonomy_categories
 from training.common.experiment import PROJECT_ROOT, Experiment
 from training.common.model_registry import register
+from training.common.drive_sync import DriveSyncCallback
 
 CONFIG_PATH = PROJECT_ROOT / "training" / "classifier" / "config.yaml"
 
@@ -129,12 +130,18 @@ def main(argv: list[str] | None = None) -> int:
         seed=config.get("seed", 42),
     )
 
+    callbacks = []
+    drive_dir = os.environ.get("DRIVE_SYNC_DIR")
+    if drive_dir:
+        callbacks.append(DriveSyncCallback(str(training_args.output_dir), drive_dir, f"classifier_{exp.run_id}"))
+
     trainer = Trainer(
         model=model,
         args=training_args,
         train_dataset=train_ds,
         eval_dataset=val_ds,
         processing_class=tokenizer,
+        callbacks=callbacks,
     )
 
     trainer.train(resume_from_checkpoint=resume_path)

@@ -27,6 +27,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from training.common.datasets import load_split
 from training.common.experiment import Experiment, PROJECT_ROOT
 from training.common.model_registry import register
+from training.common.drive_sync import DriveSyncCallback
 from training.summarizer.prompt import build_raw_prompt
 
 CONFIG_PATH = PROJECT_ROOT / "training" / "summarizer" / "config.yaml"
@@ -141,6 +142,12 @@ def main(argv: list[str] | None = None) -> int:
         completion_only_loss=True,  # loss on the summary only
     )
 
+    callbacks = []
+    drive_dir = os.environ.get("DRIVE_SYNC_DIR")
+    if drive_dir:
+        from training.common.drive_sync import DriveSyncCallback
+        callbacks.append(DriveSyncCallback(str(training_args.output_dir), drive_dir, f"summarizer_{exp.run_id}"))
+
     trainer = SFTTrainer(
         model=model,
         args=training_args,
@@ -148,6 +155,7 @@ def main(argv: list[str] | None = None) -> int:
         eval_dataset=val_ds,
         processing_class=tokenizer,
         peft_config=peft_config,
+        callbacks=callbacks,
     )
 
     trainer.train(resume_from_checkpoint=resume_path)
