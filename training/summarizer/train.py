@@ -93,8 +93,12 @@ def main(argv: list[str] | None = None) -> int:
     val_ds = build_dataset(val_split, max_examples)
     exp.log(f"train={len(train_ds)} validation={len(val_ds)}")
 
+    # fp16 training requires fp32 master weights: loading in the checkpoint's
+    # own dtype (Qwen3 ships bf16) crashes the grad scaler on T4
+    load_dtype = torch.float32 if config.get("precision") == "fp16" else "auto"
     model = AutoModelForCausalLM.from_pretrained(
-        config["model"], revision=config.get("model_revision", "main")
+        config["model"], revision=config.get("model_revision", "main"),
+        torch_dtype=load_dtype,
     )
     peft_config = None
     if variant == "lora":
