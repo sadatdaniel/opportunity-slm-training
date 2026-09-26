@@ -5332,3 +5332,16 @@ runs:
   started_at: '2026-09-26T05:22:25.988320+00:00'
   finished_at: '2026-09-26T05:22:48.677009+00:00'
   elapsed_seconds: 22.7
+- source_id: euraxess
+  method: html
+  recipe_path: recipes\euraxess.yaml
+  batch_file: data\raw\euraxess\batch_20260926T053207Z.jsonl
+  batch_sha256: 5a9a492419f008ad8fc2e5b15f3d98961fd97336e16669812c79e6d1e767cb8e
+  records_seen: 800
+  records_new: 173
+  records_skipped_duplicate: 627
+  recipe_provisioned: false
+  errors: []
+  started_at: '2026-09-26T05:32:07.898930+00:00'
+  finished_at: '2026-09-26T05:43:57.252234+00:00'
+  elapsed_seconds: 709.4
