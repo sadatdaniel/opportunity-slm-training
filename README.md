@@ -74,5 +74,23 @@ uv run pytest
 
 ## Status
 
-See `PROJECT_STATUS.md` for the current phase, completed milestones, and any
-human actions required.
+See `PROJECT_STATUS.md` (live state) and `AGENT_PICKUP.md` (agent entry point:
+snapshot, work queue, machine setup, do/don't rules). Current highlights:
+
+- corpus: 4,670 canonical records from 19 sources (target ~10k), fully
+  annotated for both capabilities and independently verified
+- classifier v0.2.0 released: 84.3% accuracy / macro F1 0.733 (see Releases)
+- summarizer v0.3.0 trained with stable-prompt boundary fix; evaluation in flight
+
+## Data pipeline (continuous batch loop)
+
+```bash
+uv run python -m project.collect --all --methods wp_rest,rss   # 1. collect
+uv run python -m project.normalize && uv run python -m project.dedupe   # 2. clean
+uv run python -m project.annotate --task classify --workers 8  # 3. label (multi-provider)
+uv run python -m project.verify_bulk --task classify --provider experiential --resume --skip-consensus  # 4. verify
+uv run python -m project.consensus --task classify --emit-verify-list   # 5. merge verdicts
+uv run python -m project.build_dataset --task classify --version vN+1 --consensus data/annotations/consensus_classify.jsonl  # 6. freeze
+```
+
+Only consensus-clean data trains. Every step is resumable.

@@ -1,21 +1,23 @@
 # Normalization Report
 
-- raw records seen: 6525
-- kept (English, >= 40 words): 4267
+- raw records seen: 7102
+- kept (English, >= 40 words): 4781
 - dropped empty/short: 1817
-- dropped non-English: 222
-- unparseable lines: 219
+- dropped non-English: 228
+- unparseable lines: 276
 
 ## Kept per source
 
 | source | records |
 |---|---|
 | barcelona_institute_of_science_and_technology_bist | 784 |
-| association_of_african_universities_aau | 732 |
+| association_of_african_universities_aau | 752 |
 | opportunity_desk | 676 |
 | opportunities_for_youth | 644 |
 | scholars4dev | 478 |
 | opportunities_circle | 355 |
+| opportunities_corners | 249 |
+| scholarships_corner | 245 |
 | paset_rsif | 183 |
 | mit_graduate_fellowships_pappalardo | 110 |
 | woods_hole_oceanographic_institution_whoi | 103 |
