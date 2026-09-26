@@ -108,6 +108,7 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     use_bf16 = config.get("precision") == "bf16" and exp.device == "cuda"
+    use_fp16 = config.get("precision") == "fp16" and exp.device == "cuda"
     steps_per_epoch = max(1, len(train_ds) // (config["batch_size"] * config.get("gradient_accumulation", 1)))
     warmup_steps = int(steps_per_epoch * config["epochs"] * config.get("warmup_ratio", 0.03))
     lr = config["lora_learning_rate"] if variant == "lora" else config["learning_rate"]
@@ -122,6 +123,7 @@ def main(argv: list[str] | None = None) -> int:
         warmup_steps=warmup_steps,
         weight_decay=config.get("weight_decay", 0.0),
         bf16=use_bf16,
+        fp16=use_fp16,
         eval_strategy="epoch",
         save_strategy="epoch",
         save_total_limit=2,
