@@ -17,7 +17,8 @@ warmup_ratio: 0.03
 weight_decay: 0.0
 optimizer: adamw_torch
 scheduler: linear
-precision: fp16
+precision: bf16          # A100: bf16 native, no scaler, halves memory vs fp32
+gradient_checkpointing: true
 
 
 lora:
