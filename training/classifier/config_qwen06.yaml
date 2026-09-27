@@ -15,6 +15,7 @@ weight_decay: 0.01
 optimizer: adamw_torch
 scheduler: linear
 precision: fp16          # T4: fp16 compute + fp32 master weights (trainer loads fp32)
+gradient_checkpointing: true   # ~30% slower, large activation-memory saving
 
 smoke:
   epochs: 1
