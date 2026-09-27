@@ -99,9 +99,13 @@ def main(argv: list[str] | None = None) -> int:
     val_ds = build_dataset(val_split, tokenizer, label2id, config["max_seq_length"], max_examples)
     exp.log(f"train={len(train_ds)} validation={len(val_ds)} labels={len(categories)}")
 
+    # fp16 training requires fp32 master weights: loading in the checkpoint's
+    # own dtype (Qwen3 ships bf16) crashes the grad scaler on T4
+    load_dtype = torch.float32 if config.get("precision") == "fp16" else "auto"
     model = AutoModelForSequenceClassification.from_pretrained(
         config["model"],
         revision=config.get("model_revision", "main"),
+        torch_dtype=load_dtype,
         num_labels=len(categories),
         id2label=id2label,
         label2id=label2id,
