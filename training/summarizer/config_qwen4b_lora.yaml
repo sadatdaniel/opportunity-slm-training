@@ -6,18 +6,18 @@ output_version: v0.3.0-qwen4b-lora
 taxonomy: null
 prompt_version: summarizer_v3
 
-variant: lora            # 4B LoRA — gradient checkpointing required on T4
+variant: lora            # 4B LoRA on A100 — batch 4, no checkpointing needed
 max_seq_length: 1024
 epochs: 3
 learning_rate: 1.0e-4    # LoRA lr
-batch_size: 1
-gradient_accumulation: 32   # effective 32 with batch 1
+batch_size: 4
+gradient_accumulation: 8   # effective 32 with batch 4
 warmup_ratio: 0.03
 weight_decay: 0.0
 optimizer: adamw_torch
 scheduler: linear
 precision: fp16
-gradient_checkpointing: true   # essential for 4B on 16GB T4
+
 
 lora:
   r: 16
@@ -28,5 +28,5 @@ lora:
 smoke:
   epochs: 1
   max_examples: 4
-  batch_size: 1
+  batch_size: 4
   output_version: smoke
