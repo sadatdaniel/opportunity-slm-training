@@ -1,0 +1,23 @@
+# A/B: Qwen3-0.6B classifier on dataset v4 (vs Supra-100M v0.2.0 at 84.3%)
+model: Qwen/Qwen3-0.6B
+model_revision: main
+taxonomy: taxonomy_v1
+dataset_version: v4
+output_version: v0.3.0-qwen06
+
+max_seq_length: 1024
+epochs: 3
+learning_rate: 1.0e-5
+batch_size: 4
+gradient_accumulation: 8
+warmup_ratio: 0.03
+weight_decay: 0.01
+optimizer: adamw_torch
+scheduler: linear
+precision: fp16          # T4: fp16 compute + fp32 master weights (trainer loads fp32)
+
+smoke:
+  epochs: 1
+  max_examples: 32
+  batch_size: 4
+  output_version: smoke
