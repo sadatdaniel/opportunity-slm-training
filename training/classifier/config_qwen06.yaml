@@ -8,8 +8,8 @@ output_version: v0.3.0-qwen06
 max_seq_length: 1024
 epochs: 3
 learning_rate: 1.0e-5
-batch_size: 4
-gradient_accumulation: 8
+batch_size: 2
+gradient_accumulation: 16   # effective 32; batch 4 OOMs the T4 with fp32 master weights
 warmup_ratio: 0.03
 weight_decay: 0.01
 optimizer: adamw_torch
