@@ -141,6 +141,7 @@ def main(argv: list[str] | None = None) -> int:
         max_length=config["max_seq_length"],
         packing=False,
         completion_only_loss=True,  # loss on the summary only
+        gradient_checkpointing=config.get("gradient_checkpointing", False),
     )
 
     callbacks = []
