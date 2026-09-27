@@ -9,7 +9,8 @@ prompt_version: summarizer_v3
 variant: lora            # 4B LoRA on A100 — batch 4, no checkpointing needed
 max_seq_length: 1024
 epochs: 3
-learning_rate: 1.0e-4    # LoRA lr
+learning_rate: 1.0e-4    # fallback
+lora_learning_rate: 1.0e-4    # LoRA lr (trainer reads this when variant=lora)
 batch_size: 4
 gradient_accumulation: 8   # effective 32 with batch 4
 warmup_ratio: 0.03
